@@ -1,0 +1,702 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		CD0EBAAE28EB305B00DFD34D /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0EBAAD28EB305B00DFD34D /* Place.swift */; };
+		CD0EBAB028EB30AC00DFD34D /* GetPlacesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0EBAAF28EB30AC00DFD34D /* GetPlacesUseCase.swift */; };
+		CD2DE5FC28ECB3DB00BE6F8D /* MapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE5FB28ECB3DB00BE6F8D /* MapViewModelTests.swift */; };
+		CD2DE5FE28ECB46900BE6F8D /* UseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE5FD28ECB46900BE6F8D /* UseCaseMock.swift */; };
+		CD2DE60128ECE5DA00BE6F8D /* XCTestCase+Await.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60028ECE5DA00BE6F8D /* XCTestCase+Await.swift */; };
+		CD2DE60328ECF03600BE6F8D /* ViewModelState+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60228ECF03600BE6F8D /* ViewModelState+Equatable.swift */; };
+		CD2DE60528ECF25500BE6F8D /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60428ECF25500BE6F8D /* Answer.swift */; };
+		CD2DE60728ECF26F00BE6F8D /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60628ECF26F00BE6F8D /* TestError.swift */; };
+		CD44BCBD28EDFBF600B0BDA1 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = CD44BCBC28EDFBF600B0BDA1 /* Factory */; };
+		CD44BCBF28EDFC3D00B0BDA1 /* DomainContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44BCBE28EDFC3D00B0BDA1 /* DomainContainer.swift */; };
+		CD44BCC228EE047E00B0BDA1 /* UICointainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44BCC128EE047E00B0BDA1 /* UICointainer.swift */; };
+		CD91290928E5EA400056B9C4 /* StolenBikeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91290828E5EA400056B9C4 /* StolenBikeApp.swift */; };
+		CD91290B28E5EA400056B9C4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91290A28E5EA400056B9C4 /* ContentView.swift */; };
+		CD91290D28E5EA430056B9C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290C28E5EA430056B9C4 /* Assets.xcassets */; };
+		CD91291028E5EA430056B9C4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */; };
+		CD91291828E5EB7D0056B9C4 /* BikeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91291728E5EB7D0056B9C4 /* BikeMapView.swift */; };
+		CD91291B28E5EBBD0056B9C4 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91291A28E5EBBD0056B9C4 /* MapViewModel.swift */; };
+		CDB9547628E9B16900FA3941 /* GetLocationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547528E9B16900FA3941 /* GetLocationUseCase.swift */; };
+		CDB9547828E9B1B300FA3941 /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547728E9B1B300FA3941 /* UseCase.swift */; };
+		CDB9547A28E9B4C100FA3941 /* ViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547928E9B4C100FA3941 /* ViewModelState.swift */; };
+		CDB9547D28E9BD2400FA3941 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547C28E9BD2400FA3941 /* ErrorView.swift */; };
+		CDB9548128E9CA0900FA3941 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9548028E9CA0900FA3941 /* Location.swift */; };
+		CDB9548328E9D8A400FA3941 /* RegisterBikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9548228E9D8A400FA3941 /* RegisterBikeView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		CD2DE5F228ECB2CB00BE6F8D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CD9128FD28E5EA400056B9C4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CD91290428E5EA400056B9C4;
+			remoteInfo = StolenBike;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		CD0EBAAD28EB305B00DFD34D /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
+		CD0EBAAF28EB30AC00DFD34D /* GetPlacesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPlacesUseCase.swift; sourceTree = "<group>"; };
+		CD2DE5EE28ECB2CB00BE6F8D /* StolenBikeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StolenBikeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD2DE5FB28ECB3DB00BE6F8D /* MapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTests.swift; sourceTree = "<group>"; };
+		CD2DE5FD28ECB46900BE6F8D /* UseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseMock.swift; sourceTree = "<group>"; };
+		CD2DE60028ECE5DA00BE6F8D /* XCTestCase+Await.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Await.swift"; sourceTree = "<group>"; };
+		CD2DE60228ECF03600BE6F8D /* ViewModelState+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewModelState+Equatable.swift"; sourceTree = "<group>"; };
+		CD2DE60428ECF25500BE6F8D /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
+		CD2DE60628ECF26F00BE6F8D /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
+		CD44BCBE28EDFC3D00B0BDA1 /* DomainContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainContainer.swift; sourceTree = "<group>"; };
+		CD44BCC128EE047E00B0BDA1 /* UICointainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICointainer.swift; sourceTree = "<group>"; };
+		CD91290528E5EA400056B9C4 /* StolenBike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StolenBike.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD91290828E5EA400056B9C4 /* StolenBikeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StolenBikeApp.swift; sourceTree = "<group>"; };
+		CD91290A28E5EA400056B9C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CD91290C28E5EA430056B9C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CD91291728E5EB7D0056B9C4 /* BikeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapView.swift; sourceTree = "<group>"; };
+		CD91291A28E5EBBD0056B9C4 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		CDB9547528E9B16900FA3941 /* GetLocationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocationUseCase.swift; sourceTree = "<group>"; };
+		CDB9547728E9B1B300FA3941 /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
+		CDB9547928E9B4C100FA3941 /* ViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelState.swift; sourceTree = "<group>"; };
+		CDB9547C28E9BD2400FA3941 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		CDB9548028E9CA0900FA3941 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		CDB9548228E9D8A400FA3941 /* RegisterBikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBikeView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		CD2DE5EB28ECB2CB00BE6F8D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD91290228E5EA400056B9C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD44BCBD28EDFBF600B0BDA1 /* Factory in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		CD2DE5EF28ECB2CB00BE6F8D /* StolenBikeTests */ = {
+			isa = PBXGroup;
+			children = (
+				CD2DE5FF28ECE5B900BE6F8D /* Common */,
+				CD2DE5F728ECB2D900BE6F8D /* UI */,
+				CD2DE5F828ECB2DE00BE6F8D /* Domain */,
+				CD2DE5FD28ECB46900BE6F8D /* UseCaseMock.swift */,
+			);
+			path = StolenBikeTests;
+			sourceTree = "<group>";
+		};
+		CD2DE5F728ECB2D900BE6F8D /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				CD2DE5F928ECB2FB00BE6F8D /* ViewModel */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		CD2DE5F828ECB2DE00BE6F8D /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		CD2DE5F928ECB2FB00BE6F8D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CD2DE5FB28ECB3DB00BE6F8D /* MapViewModelTests.swift */,
+				CD2DE60228ECF03600BE6F8D /* ViewModelState+Equatable.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CD2DE5FF28ECE5B900BE6F8D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CD2DE60028ECE5DA00BE6F8D /* XCTestCase+Await.swift */,
+				CD2DE60428ECF25500BE6F8D /* Answer.swift */,
+				CD2DE60628ECF26F00BE6F8D /* TestError.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CD44BCB628EDFB4500B0BDA1 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		CD44BCB728EDFB5D00B0BDA1 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		CD44BCB828EDFB6500B0BDA1 /* Platform */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Platform;
+			sourceTree = "<group>";
+		};
+		CD44BCBA28EDFB8800B0BDA1 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				CD44BCBE28EDFC3D00B0BDA1 /* DomainContainer.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		CD44BCC028EE046500B0BDA1 /* DI */ = {
+			isa = PBXGroup;
+			children = (
+				CD44BCC128EE047E00B0BDA1 /* UICointainer.swift */,
+			);
+			path = DI;
+			sourceTree = "<group>";
+		};
+		CD9128FC28E5EA400056B9C4 = {
+			isa = PBXGroup;
+			children = (
+				CD91290728E5EA400056B9C4 /* StolenBike */,
+				CD2DE5EF28ECB2CB00BE6F8D /* StolenBikeTests */,
+				CD91290628E5EA400056B9C4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		CD91290628E5EA400056B9C4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				CD91290528E5EA400056B9C4 /* StolenBike.app */,
+				CD2DE5EE28ECB2CB00BE6F8D /* StolenBikeTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		CD91290728E5EA400056B9C4 /* StolenBike */ = {
+			isa = PBXGroup;
+			children = (
+				CD44BCB828EDFB6500B0BDA1 /* Platform */,
+				CD44BCB628EDFB4500B0BDA1 /* Data */,
+				CDB9547428E9B12C00FA3941 /* UI */,
+				CDB9547328E9B12300FA3941 /* Domain */,
+				CD91290828E5EA400056B9C4 /* StolenBikeApp.swift */,
+				CD91290C28E5EA430056B9C4 /* Assets.xcassets */,
+				CD91290E28E5EA430056B9C4 /* Preview Content */,
+			);
+			path = StolenBike;
+			sourceTree = "<group>";
+		};
+		CD91290E28E5EA430056B9C4 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		CD91291628E5EB640056B9C4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CDB9547B28E9BCE000FA3941 /* Common */,
+				CD91291728E5EB7D0056B9C4 /* BikeMapView.swift */,
+				CDB9548228E9D8A400FA3941 /* RegisterBikeView.swift */,
+				CD91290A28E5EA400056B9C4 /* ContentView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CD91291928E5EB9A0056B9C4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CD91291A28E5EBBD0056B9C4 /* MapViewModel.swift */,
+				CDB9547928E9B4C100FA3941 /* ViewModelState.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CDB9547328E9B12300FA3941 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				CD44BCBA28EDFB8800B0BDA1 /* DI */,
+				CD44BCB728EDFB5D00B0BDA1 /* Repository */,
+				CDB9547F28E9C9DD00FA3941 /* UseCase */,
+				CDB9547E28E9C9D700FA3941 /* Entity */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		CDB9547428E9B12C00FA3941 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				CD44BCC028EE046500B0BDA1 /* DI */,
+				CD91291628E5EB640056B9C4 /* View */,
+				CD91291928E5EB9A0056B9C4 /* ViewModel */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		CDB9547B28E9BCE000FA3941 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CDB9547C28E9BD2400FA3941 /* ErrorView.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CDB9547E28E9C9D700FA3941 /* Entity */ = {
+			isa = PBXGroup;
+			children = (
+				CDB9548028E9CA0900FA3941 /* Location.swift */,
+				CD0EBAAD28EB305B00DFD34D /* Place.swift */,
+			);
+			path = Entity;
+			sourceTree = "<group>";
+		};
+		CDB9547F28E9C9DD00FA3941 /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				CDB9547528E9B16900FA3941 /* GetLocationUseCase.swift */,
+				CD0EBAAF28EB30AC00DFD34D /* GetPlacesUseCase.swift */,
+				CDB9547728E9B1B300FA3941 /* UseCase.swift */,
+			);
+			path = UseCase;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		CD2DE5ED28ECB2CB00BE6F8D /* StolenBikeTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD2DE5F628ECB2CB00BE6F8D /* Build configuration list for PBXNativeTarget "StolenBikeTests" */;
+			buildPhases = (
+				CD2DE5EA28ECB2CB00BE6F8D /* Sources */,
+				CD2DE5EB28ECB2CB00BE6F8D /* Frameworks */,
+				CD2DE5EC28ECB2CB00BE6F8D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				CD2DE5F328ECB2CB00BE6F8D /* PBXTargetDependency */,
+			);
+			name = StolenBikeTests;
+			productName = StolenBikeTests;
+			productReference = CD2DE5EE28ECB2CB00BE6F8D /* StolenBikeTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		CD91290428E5EA400056B9C4 /* StolenBike */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD91291328E5EA430056B9C4 /* Build configuration list for PBXNativeTarget "StolenBike" */;
+			buildPhases = (
+				CD91290128E5EA400056B9C4 /* Sources */,
+				CD91290228E5EA400056B9C4 /* Frameworks */,
+				CD91290328E5EA400056B9C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = StolenBike;
+			packageProductDependencies = (
+				CD44BCBC28EDFBF600B0BDA1 /* Factory */,
+			);
+			productName = StolenBike;
+			productReference = CD91290528E5EA400056B9C4 /* StolenBike.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		CD9128FD28E5EA400056B9C4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					CD2DE5ED28ECB2CB00BE6F8D = {
+						CreatedOnToolsVersion = 14.0.1;
+						LastSwiftMigration = 1400;
+						TestTargetID = CD91290428E5EA400056B9C4;
+					};
+					CD91290428E5EA400056B9C4 = {
+						CreatedOnToolsVersion = 14.0.1;
+					};
+				};
+			};
+			buildConfigurationList = CD91290028E5EA400056B9C4 /* Build configuration list for PBXProject "StolenBike" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = CD9128FC28E5EA400056B9C4;
+			packageReferences = (
+				CD44BCBB28EDFBF600B0BDA1 /* XCRemoteSwiftPackageReference "Factory" */,
+			);
+			productRefGroup = CD91290628E5EA400056B9C4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				CD91290428E5EA400056B9C4 /* StolenBike */,
+				CD2DE5ED28ECB2CB00BE6F8D /* StolenBikeTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		CD2DE5EC28ECB2CB00BE6F8D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD91290328E5EA400056B9C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD91291028E5EA430056B9C4 /* Preview Assets.xcassets in Resources */,
+				CD91290D28E5EA430056B9C4 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		CD2DE5EA28ECB2CB00BE6F8D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD2DE60728ECF26F00BE6F8D /* TestError.swift in Sources */,
+				CD2DE5FC28ECB3DB00BE6F8D /* MapViewModelTests.swift in Sources */,
+				CD2DE60328ECF03600BE6F8D /* ViewModelState+Equatable.swift in Sources */,
+				CD2DE60528ECF25500BE6F8D /* Answer.swift in Sources */,
+				CD2DE5FE28ECB46900BE6F8D /* UseCaseMock.swift in Sources */,
+				CD2DE60128ECE5DA00BE6F8D /* XCTestCase+Await.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CD91290128E5EA400056B9C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CDB9547628E9B16900FA3941 /* GetLocationUseCase.swift in Sources */,
+				CD44BCBF28EDFC3D00B0BDA1 /* DomainContainer.swift in Sources */,
+				CD91290B28E5EA400056B9C4 /* ContentView.swift in Sources */,
+				CD0EBAB028EB30AC00DFD34D /* GetPlacesUseCase.swift in Sources */,
+				CD91291828E5EB7D0056B9C4 /* BikeMapView.swift in Sources */,
+				CDB9547828E9B1B300FA3941 /* UseCase.swift in Sources */,
+				CDB9548128E9CA0900FA3941 /* Location.swift in Sources */,
+				CD44BCC228EE047E00B0BDA1 /* UICointainer.swift in Sources */,
+				CDB9547A28E9B4C100FA3941 /* ViewModelState.swift in Sources */,
+				CD91290928E5EA400056B9C4 /* StolenBikeApp.swift in Sources */,
+				CD91291B28E5EBBD0056B9C4 /* MapViewModel.swift in Sources */,
+				CDB9548328E9D8A400FA3941 /* RegisterBikeView.swift in Sources */,
+				CD0EBAAE28EB305B00DFD34D /* Place.swift in Sources */,
+				CDB9547D28E9BD2400FA3941 /* ErrorView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		CD2DE5F328ECB2CB00BE6F8D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CD91290428E5EA400056B9C4 /* StolenBike */;
+			targetProxy = CD2DE5F228ECB2CB00BE6F8D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		CD2DE5F428ECB2CB00BE6F8D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6894A8BA33;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = company.StolenBikeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StolenBike.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StolenBike";
+			};
+			name = Debug;
+		};
+		CD2DE5F528ECB2CB00BE6F8D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 6894A8BA33;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = company.StolenBikeTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/StolenBike.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/StolenBike";
+			};
+			name = Release;
+		};
+		CD91291128E5EA430056B9C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		CD91291228E5EA430056B9C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CD91291428E5EA430056B9C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"StolenBike/Preview Content\"";
+				DEVELOPMENT_TEAM = 6894A8BA33;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = company.StolenBike;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CD91291528E5EA430056B9C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"StolenBike/Preview Content\"";
+				DEVELOPMENT_TEAM = 6894A8BA33;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = company.StolenBike;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CD2DE5F628ECB2CB00BE6F8D /* Build configuration list for PBXNativeTarget "StolenBikeTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD2DE5F428ECB2CB00BE6F8D /* Debug */,
+				CD2DE5F528ECB2CB00BE6F8D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD91290028E5EA400056B9C4 /* Build configuration list for PBXProject "StolenBike" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD91291128E5EA430056B9C4 /* Debug */,
+				CD91291228E5EA430056B9C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CD91291328E5EA430056B9C4 /* Build configuration list for PBXNativeTarget "StolenBike" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD91291428E5EA430056B9C4 /* Debug */,
+				CD91291528E5EA430056B9C4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CD44BCBB28EDFBF600B0BDA1 /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CD44BCBC28EDFBF600B0BDA1 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CD44BCBB28EDFBF600B0BDA1 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = CD9128FD28E5EA400056B9C4 /* Project object */;
+}
