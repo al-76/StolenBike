@@ -10,7 +10,7 @@ import Combine
 
 final class DefaultLocationRepository: LocationRepository {
     static let defaultLocation = Location(latitude: 59.3293,
-                                                  longitude: 18.0686)
+                                          longitude: 18.0686)
 
     private let locationManager: LocationManager
 
