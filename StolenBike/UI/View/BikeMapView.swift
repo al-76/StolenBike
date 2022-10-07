@@ -42,7 +42,7 @@ struct BikeMapView: View {
             }
         }
         .onAppear {
-            viewModel.fetchLocation()
+            viewModel.onceFetchLocation()
         }
     }
 

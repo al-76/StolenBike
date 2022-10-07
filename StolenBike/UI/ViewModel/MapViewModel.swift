@@ -27,6 +27,16 @@ final class MapViewModel: ObservableObject {
         self.getPlaces = getPlaces
     }
 
+    func onceFetchLocation() {
+        switch state {
+        case .loading:
+            fetchLocation()
+
+        default:
+            break
+        }
+    }
+
     func fetchLocation() {
         getLocation()
             .flatMap { [weak self] location in

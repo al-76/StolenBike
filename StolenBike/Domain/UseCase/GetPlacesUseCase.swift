@@ -9,6 +9,12 @@ import Foundation
 import Combine
 
 final class GetPlacesUseCase: UseCase {
+//    private let repository: PlacesRepository
+//
+//    init(repository: PlacesRepository) {
+//        self.repository = repository
+//    }
+
     func callAsFunction(_ input: Location) -> AnyPublisher<(Location, [Place]), Error> {
         Just((input,
               [ Place(id: UUID(), location: input) ]))

@@ -10,7 +10,7 @@ import Factory
 
 final class DomainContainer: SharedContainer {
     static let getLocationUseCase = Factory {
-        GetLocationUseCase()
+        GetLocationUseCase(repository: DataContainer.getLocationRepository())
     }
 
     static let getPlacesUseCase = Factory {

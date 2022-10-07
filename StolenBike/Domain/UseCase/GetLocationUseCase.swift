@@ -9,9 +9,13 @@ import Foundation
 import Combine
 
 final class GetLocationUseCase: UseCase {
+    private let repository: LocationRepository
+
+    init(repository: LocationRepository) {
+        self.repository = repository
+    }
+
     func callAsFunction(_ input: Void) -> AnyPublisher<Location, Error> {
-        Just(Location(latitude: 59.3, longitude: 18.07))
-            .setFailureType(to: Error.self)
-            .eraseToAnyPublisher()
+        repository.read()
     }
 }

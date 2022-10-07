@@ -32,6 +32,22 @@ final class MapViewModelTests: XCTestCase {
                                  getPlaces: getPlaces)
     }
 
+    func testOnceFetchLocation() throws {
+        // Arrange
+        let location = testData.location
+        let places = testData.places
+        getPlaces.callAsFunctionHandler = { successAnswer(($0, places)) }
+        getLocation.callAsFunctionHandler = { _ in successAnswer(location) }
+
+        // Act
+        viewModel.onceFetchLocation()
+        try awaitPublisher(viewModel.$state.dropFirst())
+        viewModel.onceFetchLocation()
+
+        // Assert
+        XCTAssertEqual(getLocation.callAsFunctionCallCount, 1)
+    }
+
     func testFetchLocation() {
         // Arrange
         let location = testData.location
