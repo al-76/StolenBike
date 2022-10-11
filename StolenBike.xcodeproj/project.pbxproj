@@ -438,6 +438,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD91291328E5EA430056B9C4 /* Build configuration list for PBXNativeTarget "StolenBike" */;
 			buildPhases = (
+				CD0F411828F5980200555826 /* Swiftlint */,
 				CD91290128E5EA400056B9C4 /* Sources */,
 				CD91290228E5EA400056B9C4 /* Frameworks */,
 				CD91290328E5EA400056B9C4 /* Resources */,
@@ -516,6 +517,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		CD0F411828F5980200555826 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
 		CD4F2CCB28F09F55007444DA /* Mockolo */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;

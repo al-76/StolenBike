@@ -13,8 +13,8 @@ final class DefaultLocationManager: NSObject,
                                      CLLocationManagerDelegate,
                                     LocationManager {
     private enum LocationManagerError: Error {
-        case ServiceIsNotAvailable
-        case NoLocation
+        case serviceIsNotAvailable
+        case noLocation
     }
 
     private let locationManager = CLLocationManager()
@@ -38,7 +38,7 @@ final class DefaultLocationManager: NSObject,
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {
-            onGetLocation?(.failure(LocationManagerError.NoLocation))
+            onGetLocation?(.failure(LocationManagerError.noLocation))
             return
         }
 
@@ -49,7 +49,7 @@ final class DefaultLocationManager: NSObject,
     }
 
     func locationManager(_ manager: CLLocationManager,
-        didFailWithError error: Error) {
+                         didFailWithError error: Error) {
         onGetLocation?(.failure(error))
     }
 
@@ -59,7 +59,7 @@ final class DefaultLocationManager: NSObject,
             manager.requestLocation()
 
         case .restricted, .denied:
-            onGetLocation?(.failure(LocationManagerError.ServiceIsNotAvailable))
+            onGetLocation?(.failure(LocationManagerError.serviceIsNotAvailable))
 
         default:
             break

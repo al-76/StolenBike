@@ -1,0 +1,9 @@
+identifier_name:
+  excluded: ["n", "a", "b", "id"]
+
+generic_type_name:
+  min_length: 1
+  max_length: 30
+
+excluded:
+- StolenBikeTests/GeneratedMocks.swift
