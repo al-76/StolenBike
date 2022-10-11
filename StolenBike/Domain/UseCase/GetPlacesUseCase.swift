@@ -9,16 +9,15 @@ import Foundation
 import Combine
 
 final class GetPlacesUseCase: UseCase {
-//    private let repository: PlacesRepository
-//
-//    init(repository: PlacesRepository) {
-//        self.repository = repository
-//    }
+    private let repository: PlacesRepository
 
-    func callAsFunction(_ input: Location) -> AnyPublisher<(Location, [Place]), Error> {
-        Just((input,
-              [ Place(id: UUID(), location: input) ]))
-            .setFailureType(to: Error.self)
+    init(repository: PlacesRepository) {
+        self.repository = repository
+    }
+
+    func callAsFunction(_ input: LocationArea) -> AnyPublisher<(Location, [Place]), Error> {
+        repository.read(area: input)
+            .map { (input.location, $0) }
             .eraseToAnyPublisher()
     }
 }

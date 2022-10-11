@@ -22,14 +22,14 @@ final class GetLocationUseCaseTests: XCTestCase {
 
     func testExecute() throws {
         // Arrange
-        let testData = Location(latitude: 200.0, longitude: 200.0)
-        repository.readHandler = { successAnswer(testData) }
+        let location = Location(latitude: 200.0, longitude: 200.0)
+        repository.readHandler = { successAnswer(location) }
 
         // Act
         let result = try awaitPublisher(getLocation())
 
         // Assert
-        XCTAssertEqual(result, testData)
+        XCTAssertEqual(result, location)
     }
 
     func testExecuteError() throws {

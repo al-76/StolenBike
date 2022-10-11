@@ -8,6 +8,6 @@
 import Foundation
 
 struct Place: Identifiable, Equatable {
-    let id: UUID
+    let id: Int
     let location: Location
 }

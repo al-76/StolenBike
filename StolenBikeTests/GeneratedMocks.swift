@@ -8,6 +8,21 @@ import Combine
 import Foundation
 
 
+class NetworkMock: Network {
+    init() { }
+
+
+    private(set) var requestCallCount = 0
+    var requestHandler: ((URL) -> (AnyPublisher<Data, Error>))?
+    func request(url: URL) -> AnyPublisher<Data, Error> {
+        requestCallCount += 1
+        if let requestHandler = requestHandler {
+            return requestHandler(url)
+        }
+        fatalError("requestHandler returns can't have a default value thus its handler must be set")
+    }
+}
+
 class LocationManagerMock: LocationManager {
     init() { }
 
@@ -21,6 +36,21 @@ class LocationManagerMock: LocationManager {
             getLocationHandler(onGetLocation)
         }
         
+    }
+}
+
+class PlacesRepositoryMock: PlacesRepository {
+    init() { }
+
+
+    private(set) var readCallCount = 0
+    var readHandler: ((LocationArea) -> (AnyPublisher<[Place], Error>))?
+    func read(area: LocationArea) -> AnyPublisher<[Place], Error> {
+        readCallCount += 1
+        if let readHandler = readHandler {
+            return readHandler(area)
+        }
+        fatalError("readHandler returns can't have a default value thus its handler must be set")
     }
 }
 

@@ -19,25 +19,25 @@ final class MapViewModel: ObservableObject {
     @Published var state = State.loading
 
     private let getLocation: any UseCase<Void, Location>
-    private let getPlaces: any UseCase<Location, (Location, [Place])>
+    private let getPlaces: any UseCase<LocationArea, (Location, [Place])>
 
     init(getLocation: some UseCase<Void, Location>,
-         getPlaces: some UseCase<Location, (Location, [Place])>) {
+         getPlaces: some UseCase<LocationArea, (Location, [Place])>) {
         self.getLocation = getLocation
         self.getPlaces = getPlaces
     }
 
-    func onceFetchLocation() {
+    func onceFetchLocation(at area: LocationArea) {
         switch state {
         case .loading:
-            fetchLocation()
+            fetchLocation(at: area)
 
         default:
             break
         }
     }
 
-    func fetchLocation() {
+    func fetchLocation(at area: LocationArea) {
         getLocation()
             .flatMap { [weak self] location in
                 guard let self else {
@@ -45,11 +45,20 @@ final class MapViewModel: ObservableObject {
                         .setFailureType(to: Error.self)
                         .eraseToAnyPublisher()
                 }
-                return self.getPlaces(location)
+                return self.getPlaces(LocationArea(location: location,
+                                                   distance: area.distance))
             }
             .map { .success(Data(location: $0.0, places: $0.1)) }
             .catch { Just(.failure($0)).eraseToAnyPublisher() }
             .receive(on: DispatchQueue.main)
             .assign(to: &$state)
+    }
+
+    func updatePlaces(at area: LocationArea) {
+//        getPlaces(area)
+//            .map { .success(Data(location: $0.0, places: $0.1)) }
+//            .catch { Just(.failure($0)).eraseToAnyPublisher() }
+//            .receive(on: DispatchQueue.main)
+//            .assign(to: &$state)
     }
 }

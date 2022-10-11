@@ -12,4 +12,8 @@ final class PlatformContainer: SharedContainer {
     static let getLocationManager = Factory {
         DefaultLocationManager()
     }
+
+    static let getNetwork = Factory {
+        DefaultNetwork()
+    }
 }

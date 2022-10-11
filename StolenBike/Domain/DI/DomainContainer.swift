@@ -14,6 +14,6 @@ final class DomainContainer: SharedContainer {
     }
 
     static let getPlacesUseCase = Factory {
-        GetPlacesUseCase()
+        GetPlacesUseCase(repository: DataContainer.getPlacesRepository())
     }
 }

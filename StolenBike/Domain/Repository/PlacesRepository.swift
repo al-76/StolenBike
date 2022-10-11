@@ -8,6 +8,7 @@
 import Foundation
 import Combine
 
+/// @mockable
 protocol PlacesRepository {
-    func read() -> AnyPublisher<[Place], Error>
+    func read(area: LocationArea) -> AnyPublisher<[Place], Error>
 }

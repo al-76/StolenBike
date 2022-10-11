@@ -12,4 +12,9 @@ final class DataContainer: SharedContainer {
     static let getLocationRepository = Factory {
         DefaultLocationRepository(locationManager: PlatformContainer.getLocationManager())
     }
+
+    static let getPlacesRepository = Factory {
+        DefaultPlacesRepository(network: PlatformContainer.getNetwork(),
+                                mapper: PlaceMapper())
+    }
 }

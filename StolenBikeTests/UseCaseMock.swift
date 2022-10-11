@@ -22,7 +22,7 @@ final class UseCaseMock<Input, Output>: UseCase {
         callAsFunctionCallCount += 1
         callAsFunctionArgValues.append(input)
 
-        if let callAsFunctionHandler = callAsFunctionHandler {
+        if let callAsFunctionHandler {
             return callAsFunctionHandler(input)
         }
 
