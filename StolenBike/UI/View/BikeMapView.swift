@@ -23,18 +23,17 @@ struct BikeMapView: View {
 
             case .success(let data):
                 ZStack {
-                    Map(coordinateRegion: Binding<MKCoordinateRegion>(get: {
-                        self.region.copy(location: data.location)
-                    }, set: { value in
-                        // FIXME: it causes the warning`update within view`
-                        self.region = value
-                    }),
+                    Map(coordinateRegion: $region,
                         annotationItems: data.places) { place in
                         MapAnnotation(coordinate: place.location.coordinates()) {
                             Image(systemName: "bicycle.circle.fill")
                                 .font(.title)
                                 .foregroundColor(.blue)
                         }
+                    }
+                    .onReceive(viewModel.$state) { _ in
+                        // FIXME: it causes the warning`update within view`
+                        region.center = data.location.coordinates()
                     }
 
                     VStack {
@@ -72,14 +71,6 @@ private extension MKCoordinateRegion {
         return LocationArea(location: Location(latitude: center.latitude,
                                                longitude: center.longitude),
                             distance: distance)
-    }
-}
-
-private extension MKCoordinateRegion {
-    func copy(location: Location) -> MKCoordinateRegion {
-        var region = self
-        region.center = location.coordinates()
-        return region
     }
 }
 
