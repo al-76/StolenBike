@@ -16,36 +16,27 @@ struct BikeMapView: View {
                                                                           longitudeDelta: 0.2))
 
     var body: some View {
-        Group {
-            switch viewModel.state {
-            case .loading:
-                ProgressView("Loading...")
-
-            case .success(let data):
-                ZStack {
-                    Map(coordinateRegion: $region,
-                        annotationItems: data.places) { place in
-                        MapAnnotation(coordinate: place.location.coordinates()) {
-                            Image(systemName: "bicycle.circle.fill")
-                                .font(.title)
-                                .foregroundColor(.blue)
-                        }
-                    }
-                    .onReceive(viewModel.$state) { _ in
-                        // FIXME: it causes the warning`update within view`
-                        region.center = data.location.coordinates()
-                    }
-
-                    VStack {
-                        Spacer()
-                        LocationButton { viewModel.fetchLocation(at: region.area()) }
-                            .cornerRadius(30.0)
-                            .padding()
+        viewModel.state.onSuccess { data in
+            ZStack {
+                Map(coordinateRegion: $region,
+                    annotationItems: data.places) { place in
+                    MapAnnotation(coordinate: place.location.coordinates()) {
+                        Image(systemName: "bicycle.circle.fill")
+                        .font(.title)
+                        .foregroundColor(.blue)
                     }
                 }
+                .onReceive(viewModel.$state) { _ in
+                    // FIXME: it causes the warning`update within view`
+                    region.center = data.location.coordinates()
+                }
 
-            case .failure(let error):
-                ErrorView(error: error)
+                VStack {
+                    Spacer()
+                    LocationButton { viewModel.fetchLocation(at: region.area()) }
+                    .cornerRadius(30.0)
+                    .padding()
+                }
             }
         }
         .onAppear {
