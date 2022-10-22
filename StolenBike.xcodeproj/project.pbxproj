@@ -15,10 +15,9 @@
 		CD2DE5FC28ECB3DB00BE6F8D /* MapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE5FB28ECB3DB00BE6F8D /* MapViewModelTests.swift */; };
 		CD2DE5FE28ECB46900BE6F8D /* UseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE5FD28ECB46900BE6F8D /* UseCaseMock.swift */; };
 		CD2DE60128ECE5DA00BE6F8D /* XCTestCase+Await.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60028ECE5DA00BE6F8D /* XCTestCase+Await.swift */; };
-		CD2DE60328ECF03600BE6F8D /* ViewModelState+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60228ECF03600BE6F8D /* ViewModelState+Equatable.swift */; };
 		CD2DE60528ECF25500BE6F8D /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60428ECF25500BE6F8D /* Answer.swift */; };
 		CD2DE60728ECF26F00BE6F8D /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60628ECF26F00BE6F8D /* TestError.swift */; };
-		CD386AD32901AD1000C55AF7 /* ViewModelState+onSuccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD386AD22901AD1000C55AF7 /* ViewModelState+onSuccess.swift */; };
+		CD386AD52903078A00C55AF7 /* View+alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD386AD42903078A00C55AF7 /* View+alert.swift */; };
 		CD44BCBD28EDFBF600B0BDA1 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = CD44BCBC28EDFBF600B0BDA1 /* Factory */; };
 		CD44BCBF28EDFC3D00B0BDA1 /* DomainContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44BCBE28EDFC3D00B0BDA1 /* DomainContainer.swift */; };
 		CD44BCC228EE047E00B0BDA1 /* UICointainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44BCC128EE047E00B0BDA1 /* UICointainer.swift */; };
@@ -47,8 +46,6 @@
 		CD91291B28E5EBBD0056B9C4 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91291A28E5EBBD0056B9C4 /* MapViewModel.swift */; };
 		CDB9547628E9B16900FA3941 /* GetLocationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547528E9B16900FA3941 /* GetLocationUseCase.swift */; };
 		CDB9547828E9B1B300FA3941 /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547728E9B1B300FA3941 /* UseCase.swift */; };
-		CDB9547A28E9B4C100FA3941 /* ViewModelState.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547928E9B4C100FA3941 /* ViewModelState.swift */; };
-		CDB9547D28E9BD2400FA3941 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547C28E9BD2400FA3941 /* ErrorView.swift */; };
 		CDB9548128E9CA0900FA3941 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9548028E9CA0900FA3941 /* Location.swift */; };
 		CDB9548328E9D8A400FA3941 /* RegisterBikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9548228E9D8A400FA3941 /* RegisterBikeView.swift */; };
 /* End PBXBuildFile section */
@@ -73,10 +70,9 @@
 		CD2DE5FB28ECB3DB00BE6F8D /* MapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTests.swift; sourceTree = "<group>"; };
 		CD2DE5FD28ECB46900BE6F8D /* UseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseMock.swift; sourceTree = "<group>"; };
 		CD2DE60028ECE5DA00BE6F8D /* XCTestCase+Await.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Await.swift"; sourceTree = "<group>"; };
-		CD2DE60228ECF03600BE6F8D /* ViewModelState+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewModelState+Equatable.swift"; sourceTree = "<group>"; };
 		CD2DE60428ECF25500BE6F8D /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		CD2DE60628ECF26F00BE6F8D /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
-		CD386AD22901AD1000C55AF7 /* ViewModelState+onSuccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewModelState+onSuccess.swift"; sourceTree = "<group>"; };
+		CD386AD42903078A00C55AF7 /* View+alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+alert.swift"; sourceTree = "<group>"; };
 		CD44BCBE28EDFC3D00B0BDA1 /* DomainContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainContainer.swift; sourceTree = "<group>"; };
 		CD44BCC128EE047E00B0BDA1 /* UICointainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICointainer.swift; sourceTree = "<group>"; };
 		CD4F2CC228EEFE51007444DA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -106,8 +102,6 @@
 		CD91291A28E5EBBD0056B9C4 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		CDB9547528E9B16900FA3941 /* GetLocationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocationUseCase.swift; sourceTree = "<group>"; };
 		CDB9547728E9B1B300FA3941 /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
-		CDB9547928E9B4C100FA3941 /* ViewModelState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelState.swift; sourceTree = "<group>"; };
-		CDB9547C28E9BD2400FA3941 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		CDB9548028E9CA0900FA3941 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CDB9548228E9D8A400FA3941 /* RegisterBikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBikeView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -165,7 +159,6 @@
 			isa = PBXGroup;
 			children = (
 				CD2DE5FB28ECB3DB00BE6F8D /* MapViewModelTests.swift */,
-				CD2DE60228ECF03600BE6F8D /* ViewModelState+Equatable.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -360,7 +353,6 @@
 			isa = PBXGroup;
 			children = (
 				CD91291A28E5EBBD0056B9C4 /* MapViewModel.swift */,
-				CDB9547928E9B4C100FA3941 /* ViewModelState.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -389,8 +381,7 @@
 		CDB9547B28E9BCE000FA3941 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				CDB9547C28E9BD2400FA3941 /* ErrorView.swift */,
-				CD386AD22901AD1000C55AF7 /* ViewModelState+onSuccess.swift */,
+				CD386AD42903078A00C55AF7 /* View+alert.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -572,7 +563,6 @@
 				CD2DE5FC28ECB3DB00BE6F8D /* MapViewModelTests.swift in Sources */,
 				CD0F411528F5811600555826 /* PlacesRepositoryTests.swift in Sources */,
 				CD4F2CCD28F09FDB007444DA /* GeneratedMocks.swift in Sources */,
-				CD2DE60328ECF03600BE6F8D /* ViewModelState+Equatable.swift in Sources */,
 				CD2DE60528ECF25500BE6F8D /* Answer.swift in Sources */,
 				CD2DE5FE28ECB46900BE6F8D /* UseCaseMock.swift in Sources */,
 				CD4F2CD128F0A343007444DA /* LocationRepositoryTests.swift in Sources */,
@@ -584,6 +574,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CD386AD52903078A00C55AF7 /* View+alert.swift in Sources */,
 				CDB9547628E9B16900FA3941 /* GetLocationUseCase.swift in Sources */,
 				CD44BCBF28EDFC3D00B0BDA1 /* DomainContainer.swift in Sources */,
 				CD4F2CDC28F1B98D007444DA /* LocationArea.swift in Sources */,
@@ -593,14 +584,12 @@
 				CDB9547828E9B1B300FA3941 /* UseCase.swift in Sources */,
 				CD87272F28EE300200820A30 /* LocationRepository.swift in Sources */,
 				CD4F2CC628EF1655007444DA /* PlatformContainer.swift in Sources */,
-				CD386AD32901AD1000C55AF7 /* ViewModelState+onSuccess.swift in Sources */,
 				CDB9548128E9CA0900FA3941 /* Location.swift in Sources */,
 				CD87273528EE334100820A30 /* DataContainer.swift in Sources */,
 				CD44BCC228EE047E00B0BDA1 /* UICointainer.swift in Sources */,
 				CD87273128EE300F00820A30 /* PlacesRepository.swift in Sources */,
 				CD4F2CE228F30E59007444DA /* Mapper.swift in Sources */,
 				CD4F2CE428F30EA1007444DA /* PlaceMapper.swift in Sources */,
-				CDB9547A28E9B4C100FA3941 /* ViewModelState.swift in Sources */,
 				CD4F2CC328EEFE51007444DA /* LocationManager.swift in Sources */,
 				CD4F2CD728F18E21007444DA /* DefaultNetwork.swift in Sources */,
 				CD91290928E5EA400056B9C4 /* StolenBikeApp.swift in Sources */,
@@ -610,7 +599,6 @@
 				CD0EBAAE28EB305B00DFD34D /* Place.swift in Sources */,
 				CD4F2CD328F0E727007444DA /* DefaultPlacesRepository.swift in Sources */,
 				CD87273928EE342800820A30 /* DefaultLocationManager.swift in Sources */,
-				CDB9547D28E9BD2400FA3941 /* ErrorView.swift in Sources */,
 				CD4F2CD528F18DCE007444DA /* Network.swift in Sources */,
 				CD4F2CDF28F2F04C007444DA /* PlacesDTO.swift in Sources */,
 			);

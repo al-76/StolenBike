@@ -12,7 +12,7 @@ import XCTest
 final class GetPlacesUseCaseTests: XCTestCase {
     private var repository: PlacesRepositoryMock!
     private var getPlaces: GetPlacesUseCase!
-    private let location = Location(latitude: 200.0, longitude: 200.0)
+    private let testLocation = Location(latitude: 200.0, longitude: 200.0)
 
     override func setUp() {
         super.setUp()
@@ -23,21 +23,21 @@ final class GetPlacesUseCaseTests: XCTestCase {
 
     func testExecute() throws {
         // Arrange
-        let places = [ Place(id: 1000, location: location) ]
-        let area = LocationArea(location: location, distance: 10.0)
+        let places = [ Place(id: 1000, location: testLocation) ]
+        let area = LocationArea(location: testLocation, distance: 10.0)
         repository.readHandler = { _ in successAnswer(places) }
 
         // Act
         let result = try awaitPublisher(getPlaces(area))
 
         // Assert
-        XCTAssertEqual(result.0, location)
+        XCTAssertEqual(result.0, testLocation)
         XCTAssertEqual(result.1, places)
     }
 
     func testExecuteError() throws {
         // Arrange
-        let area = LocationArea(location: location, distance: 10.0)
+        let area = LocationArea(location: testLocation, distance: 10.0)
         repository.readHandler = { _ in failAnswer() }
 
         // Act

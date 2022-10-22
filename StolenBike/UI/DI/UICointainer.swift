@@ -11,6 +11,7 @@ import Factory
 final class UIContainer: SharedContainer {
     static let getMapViewModel = Factory {
         MapViewModel(getLocation: DomainContainer.getLocationUseCase(),
-                     getPlaces: DomainContainer.getPlacesUseCase())
+                     getPlaces: DomainContainer.getPlacesUseCase(),
+                     debounceScheduler: DispatchQueue.main)
     }
 }

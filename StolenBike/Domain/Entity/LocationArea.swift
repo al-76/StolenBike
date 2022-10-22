@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct LocationArea {
+struct LocationArea: Equatable {
     let location: Location
     let distance: Double
 }
