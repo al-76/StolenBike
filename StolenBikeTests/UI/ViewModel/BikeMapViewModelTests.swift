@@ -12,7 +12,7 @@ import MapKit
 @testable import StolenBike
 
 final class BikeMapViewModelTests: XCTestCase {
-    private var getPlaces: UseCaseMock<LocationArea, (Location, [Place])>!
+    private var getPlaces: UseCaseMock<LocationArea, [Place]>!
     private var getLocation: UseCaseMock<Void, Location>!
     private var viewModel: BikeMapViewModel<ImmediateScheduler>!
     private let testRegion = MKCoordinateRegion()
@@ -26,7 +26,7 @@ final class BikeMapViewModelTests: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        getPlaces = UseCaseMock<LocationArea, (Location, [Place])>()
+        getPlaces = UseCaseMock<LocationArea, [Place]>()
         getPlaces.callAsFunctionHandler = { _ in noAnswer() }
         getLocation = UseCaseMock<Void, Location>()
         viewModel = BikeMapViewModel(getLocation: getLocation,
@@ -60,8 +60,7 @@ final class BikeMapViewModelTests: XCTestCase {
 
     func testFetchPlaces() throws {
         // Arrange
-        getPlaces.callAsFunctionHandler = { _ in successAnswer((self.testLocation,
-                                                                self.testPlaces)) }
+        getPlaces.callAsFunctionHandler = { _ in successAnswer(self.testPlaces) }
 
         // Act
         viewModel.region = testRegion

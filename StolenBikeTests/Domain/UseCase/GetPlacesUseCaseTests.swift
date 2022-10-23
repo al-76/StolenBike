@@ -31,8 +31,7 @@ final class GetPlacesUseCaseTests: XCTestCase {
         let result = try awaitPublisher(getPlaces(area))
 
         // Assert
-        XCTAssertEqual(result.0, testLocation)
-        XCTAssertEqual(result.1, places)
+        XCTAssertEqual(result, places)
     }
 
     func testExecuteError() throws {

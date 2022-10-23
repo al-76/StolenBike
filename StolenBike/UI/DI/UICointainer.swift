@@ -11,7 +11,7 @@ import Factory
 final class UIContainer: SharedContainer {
     static let getBikeMapViewModel = Factory {
         BikeMapViewModel(getLocation: DomainContainer.getLocationUseCase(),
-                     getPlaces: DomainContainer.getPlacesUseCase(),
-                     debounceScheduler: DispatchQueue.main)
+                         getPlaces: DomainContainer.getPlacesUseCase(),
+                         debounceScheduler: DispatchQueue.main)
     }
 }

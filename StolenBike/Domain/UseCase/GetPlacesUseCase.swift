@@ -15,9 +15,9 @@ final class GetPlacesUseCase: UseCase {
         self.repository = repository
     }
 
-    func callAsFunction(_ input: LocationArea) -> AnyPublisher<(Location, [Place]), Error> {
-        repository.read(area: input)
-            .map { (input.location, $0) }
+    func callAsFunction(_ input: LocationArea) -> AnyPublisher<[Place], Error> {
+        repository
+            .read(area: input)
             .eraseToAnyPublisher()
     }
 }
