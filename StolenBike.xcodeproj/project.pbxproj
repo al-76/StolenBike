@@ -12,7 +12,7 @@
 		CD0F411328F4CC6800555826 /* GetPlacesUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F411228F4CC6800555826 /* GetPlacesUseCaseTests.swift */; };
 		CD0F411528F5811600555826 /* PlacesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F411428F5811600555826 /* PlacesRepositoryTests.swift */; };
 		CD0F411728F588A200555826 /* MapperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F411628F588A200555826 /* MapperMock.swift */; };
-		CD2DE5FC28ECB3DB00BE6F8D /* MapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE5FB28ECB3DB00BE6F8D /* MapViewModelTests.swift */; };
+		CD2DE5FC28ECB3DB00BE6F8D /* BikeMapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE5FB28ECB3DB00BE6F8D /* BikeMapViewModelTests.swift */; };
 		CD2DE5FE28ECB46900BE6F8D /* UseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE5FD28ECB46900BE6F8D /* UseCaseMock.swift */; };
 		CD2DE60128ECE5DA00BE6F8D /* XCTestCase+Await.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60028ECE5DA00BE6F8D /* XCTestCase+Await.swift */; };
 		CD2DE60528ECF25500BE6F8D /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60428ECF25500BE6F8D /* Answer.swift */; };
@@ -43,7 +43,7 @@
 		CD91290D28E5EA430056B9C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290C28E5EA430056B9C4 /* Assets.xcassets */; };
 		CD91291028E5EA430056B9C4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */; };
 		CD91291828E5EB7D0056B9C4 /* BikeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91291728E5EB7D0056B9C4 /* BikeMapView.swift */; };
-		CD91291B28E5EBBD0056B9C4 /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91291A28E5EBBD0056B9C4 /* MapViewModel.swift */; };
+		CD91291B28E5EBBD0056B9C4 /* BikeMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91291A28E5EBBD0056B9C4 /* BikeMapViewModel.swift */; };
 		CDB9547628E9B16900FA3941 /* GetLocationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547528E9B16900FA3941 /* GetLocationUseCase.swift */; };
 		CDB9547828E9B1B300FA3941 /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547728E9B1B300FA3941 /* UseCase.swift */; };
 		CDB9548128E9CA0900FA3941 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9548028E9CA0900FA3941 /* Location.swift */; };
@@ -67,7 +67,7 @@
 		CD0F411428F5811600555826 /* PlacesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesRepositoryTests.swift; sourceTree = "<group>"; };
 		CD0F411628F588A200555826 /* MapperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapperMock.swift; sourceTree = "<group>"; };
 		CD2DE5EE28ECB2CB00BE6F8D /* StolenBikeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StolenBikeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD2DE5FB28ECB3DB00BE6F8D /* MapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModelTests.swift; sourceTree = "<group>"; };
+		CD2DE5FB28ECB3DB00BE6F8D /* BikeMapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapViewModelTests.swift; sourceTree = "<group>"; };
 		CD2DE5FD28ECB46900BE6F8D /* UseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseMock.swift; sourceTree = "<group>"; };
 		CD2DE60028ECE5DA00BE6F8D /* XCTestCase+Await.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Await.swift"; sourceTree = "<group>"; };
 		CD2DE60428ECF25500BE6F8D /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
@@ -99,7 +99,7 @@
 		CD91290C28E5EA430056B9C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CD91291728E5EB7D0056B9C4 /* BikeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapView.swift; sourceTree = "<group>"; };
-		CD91291A28E5EBBD0056B9C4 /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
+		CD91291A28E5EBBD0056B9C4 /* BikeMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapViewModel.swift; sourceTree = "<group>"; };
 		CDB9547528E9B16900FA3941 /* GetLocationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocationUseCase.swift; sourceTree = "<group>"; };
 		CDB9547728E9B1B300FA3941 /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
 		CDB9548028E9CA0900FA3941 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
@@ -158,7 +158,7 @@
 		CD2DE5F928ECB2FB00BE6F8D /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				CD2DE5FB28ECB3DB00BE6F8D /* MapViewModelTests.swift */,
+				CD2DE5FB28ECB3DB00BE6F8D /* BikeMapViewModelTests.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -352,7 +352,7 @@
 		CD91291928E5EB9A0056B9C4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				CD91291A28E5EBBD0056B9C4 /* MapViewModel.swift */,
+				CD91291A28E5EBBD0056B9C4 /* BikeMapViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -560,7 +560,7 @@
 				CD4F2CCA28F09F16007444DA /* GetLocationUseCaseTests.swift in Sources */,
 				CD0F411728F588A200555826 /* MapperMock.swift in Sources */,
 				CD2DE60728ECF26F00BE6F8D /* TestError.swift in Sources */,
-				CD2DE5FC28ECB3DB00BE6F8D /* MapViewModelTests.swift in Sources */,
+				CD2DE5FC28ECB3DB00BE6F8D /* BikeMapViewModelTests.swift in Sources */,
 				CD0F411528F5811600555826 /* PlacesRepositoryTests.swift in Sources */,
 				CD4F2CCD28F09FDB007444DA /* GeneratedMocks.swift in Sources */,
 				CD2DE60528ECF25500BE6F8D /* Answer.swift in Sources */,
@@ -593,7 +593,7 @@
 				CD4F2CC328EEFE51007444DA /* LocationManager.swift in Sources */,
 				CD4F2CD728F18E21007444DA /* DefaultNetwork.swift in Sources */,
 				CD91290928E5EA400056B9C4 /* StolenBikeApp.swift in Sources */,
-				CD91291B28E5EBBD0056B9C4 /* MapViewModel.swift in Sources */,
+				CD91291B28E5EBBD0056B9C4 /* BikeMapViewModel.swift in Sources */,
 				CD87273728EE33A800820A30 /* DefaultLocationRepository.swift in Sources */,
 				CDB9548328E9D8A400FA3941 /* RegisterBikeView.swift in Sources */,
 				CD0EBAAE28EB305B00DFD34D /* Place.swift in Sources */,

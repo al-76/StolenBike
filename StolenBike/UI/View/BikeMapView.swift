@@ -10,7 +10,7 @@ import MapKit
 import CoreLocationUI
 
 struct BikeMapView: View {
-    @StateObject private var viewModel = UIContainer.getMapViewModel()
+    @StateObject private var viewModel = UIContainer.getBikeMapViewModel()
 
     var body: some View {
         ZStack {

@@ -9,8 +9,8 @@ import Foundation
 import Factory
 
 final class UIContainer: SharedContainer {
-    static let getMapViewModel = Factory {
-        MapViewModel(getLocation: DomainContainer.getLocationUseCase(),
+    static let getBikeMapViewModel = Factory {
+        BikeMapViewModel(getLocation: DomainContainer.getLocationUseCase(),
                      getPlaces: DomainContainer.getPlacesUseCase(),
                      debounceScheduler: DispatchQueue.main)
     }

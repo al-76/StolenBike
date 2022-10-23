@@ -1,5 +1,5 @@
 //
-//  MapViewModelTests.swift
+//  BikeMapViewModelTests.swift
 //  StolenBikeTests
 //
 //  Created by Vyacheslav Konopkin on 04.10.2022.
@@ -11,10 +11,10 @@ import MapKit
 
 @testable import StolenBike
 
-final class MapViewModelTests: XCTestCase {
+final class BikeMapViewModelTests: XCTestCase {
     private var getPlaces: UseCaseMock<LocationArea, (Location, [Place])>!
     private var getLocation: UseCaseMock<Void, Location>!
-    private var viewModel: MapViewModel<ImmediateScheduler>!
+    private var viewModel: BikeMapViewModel<ImmediateScheduler>!
     private let testRegion = MKCoordinateRegion()
     private let testLocation = Location(latitude: 100.0,
                                         longitude: 100.0)
@@ -29,7 +29,7 @@ final class MapViewModelTests: XCTestCase {
         getPlaces = UseCaseMock<LocationArea, (Location, [Place])>()
         getPlaces.callAsFunctionHandler = { _ in noAnswer() }
         getLocation = UseCaseMock<Void, Location>()
-        viewModel = MapViewModel(getLocation: getLocation,
+        viewModel = BikeMapViewModel(getLocation: getLocation,
                                  getPlaces: getPlaces,
                                  debounceScheduler: ImmediateScheduler.shared)
     }

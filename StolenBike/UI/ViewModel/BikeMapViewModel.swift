@@ -1,5 +1,5 @@
 //
-//  MapViewModel.swift
+//  BikeMapViewModel.swift
 //  StolenBike
 //
 //  Created by Vyacheslav Konopkin on 29.09.2022.
@@ -10,7 +10,7 @@ import Combine
 import CoreLocation
 import MapKit
 
-final class MapViewModel<S: Scheduler>: ObservableObject {
+final class BikeMapViewModel<S: Scheduler>: ObservableObject {
     @Published var region = MKCoordinateRegion(center: CLLocationCoordinate2D(),
                                                span: MKCoordinateSpan(latitudeDelta: 0.2,
                                                                       longitudeDelta: 0.2))
