@@ -10,5 +10,5 @@ import Combine
 
 /// @mockable
 protocol PlacesRepository {
-    func read(area: LocationArea) -> AnyPublisher<[Place], Error>
+    func read(area: LocationArea, page: Int) -> AnyPublisher<[Place], Error>
 }

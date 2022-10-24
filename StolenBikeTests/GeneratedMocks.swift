@@ -44,11 +44,11 @@ class PlacesRepositoryMock: PlacesRepository {
 
 
     private(set) var readCallCount = 0
-    var readHandler: ((LocationArea) -> (AnyPublisher<[Place], Error>))?
-    func read(area: LocationArea) -> AnyPublisher<[Place], Error> {
+    var readHandler: ((LocationArea, Int) -> (AnyPublisher<[Place], Error>))?
+    func read(area: LocationArea, page: Int) -> AnyPublisher<[Place], Error> {
         readCallCount += 1
         if let readHandler = readHandler {
-            return readHandler(area)
+            return readHandler(area, page)
         }
         fatalError("readHandler returns can't have a default value thus its handler must be set")
     }

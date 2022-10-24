@@ -31,7 +31,7 @@ final class PlacesRepositoryTests: XCTestCase {
         mapper.callMapHandler = { _ in places[0] }
 
         // Act
-        let result = try awaitPublisher(repository.read(area: area))
+        let result = try awaitPublisher(repository.read(area: area, page: 1))
 
         // Assert
         XCTAssertEqual(result, places)
@@ -43,7 +43,7 @@ final class PlacesRepositoryTests: XCTestCase {
         network.requestHandler = { _ in successAnswer(self.getDataWithoutCoordinates()) }
 
         // Act
-        let result = try awaitPublisher(repository.read(area: area))
+        let result = try awaitPublisher(repository.read(area: area, page: 1))
 
         // Assert
         XCTAssertEqual(result, [])
@@ -55,7 +55,7 @@ final class PlacesRepositoryTests: XCTestCase {
         network.requestHandler = { _ in failAnswer() }
 
         // Act
-        let result = try awaitError(repository.read(area: area))
+        let result = try awaitError(repository.read(area: area, page: 1))
 
         // Assert
         XCTAssertEqual(result as? TestError, TestError.someError)

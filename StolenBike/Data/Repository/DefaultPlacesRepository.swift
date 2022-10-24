@@ -17,8 +17,8 @@ final class DefaultPlacesRepository: PlacesRepository {
         self.mapper = mapper
     }
 
-    func read(area: LocationArea) -> AnyPublisher<[Place], Error> {
-        network.request(url: getUrl(with: area))
+    func read(area: LocationArea, page: Int) -> AnyPublisher<[Place], Error> {
+        network.request(url: getUrl(with: area, page))
             .decode(type: PlacesDTO.self, decoder: JSONDecoder())
             .map { [weak self] response in
                 response.places
@@ -28,12 +28,12 @@ final class DefaultPlacesRepository: PlacesRepository {
             .eraseToAnyPublisher()
     }
 
-    private func getUrl(with area: LocationArea) -> URL {
+    private func getUrl(with area: LocationArea, _ page: Int) -> URL {
         var components = URLComponents(string: "https://bikeindex.org:443/api/v3/search")!
         components.queryItems = [
             URLQueryItem(name: "location", value: "\(area.location.latitude),\(area.location.longitude)"),
             URLQueryItem(name: "distance", value: "\(area.distanceMiles())"),
-            URLQueryItem(name: "page", value: "1"),
+            URLQueryItem(name: "page", value: "\(page)"),
             URLQueryItem(name: "per_page", value: "25"),
             URLQueryItem(name: "stolenness", value: "proximity")
         ]

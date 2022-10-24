@@ -24,11 +24,11 @@ final class GetPlacesUseCaseTests: XCTestCase {
     func testExecute() throws {
         // Arrange
         let places = [ Place(id: 1000, location: testLocation) ]
-        let area = LocationArea(location: testLocation, distance: 10.0)
-        repository.readHandler = { _ in successAnswer(places) }
+        let params = (LocationArea(location: testLocation, distance: 10.0), 1)
+        repository.readHandler = { _, _ in successAnswer(places) }
 
         // Act
-        let result = try awaitPublisher(getPlaces(area))
+        let result = try awaitPublisher(getPlaces(params))
 
         // Assert
         XCTAssertEqual(result, places)
@@ -36,11 +36,11 @@ final class GetPlacesUseCaseTests: XCTestCase {
 
     func testExecuteError() throws {
         // Arrange
-        let area = LocationArea(location: testLocation, distance: 10.0)
-        repository.readHandler = { _ in failAnswer() }
+        let params = (LocationArea(location: testLocation, distance: 10.0), 1)
+        repository.readHandler = { _, _ in failAnswer() }
 
         // Act
-        let result = try awaitError(getPlaces(area))
+        let result = try awaitError(getPlaces(params))
 
         // Assert
         XCTAssertEqual(result as? TestError, TestError.someError)

@@ -18,11 +18,11 @@ final class BikeMapViewModel<S: Scheduler>: ObservableObject {
     @Published var places = [Place]()
 
     private let getLocation: any UseCase<Void, Location>
-    private let getPlaces: any UseCase<LocationArea, [Place]>
+    private let getPlaces: any UseCase<(LocationArea, Int), [Place]>
     private let debounceScheduler: S
 
     init(getLocation: some UseCase<Void, Location>,
-         getPlaces: some UseCase<LocationArea, [Place]>,
+         getPlaces: some UseCase<(LocationArea, Int), [Place]>,
          debounceScheduler: S) {
         self.getLocation = getLocation
         self.getPlaces = getPlaces
@@ -41,7 +41,7 @@ final class BikeMapViewModel<S: Scheduler>: ObservableObject {
                         .setFailureType(to: Error.self)
                         .eraseToAnyPublisher()
                 }
-                return self.getPlaces(value.area())
+                return self.getPlaces((value.area(), 1))
             }
             .catch { [weak self] error in
                 self?.publish(error: error)
