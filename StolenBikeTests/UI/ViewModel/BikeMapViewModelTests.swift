@@ -61,21 +61,27 @@ final class BikeMapViewModelTests: XCTestCase {
     func testFetchPlaces() throws {
         // Arrange
         getPlaces.callAsFunctionHandler = { _ in successAnswer(self.testPlaces) }
+        getLocation.callAsFunctionHandler = { _ in successAnswer(self.testLocation) }
 
         // Act
-        viewModel.region = testRegion
+        viewModel.fetchLocation()
+        try awaitPublisher(viewModel.$region.dropFirst())
 
         // Assert
         XCTAssertEqual(try awaitPublisher(viewModel.$places.dropFirst()),
                        testPlaces)
+        XCTAssertTrue(getPlaces.callAsFunctionArgValues[0] == (viewModel.region.area(), 1))
+        XCTAssertTrue(getPlaces.callAsFunctionArgValues[1] == (viewModel.region.area(), 1 + testPlaces.count))
     }
 
     func testFetchPlacesError() throws {
         // Arrange
         getPlaces.callAsFunctionHandler = { _ in failAnswer() }
+        getLocation.callAsFunctionHandler = { _ in successAnswer(self.testLocation) }
 
         // Act
-        viewModel.region = testRegion
+        viewModel.fetchLocation()
+        try awaitPublisher(viewModel.$region.dropFirst())
 
         // Assert
         XCTAssertEqual(try awaitPublisher(viewModel.$error) as? TestError,

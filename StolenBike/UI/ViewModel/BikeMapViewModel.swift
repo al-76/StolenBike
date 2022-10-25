@@ -21,6 +21,8 @@ final class BikeMapViewModel<S: Scheduler>: ObservableObject {
     private let getPlaces: any UseCase<(LocationArea, Int), [Place]>
     private let debounceScheduler: S
 
+    private var isLocationLoaded = false
+
     init(getLocation: some UseCase<Void, Location>,
          getPlaces: some UseCase<(LocationArea, Int), [Place]>,
          debounceScheduler: S) {
@@ -33,19 +35,45 @@ final class BikeMapViewModel<S: Scheduler>: ObservableObject {
 
     private func initBindings() {
         $region
-            .debounce(for: .seconds(2),
+            .dropFirst()
+            .filter { [weak self] _ in self?.isLocationLoaded ?? false }
+            .debounce(for: .seconds(0.5),
                       scheduler: debounceScheduler)
-            .flatMap { [weak self] value in
+            .map { [weak self] region in
                 guard let self else {
                     return Just([Place]())
                         .setFailureType(to: Error.self)
                         .eraseToAnyPublisher()
                 }
-                return self.getPlaces((value.area(), 1))
+                return self.getPlaces((region.area(), 1))
             }
+            .switchToLatest()
             .catch { [weak self] error in
                 self?.publish(error: error)
                 return Just([Place]()).eraseToAnyPublisher()
+            }
+            .receive(on: DispatchQueue.main)
+            .assign(to: &$places)
+
+        $places
+            .dropFirst()
+            .filter { $0.count < 500 }
+            .map { [weak self] places in
+                guard let self else {
+                    return Just(places)
+                        .setFailureType(to: Error.self)
+                        .eraseToAnyPublisher()
+                }
+                return self.getPlaces((self.region.area(), 1 + places.count))
+            }
+            .switchToLatest()
+            .filter { !$0.isEmpty }
+            .map { [weak self] newPlaces in
+                (self?.places ?? []) + newPlaces
+            }
+            .catch { [weak self] error in
+                self?.publish(error: error)
+                return Just(self?.places ?? []).eraseToAnyPublisher()
             }
             .receive(on: DispatchQueue.main)
             .assign(to: &$places)
@@ -54,12 +82,17 @@ final class BikeMapViewModel<S: Scheduler>: ObservableObject {
     func fetchLocation() {
         let region = self.region
         getLocation()
-            .map { region.update(center: $0.coordinates()) }
+            .map {
+                region.update(center: $0.coordinates())
+            }
             .catch { [weak self] error in
                 self?.publish(error: error)
                 return Just(region).eraseToAnyPublisher()
             }
             .receive(on: DispatchQueue.main)
+            .handleEvents(receiveOutput: { [weak self] _ in
+                self?.isLocationLoaded = true
+            })
             .assign(to: &$region)
     }
 

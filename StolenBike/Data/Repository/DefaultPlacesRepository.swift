@@ -34,7 +34,7 @@ final class DefaultPlacesRepository: PlacesRepository {
             URLQueryItem(name: "location", value: "\(area.location.latitude),\(area.location.longitude)"),
             URLQueryItem(name: "distance", value: "\(area.distanceMiles())"),
             URLQueryItem(name: "page", value: "\(page)"),
-            URLQueryItem(name: "per_page", value: "25"),
+            URLQueryItem(name: "per_page", value: "50"),
             URLQueryItem(name: "stolenness", value: "proximity")
         ]
         return components.url!
