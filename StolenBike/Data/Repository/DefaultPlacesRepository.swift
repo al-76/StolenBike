@@ -30,11 +30,12 @@ final class DefaultPlacesRepository: PlacesRepository {
 
     private func getUrl(with area: LocationArea, _ page: Int) -> URL {
         var components = URLComponents(string: "https://bikeindex.org:443/api/v3/search")!
+        let distance = max(area.distanceMiles() * 0.5, 1.0)
         components.queryItems = [
             URLQueryItem(name: "location", value: "\(area.location.latitude),\(area.location.longitude)"),
-            URLQueryItem(name: "distance", value: "\(area.distanceMiles())"),
+            URLQueryItem(name: "distance", value: "\(distance)"),
             URLQueryItem(name: "page", value: "\(page)"),
-            URLQueryItem(name: "per_page", value: "50"),
+            URLQueryItem(name: "per_page", value: "100"),
             URLQueryItem(name: "stolenness", value: "proximity")
         ]
         return components.url!
