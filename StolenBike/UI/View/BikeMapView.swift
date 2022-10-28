@@ -13,25 +13,31 @@ struct BikeMapView: View {
     @StateObject private var viewModel = UIContainer.getBikeMapViewModel()
 
     var body: some View {
-        ZStack {
-            Map(coordinateRegion: $viewModel.region,
-                annotationItems: viewModel.places) { place in
-                MapAnnotation(coordinate: place.location.coordinates()) {
-                    Image(systemName: "bicycle.circle.fill")
-                        .font(.title)
-                        .foregroundColor(.blue)
+        Group {
+            if !viewModel.isLocationLoaded {
+                ProgressView("Loading...")
+            } else {
+                ZStack {
+                    Map(coordinateRegion: $viewModel.region,
+                        annotationItems: viewModel.places) { place in
+                        MapAnnotation(coordinate: place.location.coordinates()) {
+                            Image(systemName: "bicycle.circle.fill")
+                                .font(.title)
+                                .foregroundColor(.blue)
+                        }
+                    }
+
+                    VStack {
+                        Spacer()
+                        LocationButton { viewModel.fetchLocation() }
+                            .cornerRadius(30.0)
+                            .padding()
+                    }
+                }
+                .alert(error: viewModel.error) {
+                    viewModel.fetchLocation()
                 }
             }
-
-            VStack {
-                Spacer()
-                LocationButton { viewModel.fetchLocation() }
-                    .cornerRadius(30.0)
-                    .padding()
-            }
-        }
-        .alert(error: viewModel.error) {
-            viewModel.fetchLocation()
         }
         .onAppear {
             viewModel.fetchLocation()
