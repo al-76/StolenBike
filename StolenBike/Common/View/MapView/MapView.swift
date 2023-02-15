@@ -13,16 +13,23 @@ protocol MapViewPointAnnotation: Identifiable, Equatable, MKPointAnnotation {
     var glyphImageName: String { get }
 }
 
+protocol MapOverlay: MKOverlay {
+    var renderer: MKOverlayRenderer { get }
+}
+
 struct MapView: UIViewRepresentable {
     typealias UIViewType = MKMapView
 
     fileprivate let region: Binding<MKCoordinateRegion?>
     private let annotations: [any MapViewPointAnnotation]
+    private let overlays: [any MapOverlay]
 
     init(region: Binding<MKCoordinateRegion?>,
-         annotations: [any MapViewPointAnnotation]) {
+         annotations: [any MapViewPointAnnotation],
+         overlays: [any MapOverlay]) {
         self.region = region
         self.annotations = annotations
+        self.overlays = overlays
     }
 
     func makeUIView(context: Context) -> MKMapView {
@@ -36,10 +43,17 @@ struct MapView: UIViewRepresentable {
     }
 
     func updateUIView(_ view: MKMapView, context: Context) {
-        if let region = region.wrappedValue {
-            view.setRegion(region, animated: true)
-        }
+        updateRegion(view)
+        updateAnnotations(view)
+        updateOverlays(view)
+    }
 
+    private func updateRegion(_ view: MKMapView) {
+        guard let region = region.wrappedValue else { return }
+        view.setRegion(region, animated: true)
+    }
+
+    private func updateAnnotations(_ view: MKMapView) {
         let oldAnnotations = view.annotations
             .compactMap { $0 as? (any MapViewPointAnnotation) }
         let obsoleteAnnotations = oldAnnotations
@@ -59,6 +73,24 @@ struct MapView: UIViewRepresentable {
         }
     }
 
+    private func updateOverlays(_ view: MKMapView) {
+        let obsoleteOverlays = view.overlays
+            .filter { overlay in
+                !overlays.contains { overlay.coordinate == $0.coordinate }
+            }
+        let newOverlays = overlays
+            .filter { overlay in
+                !view.overlays.contains { overlay.coordinate == $0.coordinate }
+            }
+
+        if !obsoleteOverlays.isEmpty {
+            view.removeOverlays(obsoleteOverlays)
+        }
+        if !newOverlays.isEmpty {
+            view.addOverlays(newOverlays)
+        }
+    }
+
     func makeCoordinator() -> Coordinator {
         Coordinator(mapView: self)
     }
@@ -73,5 +105,19 @@ class Coordinator: NSObject, MKMapViewDelegate {
 
     func mapViewDidChangeVisibleRegion(_ mkMapView: MKMapView) {
         mapView.region.wrappedValue = mkMapView.region
+    }
+
+    func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
+        guard let overlay = overlay as? MapOverlay else {
+            return MKOverlayRenderer()
+        }
+        return overlay.renderer
+    }
+}
+
+extension CLLocationCoordinate2D: Equatable {
+    public static func == (lhs: CLLocationCoordinate2D, rhs: CLLocationCoordinate2D) -> Bool {
+        lhs.latitude == rhs.latitude &&
+        lhs.longitude == rhs.longitude
     }
 }

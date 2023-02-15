@@ -18,7 +18,8 @@ struct BikeMapView: View {
             ZStack {
                 MapView(region: viewStore.binding(get: \.region,
                                                   send: { .updateRegion($0) }),
-                        annotations: viewStore.bikes.compactMap { $0.pointAnnotation() })
+                        annotations: viewStore.bikes.compactMap { $0.pointAnnotation() },
+                        overlays: mapOverlays(viewStore.area))
                 .edgesIgnoringSafeArea(.top)
 
                 VStack {
@@ -27,8 +28,6 @@ struct BikeMapView: View {
                         ProgressView("Loading...")
                             .mapElement()
                     }
-
-//                    handleErrors(viewStore)
 
                     if viewStore.isOutOfArea {
                         VStack {
@@ -64,6 +63,11 @@ struct BikeMapView: View {
             }
         }
     }
+
+    private func mapOverlays(_ area: LocationArea?) -> [any MapOverlay] {
+        guard let area else { return [] }
+        return [AreaCircle(area: area)]
+    }
 }
 
 private final class PointAnnotation: MKPointAnnotation, MapViewPointAnnotation {
@@ -75,6 +79,22 @@ private final class PointAnnotation: MKPointAnnotation, MapViewPointAnnotation {
 
         self.id = id
         self.coordinate = coordinate
+    }
+}
+
+private final class AreaCircle: MKCircle, MapOverlay {
+    var renderer: MKOverlayRenderer {
+        let renderer = MKCircleRenderer(circle: MKCircle(center: coordinate,
+                                                         radius: radius))
+        renderer.lineWidth = 5.0
+        renderer.strokeColor = .red
+        renderer.alpha = 0.5
+        return renderer
+    }
+
+    convenience init(area: LocationArea) {
+        self.init(center: area.location.coordinates(),
+                  radius: area.distance)
     }
 }
 

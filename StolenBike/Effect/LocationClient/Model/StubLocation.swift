@@ -6,6 +6,6 @@
 //
 
 extension Location {
-    static let stub = Self(latitude: 37.7749,
-                           longitude: -122.4194)
+    static let stub = Self(latitude: 59.3293,
+                           longitude: 18.0686)
 }
