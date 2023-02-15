@@ -6,24 +6,24 @@
 //
 
 import XCTest
-import Combine
 
-func successAnswer<T>(_ data: T) -> AnyPublisher<T, Error> {
-    Just(data)
-        .setFailureType(to: Error.self)
-        .eraseToAnyPublisher()
+enum TestError: Error {
+    case someError
 }
 
-func failAnswer<T>() -> AnyPublisher<T, Error> {
-    failAnswer(TestError.someError, T.self)
-}
+enum Answer {
+    static func streamSuccess<T>(_ items: [T]) -> AsyncThrowingStream<T, Error> {
+        AsyncThrowingStream { continuation in
+            for item in items {
+                continuation.yield(item)
+            }
+            continuation.finish()
+        }
+    }
 
-func failAnswer<T>(_ error: Error, _ type: T.Type) -> AnyPublisher<T, Error> {
-    Fail<T, Error>(error: error)
-        .eraseToAnyPublisher()
-}
-
-func noAnswer<T>() -> AnyPublisher<T, Error> {
-    Empty<T, Error>()
-        .eraseToAnyPublisher()
+    static func streamFailure<T>(_ error: Error = TestError.someError) -> AsyncThrowingStream<T, Error> {
+        AsyncThrowingStream {
+            $0.finish(throwing: error)
+        }
+    }
 }

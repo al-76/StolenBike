@@ -6,12 +6,16 @@
 //
 
 import SwiftUI
+import XCTestDynamicOverlay
 
 @main
-struct StolenBikeApp: App {
+struct StolenBikeApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if !_XCTIsTesting {
+                AppView(store: .init(initialState: .init(),
+                                     reducer: App()))
+            }
         }
     }
 }

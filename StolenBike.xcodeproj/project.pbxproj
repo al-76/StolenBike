@@ -7,47 +7,40 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CD0EBAAE28EB305B00DFD34D /* Place.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0EBAAD28EB305B00DFD34D /* Place.swift */; };
-		CD0EBAB028EB30AC00DFD34D /* GetPlacesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0EBAAF28EB30AC00DFD34D /* GetPlacesUseCase.swift */; };
-		CD0F411328F4CC6800555826 /* GetPlacesUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F411228F4CC6800555826 /* GetPlacesUseCaseTests.swift */; };
-		CD0F411528F5811600555826 /* PlacesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F411428F5811600555826 /* PlacesRepositoryTests.swift */; };
-		CD0F411728F588A200555826 /* MapperMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0F411628F588A200555826 /* MapperMock.swift */; };
-		CD2DE5FC28ECB3DB00BE6F8D /* BikeMapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE5FB28ECB3DB00BE6F8D /* BikeMapViewModelTests.swift */; };
-		CD2DE5FE28ECB46900BE6F8D /* UseCaseMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE5FD28ECB46900BE6F8D /* UseCaseMock.swift */; };
-		CD2DE60128ECE5DA00BE6F8D /* XCTestCase+Await.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60028ECE5DA00BE6F8D /* XCTestCase+Await.swift */; };
+		CD0EBAAE28EB305B00DFD34D /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0EBAAD28EB305B00DFD34D /* Bike.swift */; };
 		CD2DE60528ECF25500BE6F8D /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60428ECF25500BE6F8D /* Answer.swift */; };
-		CD2DE60728ECF26F00BE6F8D /* TestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60628ECF26F00BE6F8D /* TestError.swift */; };
 		CD386AD52903078A00C55AF7 /* View+alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD386AD42903078A00C55AF7 /* View+alert.swift */; };
-		CD44BCBD28EDFBF600B0BDA1 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = CD44BCBC28EDFBF600B0BDA1 /* Factory */; };
-		CD44BCBF28EDFC3D00B0BDA1 /* DomainContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44BCBE28EDFC3D00B0BDA1 /* DomainContainer.swift */; };
-		CD44BCC228EE047E00B0BDA1 /* UICointainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD44BCC128EE047E00B0BDA1 /* UICointainer.swift */; };
-		CD4F2CC328EEFE51007444DA /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CC228EEFE51007444DA /* LocationManager.swift */; };
-		CD4F2CC628EF1655007444DA /* PlatformContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CC528EF1655007444DA /* PlatformContainer.swift */; };
-		CD4F2CCA28F09F16007444DA /* GetLocationUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CC928F09F16007444DA /* GetLocationUseCaseTests.swift */; };
-		CD4F2CCD28F09FDB007444DA /* GeneratedMocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CCC28F09FDB007444DA /* GeneratedMocks.swift */; };
-		CD4F2CD128F0A343007444DA /* LocationRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CD028F0A343007444DA /* LocationRepositoryTests.swift */; };
-		CD4F2CD328F0E727007444DA /* DefaultPlacesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CD228F0E727007444DA /* DefaultPlacesRepository.swift */; };
-		CD4F2CD528F18DCE007444DA /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CD428F18DCE007444DA /* Network.swift */; };
-		CD4F2CD728F18E21007444DA /* DefaultNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CD628F18E21007444DA /* DefaultNetwork.swift */; };
 		CD4F2CDC28F1B98D007444DA /* LocationArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CDB28F1B98D007444DA /* LocationArea.swift */; };
-		CD4F2CDF28F2F04C007444DA /* PlacesDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CDE28F2F04C007444DA /* PlacesDTO.swift */; };
-		CD4F2CE228F30E59007444DA /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CE128F30E59007444DA /* Mapper.swift */; };
-		CD4F2CE428F30EA1007444DA /* PlaceMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD4F2CE328F30EA1007444DA /* PlaceMapper.swift */; };
-		CD87272F28EE300200820A30 /* LocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87272E28EE300200820A30 /* LocationRepository.swift */; };
-		CD87273128EE300F00820A30 /* PlacesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87273028EE300F00820A30 /* PlacesRepository.swift */; };
-		CD87273528EE334100820A30 /* DataContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87273428EE334100820A30 /* DataContainer.swift */; };
-		CD87273728EE33A800820A30 /* DefaultLocationRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87273628EE33A800820A30 /* DefaultLocationRepository.swift */; };
-		CD87273928EE342800820A30 /* DefaultLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD87273828EE342800820A30 /* DefaultLocationManager.swift */; };
+		CD5AFEE8290BFA2A00931C11 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5AFEE7290BFA2A00931C11 /* MapView.swift */; };
+		CD5AFEEB290C1E1900931C11 /* MapViewAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD5AFEEA290C1E1900931C11 /* MapViewAnnotation.swift */; };
 		CD91290928E5EA400056B9C4 /* StolenBikeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91290828E5EA400056B9C4 /* StolenBikeApp.swift */; };
-		CD91290B28E5EA400056B9C4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91290A28E5EA400056B9C4 /* ContentView.swift */; };
+		CD91290B28E5EA400056B9C4 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91290A28E5EA400056B9C4 /* AppView.swift */; };
 		CD91290D28E5EA430056B9C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290C28E5EA430056B9C4 /* Assets.xcassets */; };
 		CD91291028E5EA430056B9C4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */; };
 		CD91291828E5EB7D0056B9C4 /* BikeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91291728E5EB7D0056B9C4 /* BikeMapView.swift */; };
-		CD91291B28E5EBBD0056B9C4 /* BikeMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91291A28E5EBBD0056B9C4 /* BikeMapViewModel.swift */; };
-		CDB9547628E9B16900FA3941 /* GetLocationUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547528E9B16900FA3941 /* GetLocationUseCase.swift */; };
-		CDB9547828E9B1B300FA3941 /* UseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9547728E9B1B300FA3941 /* UseCase.swift */; };
+		CDB0C21D2996AB7900E86B0B /* StateError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C21C2996AB7900E86B0B /* StateError.swift */; };
+		CDB0C2222996AC5F00E86B0B /* BikeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C2212996AC5F00E86B0B /* BikeClient.swift */; };
+		CDB0C2272996AE4500E86B0B /* LocationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C2262996AE4500E86B0B /* LocationClient.swift */; };
+		CDB0C2292996B00700E86B0B /* StubLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C2282996B00700E86B0B /* StubLocation.swift */; };
+		CDB0C22B2996B01600E86B0B /* StubLocationArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C22A2996B01600E86B0B /* StubLocationArea.swift */; };
+		CDB0C22D2996B02400E86B0B /* StubBike.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C22C2996B02400E86B0B /* StubBike.swift */; };
+		CDB0C22F2996B11500E86B0B /* LocationClient+Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C22E2996B11500E86B0B /* LocationClient+Dependency.swift */; };
+		CDB0C2312996B15800E86B0B /* LiveLocationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C2302996B15800E86B0B /* LiveLocationClient.swift */; };
+		CDB0C2332996B16400E86B0B /* StubLocationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C2322996B16400E86B0B /* StubLocationClient.swift */; };
+		CDB0C235299819A100E86B0B /* LiveBikeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C234299819A100E86B0B /* LiveBikeClient.swift */; };
+		CDB0C237299819AD00E86B0B /* StubBikeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C236299819AD00E86B0B /* StubBikeClient.swift */; };
+		CDB0C239299819BA00E86B0B /* BikeClient+Dependency.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C238299819BA00E86B0B /* BikeClient+Dependency.swift */; };
+		CDB0C23C299953FE00E86B0B /* View+mapElement.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C23B299953FE00E86B0B /* View+mapElement.swift */; };
 		CDB9548128E9CA0900FA3941 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9548028E9CA0900FA3941 /* Location.swift */; };
 		CDB9548328E9D8A400FA3941 /* RegisterBikeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB9548228E9D8A400FA3941 /* RegisterBikeView.swift */; };
+		CDBEFE2A299BD76200BA48A1 /* Location+coordinates.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBEFE29299BD76200BA48A1 /* Location+coordinates.swift */; };
+		CDBEFE2D299BD7E700BA48A1 /* MKCoordinateRegion+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBEFE2C299BD7E700BA48A1 /* MKCoordinateRegion+Equatable.swift */; };
+		CDBF2FF22976166200DFBCA1 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = CDBF2FF12976166200DFBCA1 /* ComposableArchitecture */; };
+		CDBF2FF929788E5A00DFBCA1 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBF2FF829788E5A00DFBCA1 /* App.swift */; };
+		CDC9C0A32995222C00770B1F /* BikeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC9C0A22995222C00770B1F /* BikeMap.swift */; };
+		CDC9C0A52995223700770B1F /* RegisterBike.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC9C0A42995223700770B1F /* RegisterBike.swift */; };
+		CDC9C0A829959E8100770B1F /* BikeMapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC9C0A729959E8100770B1F /* BikeMapTests.swift */; };
+		CDC9C0AB29959EAE00770B1F /* AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC9C0AA29959EAE00770B1F /* AppTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,49 +54,42 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		CD0EBAAD28EB305B00DFD34D /* Place.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Place.swift; sourceTree = "<group>"; };
-		CD0EBAAF28EB30AC00DFD34D /* GetPlacesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPlacesUseCase.swift; sourceTree = "<group>"; };
-		CD0F411228F4CC6800555826 /* GetPlacesUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPlacesUseCaseTests.swift; sourceTree = "<group>"; };
-		CD0F411428F5811600555826 /* PlacesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesRepositoryTests.swift; sourceTree = "<group>"; };
-		CD0F411628F588A200555826 /* MapperMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapperMock.swift; sourceTree = "<group>"; };
+		CD0EBAAD28EB305B00DFD34D /* Bike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
 		CD2DE5EE28ECB2CB00BE6F8D /* StolenBikeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StolenBikeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CD2DE5FB28ECB3DB00BE6F8D /* BikeMapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapViewModelTests.swift; sourceTree = "<group>"; };
-		CD2DE5FD28ECB46900BE6F8D /* UseCaseMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCaseMock.swift; sourceTree = "<group>"; };
-		CD2DE60028ECE5DA00BE6F8D /* XCTestCase+Await.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Await.swift"; sourceTree = "<group>"; };
 		CD2DE60428ECF25500BE6F8D /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
-		CD2DE60628ECF26F00BE6F8D /* TestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestError.swift; sourceTree = "<group>"; };
 		CD386AD42903078A00C55AF7 /* View+alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+alert.swift"; sourceTree = "<group>"; };
-		CD44BCBE28EDFC3D00B0BDA1 /* DomainContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainContainer.swift; sourceTree = "<group>"; };
-		CD44BCC128EE047E00B0BDA1 /* UICointainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICointainer.swift; sourceTree = "<group>"; };
-		CD4F2CC228EEFE51007444DA /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
-		CD4F2CC528EF1655007444DA /* PlatformContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformContainer.swift; sourceTree = "<group>"; };
 		CD4F2CC728EF31AC007444DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		CD4F2CC928F09F16007444DA /* GetLocationUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocationUseCaseTests.swift; sourceTree = "<group>"; };
-		CD4F2CCC28F09FDB007444DA /* GeneratedMocks.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeneratedMocks.swift; sourceTree = "<group>"; };
-		CD4F2CD028F0A343007444DA /* LocationRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepositoryTests.swift; sourceTree = "<group>"; };
-		CD4F2CD228F0E727007444DA /* DefaultPlacesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultPlacesRepository.swift; sourceTree = "<group>"; };
-		CD4F2CD428F18DCE007444DA /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		CD4F2CD628F18E21007444DA /* DefaultNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultNetwork.swift; sourceTree = "<group>"; };
 		CD4F2CDB28F1B98D007444DA /* LocationArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationArea.swift; sourceTree = "<group>"; };
-		CD4F2CDE28F2F04C007444DA /* PlacesDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesDTO.swift; sourceTree = "<group>"; };
-		CD4F2CE128F30E59007444DA /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
-		CD4F2CE328F30EA1007444DA /* PlaceMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceMapper.swift; sourceTree = "<group>"; };
-		CD87272E28EE300200820A30 /* LocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationRepository.swift; sourceTree = "<group>"; };
-		CD87273028EE300F00820A30 /* PlacesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlacesRepository.swift; sourceTree = "<group>"; };
-		CD87273428EE334100820A30 /* DataContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataContainer.swift; sourceTree = "<group>"; };
-		CD87273628EE33A800820A30 /* DefaultLocationRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocationRepository.swift; sourceTree = "<group>"; };
-		CD87273828EE342800820A30 /* DefaultLocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLocationManager.swift; sourceTree = "<group>"; };
+		CD5AFEE7290BFA2A00931C11 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
+		CD5AFEEA290C1E1900931C11 /* MapViewAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewAnnotation.swift; sourceTree = "<group>"; };
 		CD91290528E5EA400056B9C4 /* StolenBike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StolenBike.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD91290828E5EA400056B9C4 /* StolenBikeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StolenBikeApp.swift; sourceTree = "<group>"; };
-		CD91290A28E5EA400056B9C4 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CD91290A28E5EA400056B9C4 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		CD91290C28E5EA430056B9C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CD91291728E5EB7D0056B9C4 /* BikeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapView.swift; sourceTree = "<group>"; };
-		CD91291A28E5EBBD0056B9C4 /* BikeMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapViewModel.swift; sourceTree = "<group>"; };
-		CDB9547528E9B16900FA3941 /* GetLocationUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetLocationUseCase.swift; sourceTree = "<group>"; };
-		CDB9547728E9B1B300FA3941 /* UseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCase.swift; sourceTree = "<group>"; };
+		CDB0C21C2996AB7900E86B0B /* StateError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateError.swift; sourceTree = "<group>"; };
+		CDB0C2212996AC5F00E86B0B /* BikeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeClient.swift; sourceTree = "<group>"; };
+		CDB0C2262996AE4500E86B0B /* LocationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationClient.swift; sourceTree = "<group>"; };
+		CDB0C2282996B00700E86B0B /* StubLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubLocation.swift; sourceTree = "<group>"; };
+		CDB0C22A2996B01600E86B0B /* StubLocationArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubLocationArea.swift; sourceTree = "<group>"; };
+		CDB0C22C2996B02400E86B0B /* StubBike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubBike.swift; sourceTree = "<group>"; };
+		CDB0C22E2996B11500E86B0B /* LocationClient+Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocationClient+Dependency.swift"; sourceTree = "<group>"; };
+		CDB0C2302996B15800E86B0B /* LiveLocationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveLocationClient.swift; sourceTree = "<group>"; };
+		CDB0C2322996B16400E86B0B /* StubLocationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubLocationClient.swift; sourceTree = "<group>"; };
+		CDB0C234299819A100E86B0B /* LiveBikeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveBikeClient.swift; sourceTree = "<group>"; };
+		CDB0C236299819AD00E86B0B /* StubBikeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubBikeClient.swift; sourceTree = "<group>"; };
+		CDB0C238299819BA00E86B0B /* BikeClient+Dependency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BikeClient+Dependency.swift"; sourceTree = "<group>"; };
+		CDB0C23B299953FE00E86B0B /* View+mapElement.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+mapElement.swift"; sourceTree = "<group>"; };
 		CDB9548028E9CA0900FA3941 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CDB9548228E9D8A400FA3941 /* RegisterBikeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBikeView.swift; sourceTree = "<group>"; };
+		CDBEFE29299BD76200BA48A1 /* Location+coordinates.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Location+coordinates.swift"; sourceTree = "<group>"; };
+		CDBEFE2C299BD7E700BA48A1 /* MKCoordinateRegion+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Equatable.swift"; sourceTree = "<group>"; };
+		CDBF2FF829788E5A00DFBCA1 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
+		CDC9C0A22995222C00770B1F /* BikeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMap.swift; sourceTree = "<group>"; };
+		CDC9C0A42995223700770B1F /* RegisterBike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBike.swift; sourceTree = "<group>"; };
+		CDC9C0A729959E8100770B1F /* BikeMapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapTests.swift; sourceTree = "<group>"; };
+		CDC9C0AA29959EAE00770B1F /* AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,7 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD44BCBD28EDFBF600B0BDA1 /* Factory in Frameworks */,
+				CDBF2FF22976166200DFBCA1 /* ComposableArchitecture in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -128,173 +114,19 @@
 		CD2DE5EF28ECB2CB00BE6F8D /* StolenBikeTests */ = {
 			isa = PBXGroup;
 			children = (
-				CD4F2CCC28F09FDB007444DA /* GeneratedMocks.swift */,
 				CD2DE5FF28ECE5B900BE6F8D /* Common */,
-				CD4F2CCE28F0A2A3007444DA /* Data */,
-				CD2DE5F728ECB2D900BE6F8D /* UI */,
-				CD2DE5F828ECB2DE00BE6F8D /* Domain */,
-				CD2DE5FD28ECB46900BE6F8D /* UseCaseMock.swift */,
-				CD0F411628F588A200555826 /* MapperMock.swift */,
+				CDC9C0A929959E8D00770B1F /* App */,
+				CDC9C0A629959E1000770B1F /* BikeMap */,
 			);
 			path = StolenBikeTests;
-			sourceTree = "<group>";
-		};
-		CD2DE5F728ECB2D900BE6F8D /* UI */ = {
-			isa = PBXGroup;
-			children = (
-				CD2DE5F928ECB2FB00BE6F8D /* ViewModel */,
-			);
-			path = UI;
-			sourceTree = "<group>";
-		};
-		CD2DE5F828ECB2DE00BE6F8D /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				CD4F2CC828F09F09007444DA /* UseCase */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		CD2DE5F928ECB2FB00BE6F8D /* ViewModel */ = {
-			isa = PBXGroup;
-			children = (
-				CD2DE5FB28ECB3DB00BE6F8D /* BikeMapViewModelTests.swift */,
-			);
-			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		CD2DE5FF28ECE5B900BE6F8D /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				CD2DE60028ECE5DA00BE6F8D /* XCTestCase+Await.swift */,
 				CD2DE60428ECF25500BE6F8D /* Answer.swift */,
-				CD2DE60628ECF26F00BE6F8D /* TestError.swift */,
 			);
 			path = Common;
-			sourceTree = "<group>";
-		};
-		CD44BCB628EDFB4500B0BDA1 /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				CD87273228EE330B00820A30 /* DI */,
-				CD4F2CE028F30E27007444DA /* Mapper */,
-				CD4F2CDD28F2F039007444DA /* DTO */,
-				CD4F2CC128EEFE34007444DA /* Platform */,
-				CD87273328EE331800820A30 /* Repository */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		CD44BCB728EDFB5D00B0BDA1 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				CD87272E28EE300200820A30 /* LocationRepository.swift */,
-				CD87273028EE300F00820A30 /* PlacesRepository.swift */,
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
-		CD44BCB828EDFB6500B0BDA1 /* Platform */ = {
-			isa = PBXGroup;
-			children = (
-				CD4F2CC428EF1645007444DA /* DI */,
-				CD87273828EE342800820A30 /* DefaultLocationManager.swift */,
-				CD4F2CD628F18E21007444DA /* DefaultNetwork.swift */,
-			);
-			path = Platform;
-			sourceTree = "<group>";
-		};
-		CD44BCBA28EDFB8800B0BDA1 /* DI */ = {
-			isa = PBXGroup;
-			children = (
-				CD44BCBE28EDFC3D00B0BDA1 /* DomainContainer.swift */,
-			);
-			path = DI;
-			sourceTree = "<group>";
-		};
-		CD44BCC028EE046500B0BDA1 /* DI */ = {
-			isa = PBXGroup;
-			children = (
-				CD44BCC128EE047E00B0BDA1 /* UICointainer.swift */,
-			);
-			path = DI;
-			sourceTree = "<group>";
-		};
-		CD4F2CC128EEFE34007444DA /* Platform */ = {
-			isa = PBXGroup;
-			children = (
-				CD4F2CC228EEFE51007444DA /* LocationManager.swift */,
-				CD4F2CD428F18DCE007444DA /* Network.swift */,
-			);
-			path = Platform;
-			sourceTree = "<group>";
-		};
-		CD4F2CC428EF1645007444DA /* DI */ = {
-			isa = PBXGroup;
-			children = (
-				CD4F2CC528EF1655007444DA /* PlatformContainer.swift */,
-			);
-			path = DI;
-			sourceTree = "<group>";
-		};
-		CD4F2CC828F09F09007444DA /* UseCase */ = {
-			isa = PBXGroup;
-			children = (
-				CD4F2CC928F09F16007444DA /* GetLocationUseCaseTests.swift */,
-				CD0F411228F4CC6800555826 /* GetPlacesUseCaseTests.swift */,
-			);
-			path = UseCase;
-			sourceTree = "<group>";
-		};
-		CD4F2CCE28F0A2A3007444DA /* Data */ = {
-			isa = PBXGroup;
-			children = (
-				CD4F2CCF28F0A2BA007444DA /* Repository */,
-			);
-			path = Data;
-			sourceTree = "<group>";
-		};
-		CD4F2CCF28F0A2BA007444DA /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				CD4F2CD028F0A343007444DA /* LocationRepositoryTests.swift */,
-				CD0F411428F5811600555826 /* PlacesRepositoryTests.swift */,
-			);
-			path = Repository;
-			sourceTree = "<group>";
-		};
-		CD4F2CDD28F2F039007444DA /* DTO */ = {
-			isa = PBXGroup;
-			children = (
-				CD4F2CDE28F2F04C007444DA /* PlacesDTO.swift */,
-			);
-			path = DTO;
-			sourceTree = "<group>";
-		};
-		CD4F2CE028F30E27007444DA /* Mapper */ = {
-			isa = PBXGroup;
-			children = (
-				CD4F2CE128F30E59007444DA /* Mapper.swift */,
-				CD4F2CE328F30EA1007444DA /* PlaceMapper.swift */,
-			);
-			path = Mapper;
-			sourceTree = "<group>";
-		};
-		CD87273228EE330B00820A30 /* DI */ = {
-			isa = PBXGroup;
-			children = (
-				CD87273428EE334100820A30 /* DataContainer.swift */,
-			);
-			path = DI;
-			sourceTree = "<group>";
-		};
-		CD87273328EE331800820A30 /* Repository */ = {
-			isa = PBXGroup;
-			children = (
-				CD87273628EE33A800820A30 /* DefaultLocationRepository.swift */,
-				CD4F2CD228F0E727007444DA /* DefaultPlacesRepository.swift */,
-			);
-			path = Repository;
 			sourceTree = "<group>";
 		};
 		CD9128FC28E5EA400056B9C4 = {
@@ -318,11 +150,10 @@
 		CD91290728E5EA400056B9C4 /* StolenBike */ = {
 			isa = PBXGroup;
 			children = (
+				CDC9C0AC2995A33700770B1F /* Common */,
+				CDBF2FF42976178500DFBCA1 /* Effect */,
+				CDBF2FF32976174A00DFBCA1 /* Feature */,
 				CD4F2CC728EF31AC007444DA /* Info.plist */,
-				CD44BCB828EDFB6500B0BDA1 /* Platform */,
-				CD44BCB628EDFB4500B0BDA1 /* Data */,
-				CDB9547428E9B12C00FA3941 /* UI */,
-				CDB9547328E9B12300FA3941 /* Domain */,
 				CD91290828E5EA400056B9C4 /* StolenBikeApp.swift */,
 				CD91290C28E5EA430056B9C4 /* Assets.xcassets */,
 				CD91290E28E5EA430056B9C4 /* Preview Content */,
@@ -338,72 +169,172 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		CD91291628E5EB640056B9C4 /* View */ = {
+		CDB0C21E2996ABE500E86B0B /* BikeClient */ = {
 			isa = PBXGroup;
 			children = (
-				CDB9547B28E9BCE000FA3941 /* Common */,
-				CD91291728E5EB7D0056B9C4 /* BikeMapView.swift */,
-				CDB9548228E9D8A400FA3941 /* RegisterBikeView.swift */,
-				CD91290A28E5EA400056B9C4 /* ContentView.swift */,
+				CDB0C21F2996AC4700E86B0B /* Client */,
+				CDB0C2202996AC4C00E86B0B /* Model */,
 			);
-			path = View;
+			path = BikeClient;
 			sourceTree = "<group>";
 		};
-		CD91291928E5EB9A0056B9C4 /* ViewModel */ = {
+		CDB0C21F2996AC4700E86B0B /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				CD91291A28E5EBBD0056B9C4 /* BikeMapViewModel.swift */,
+				CDB0C2212996AC5F00E86B0B /* BikeClient.swift */,
+				CDB0C238299819BA00E86B0B /* BikeClient+Dependency.swift */,
+				CDB0C234299819A100E86B0B /* LiveBikeClient.swift */,
+				CDB0C236299819AD00E86B0B /* StubBikeClient.swift */,
 			);
-			path = ViewModel;
+			path = Client;
 			sourceTree = "<group>";
 		};
-		CDB9547328E9B12300FA3941 /* Domain */ = {
+		CDB0C2202996AC4C00E86B0B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				CD44BCBA28EDFB8800B0BDA1 /* DI */,
-				CD44BCB728EDFB5D00B0BDA1 /* Repository */,
-				CDB9547F28E9C9DD00FA3941 /* UseCase */,
-				CDB9547E28E9C9D700FA3941 /* Entity */,
+				CD0EBAAD28EB305B00DFD34D /* Bike.swift */,
+				CDB0C22C2996B02400E86B0B /* StubBike.swift */,
 			);
-			path = Domain;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		CDB9547428E9B12C00FA3941 /* UI */ = {
+		CDB0C2232996AE1000E86B0B /* LocationClient */ = {
 			isa = PBXGroup;
 			children = (
-				CD44BCC028EE046500B0BDA1 /* DI */,
-				CD91291628E5EB640056B9C4 /* View */,
-				CD91291928E5EB9A0056B9C4 /* ViewModel */,
+				CDB0C2242996AE2A00E86B0B /* Client */,
+				CDB0C2252996AE2E00E86B0B /* Model */,
 			);
-			path = UI;
+			path = LocationClient;
 			sourceTree = "<group>";
 		};
-		CDB9547B28E9BCE000FA3941 /* Common */ = {
+		CDB0C2242996AE2A00E86B0B /* Client */ = {
 			isa = PBXGroup;
 			children = (
-				CD386AD42903078A00C55AF7 /* View+alert.swift */,
+				CDB0C2262996AE4500E86B0B /* LocationClient.swift */,
+				CDB0C22E2996B11500E86B0B /* LocationClient+Dependency.swift */,
+				CDB0C2302996B15800E86B0B /* LiveLocationClient.swift */,
+				CDB0C2322996B16400E86B0B /* StubLocationClient.swift */,
 			);
-			path = Common;
+			path = Client;
 			sourceTree = "<group>";
 		};
-		CDB9547E28E9C9D700FA3941 /* Entity */ = {
+		CDB0C2252996AE2E00E86B0B /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				CDB9548028E9CA0900FA3941 /* Location.swift */,
 				CD4F2CDB28F1B98D007444DA /* LocationArea.swift */,
-				CD0EBAAD28EB305B00DFD34D /* Place.swift */,
+				CDB0C2282996B00700E86B0B /* StubLocation.swift */,
+				CDB0C22A2996B01600E86B0B /* StubLocationArea.swift */,
 			);
-			path = Entity;
+			path = Model;
 			sourceTree = "<group>";
 		};
-		CDB9547F28E9C9DD00FA3941 /* UseCase */ = {
+		CDB0C23A2999538800E86B0B /* View */ = {
 			isa = PBXGroup;
 			children = (
-				CDB9547528E9B16900FA3941 /* GetLocationUseCase.swift */,
-				CD0EBAAF28EB30AC00DFD34D /* GetPlacesUseCase.swift */,
-				CDB9547728E9B1B300FA3941 /* UseCase.swift */,
+				CD91291728E5EB7D0056B9C4 /* BikeMapView.swift */,
+				CDB0C23B299953FE00E86B0B /* View+mapElement.swift */,
 			);
-			path = UseCase;
+			path = View;
+			sourceTree = "<group>";
+		};
+		CDBEFE2B299BD78800BA48A1 /* Reducer */ = {
+			isa = PBXGroup;
+			children = (
+				CDC9C0A22995222C00770B1F /* BikeMap.swift */,
+			);
+			path = Reducer;
+			sourceTree = "<group>";
+		};
+		CDBF2FF32976174A00DFBCA1 /* Feature */ = {
+			isa = PBXGroup;
+			children = (
+				CDBF2FF5297617D800DFBCA1 /* App */,
+				CDBF2FF6297617DE00DFBCA1 /* BikeMap */,
+				CDBF2FF7297617E800DFBCA1 /* RegisterBike */,
+			);
+			path = Feature;
+			sourceTree = "<group>";
+		};
+		CDBF2FF42976178500DFBCA1 /* Effect */ = {
+			isa = PBXGroup;
+			children = (
+				CDB0C2232996AE1000E86B0B /* LocationClient */,
+				CDB0C21E2996ABE500E86B0B /* BikeClient */,
+			);
+			path = Effect;
+			sourceTree = "<group>";
+		};
+		CDBF2FF5297617D800DFBCA1 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CDBF2FF829788E5A00DFBCA1 /* App.swift */,
+				CD91290A28E5EA400056B9C4 /* AppView.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		CDBF2FF6297617DE00DFBCA1 /* BikeMap */ = {
+			isa = PBXGroup;
+			children = (
+				CDBEFE2B299BD78800BA48A1 /* Reducer */,
+				CDB0C23A2999538800E86B0B /* View */,
+				CDBEFE29299BD76200BA48A1 /* Location+coordinates.swift */,
+				CDBEFE2C299BD7E700BA48A1 /* MKCoordinateRegion+Equatable.swift */,
+			);
+			path = BikeMap;
+			sourceTree = "<group>";
+		};
+		CDBF2FF7297617E800DFBCA1 /* RegisterBike */ = {
+			isa = PBXGroup;
+			children = (
+				CDC9C0A42995223700770B1F /* RegisterBike.swift */,
+				CDB9548228E9D8A400FA3941 /* RegisterBikeView.swift */,
+			);
+			path = RegisterBike;
+			sourceTree = "<group>";
+		};
+		CDC9C0A629959E1000770B1F /* BikeMap */ = {
+			isa = PBXGroup;
+			children = (
+				CDC9C0A729959E8100770B1F /* BikeMapTests.swift */,
+			);
+			path = BikeMap;
+			sourceTree = "<group>";
+		};
+		CDC9C0A929959E8D00770B1F /* App */ = {
+			isa = PBXGroup;
+			children = (
+				CDC9C0AA29959EAE00770B1F /* AppTests.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		CDC9C0AC2995A33700770B1F /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				CDC9C0AD2995A33D00770B1F /* View */,
+				CD386AD42903078A00C55AF7 /* View+alert.swift */,
+				CDB0C21C2996AB7900E86B0B /* StateError.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		CDC9C0AD2995A33D00770B1F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CDC9C0AE2995A36400770B1F /* MapView */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CDC9C0AE2995A36400770B1F /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				CD5AFEE7290BFA2A00931C11 /* MapView.swift */,
+				CD5AFEEA290C1E1900931C11 /* MapViewAnnotation.swift */,
+			);
+			path = MapView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -413,7 +344,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD2DE5F628ECB2CB00BE6F8D /* Build configuration list for PBXNativeTarget "StolenBikeTests" */;
 			buildPhases = (
-				CD4F2CCB28F09F55007444DA /* Mockolo */,
 				CD2DE5EA28ECB2CB00BE6F8D /* Sources */,
 				CD2DE5EB28ECB2CB00BE6F8D /* Frameworks */,
 				CD2DE5EC28ECB2CB00BE6F8D /* Resources */,
@@ -443,7 +373,7 @@
 			);
 			name = StolenBike;
 			packageProductDependencies = (
-				CD44BCBC28EDFBF600B0BDA1 /* Factory */,
+				CDBF2FF12976166200DFBCA1 /* ComposableArchitecture */,
 			);
 			productName = StolenBike;
 			productReference = CD91290528E5EA400056B9C4 /* StolenBike.app */;
@@ -479,7 +409,7 @@
 			);
 			mainGroup = CD9128FC28E5EA400056B9C4;
 			packageReferences = (
-				CD44BCBB28EDFBF600B0BDA1 /* XCRemoteSwiftPackageReference "Factory" */,
+				CDBF2FF02976166200DFBCA1 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */,
 			);
 			productRefGroup = CD91290628E5EA400056B9C4 /* Products */;
 			projectDirPath = "";
@@ -530,25 +460,6 @@
 			shellPath = /bin/sh;
 			shellScript = "if which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
-		CD4F2CCB28F09F55007444DA /* Mockolo */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = Mockolo;
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "if which mockolo > /dev/null; then\n    mockolo -s ${PROJECT_NAME} -d ${PROJECT_NAME}Tests/GeneratedMocks.swift --header \"@testable import ${PROJECT_NAME}\"\nfi\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -556,17 +467,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD0F411328F4CC6800555826 /* GetPlacesUseCaseTests.swift in Sources */,
-				CD4F2CCA28F09F16007444DA /* GetLocationUseCaseTests.swift in Sources */,
-				CD0F411728F588A200555826 /* MapperMock.swift in Sources */,
-				CD2DE60728ECF26F00BE6F8D /* TestError.swift in Sources */,
-				CD2DE5FC28ECB3DB00BE6F8D /* BikeMapViewModelTests.swift in Sources */,
-				CD0F411528F5811600555826 /* PlacesRepositoryTests.swift in Sources */,
-				CD4F2CCD28F09FDB007444DA /* GeneratedMocks.swift in Sources */,
 				CD2DE60528ECF25500BE6F8D /* Answer.swift in Sources */,
-				CD2DE5FE28ECB46900BE6F8D /* UseCaseMock.swift in Sources */,
-				CD4F2CD128F0A343007444DA /* LocationRepositoryTests.swift in Sources */,
-				CD2DE60128ECE5DA00BE6F8D /* XCTestCase+Await.swift in Sources */,
+				CDC9C0A829959E8100770B1F /* BikeMapTests.swift in Sources */,
+				CDC9C0AB29959EAE00770B1F /* AppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,32 +478,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD386AD52903078A00C55AF7 /* View+alert.swift in Sources */,
-				CDB9547628E9B16900FA3941 /* GetLocationUseCase.swift in Sources */,
-				CD44BCBF28EDFC3D00B0BDA1 /* DomainContainer.swift in Sources */,
+				CDB0C2312996B15800E86B0B /* LiveLocationClient.swift in Sources */,
 				CD4F2CDC28F1B98D007444DA /* LocationArea.swift in Sources */,
-				CD91290B28E5EA400056B9C4 /* ContentView.swift in Sources */,
-				CD0EBAB028EB30AC00DFD34D /* GetPlacesUseCase.swift in Sources */,
+				CD91290B28E5EA400056B9C4 /* AppView.swift in Sources */,
 				CD91291828E5EB7D0056B9C4 /* BikeMapView.swift in Sources */,
-				CDB9547828E9B1B300FA3941 /* UseCase.swift in Sources */,
-				CD87272F28EE300200820A30 /* LocationRepository.swift in Sources */,
-				CD4F2CC628EF1655007444DA /* PlatformContainer.swift in Sources */,
+				CDB0C22D2996B02400E86B0B /* StubBike.swift in Sources */,
+				CDC9C0A52995223700770B1F /* RegisterBike.swift in Sources */,
+				CDB0C22B2996B01600E86B0B /* StubLocationArea.swift in Sources */,
 				CDB9548128E9CA0900FA3941 /* Location.swift in Sources */,
-				CD87273528EE334100820A30 /* DataContainer.swift in Sources */,
-				CD44BCC228EE047E00B0BDA1 /* UICointainer.swift in Sources */,
-				CD87273128EE300F00820A30 /* PlacesRepository.swift in Sources */,
-				CD4F2CE228F30E59007444DA /* Mapper.swift in Sources */,
-				CD4F2CE428F30EA1007444DA /* PlaceMapper.swift in Sources */,
-				CD4F2CC328EEFE51007444DA /* LocationManager.swift in Sources */,
-				CD4F2CD728F18E21007444DA /* DefaultNetwork.swift in Sources */,
+				CDBF2FF929788E5A00DFBCA1 /* App.swift in Sources */,
+				CDB0C23C299953FE00E86B0B /* View+mapElement.swift in Sources */,
+				CDBEFE2A299BD76200BA48A1 /* Location+coordinates.swift in Sources */,
+				CDB0C2222996AC5F00E86B0B /* BikeClient.swift in Sources */,
 				CD91290928E5EA400056B9C4 /* StolenBikeApp.swift in Sources */,
-				CD91291B28E5EBBD0056B9C4 /* BikeMapViewModel.swift in Sources */,
-				CD87273728EE33A800820A30 /* DefaultLocationRepository.swift in Sources */,
+				CDB0C239299819BA00E86B0B /* BikeClient+Dependency.swift in Sources */,
+				CDBEFE2D299BD7E700BA48A1 /* MKCoordinateRegion+Equatable.swift in Sources */,
+				CDB0C21D2996AB7900E86B0B /* StateError.swift in Sources */,
+				CDC9C0A32995222C00770B1F /* BikeMap.swift in Sources */,
+				CD5AFEE8290BFA2A00931C11 /* MapView.swift in Sources */,
 				CDB9548328E9D8A400FA3941 /* RegisterBikeView.swift in Sources */,
-				CD0EBAAE28EB305B00DFD34D /* Place.swift in Sources */,
-				CD4F2CD328F0E727007444DA /* DefaultPlacesRepository.swift in Sources */,
-				CD87273928EE342800820A30 /* DefaultLocationManager.swift in Sources */,
-				CD4F2CD528F18DCE007444DA /* Network.swift in Sources */,
-				CD4F2CDF28F2F04C007444DA /* PlacesDTO.swift in Sources */,
+				CD0EBAAE28EB305B00DFD34D /* Bike.swift in Sources */,
+				CDB0C2292996B00700E86B0B /* StubLocation.swift in Sources */,
+				CD5AFEEB290C1E1900931C11 /* MapViewAnnotation.swift in Sources */,
+				CDB0C2332996B16400E86B0B /* StubLocationClient.swift in Sources */,
+				CDB0C22F2996B11500E86B0B /* LocationClient+Dependency.swift in Sources */,
+				CDB0C235299819A100E86B0B /* LiveBikeClient.swift in Sources */,
+				CDB0C237299819AD00E86B0B /* StubBikeClient.swift in Sources */,
+				CDB0C2272996AE4500E86B0B /* LocationClient.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -790,6 +694,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StolenBike/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be used to locate your position on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -820,6 +725,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = StolenBike/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be used to locate your position on the map.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -871,21 +777,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		CD44BCBB28EDFBF600B0BDA1 /* XCRemoteSwiftPackageReference "Factory" */ = {
+		CDBF2FF02976166200DFBCA1 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/hmlongco/Factory";
+			repositoryURL = "https://github.com/pointfreeco/swift-composable-architecture";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 0.9.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		CD44BCBC28EDFBF600B0BDA1 /* Factory */ = {
+		CDBF2FF12976166200DFBCA1 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = CD44BCBB28EDFBF600B0BDA1 /* XCRemoteSwiftPackageReference "Factory" */;
-			productName = Factory;
+			package = CDBF2FF02976166200DFBCA1 /* XCRemoteSwiftPackageReference "swift-composable-architecture" */;
+			productName = ComposableArchitecture;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
