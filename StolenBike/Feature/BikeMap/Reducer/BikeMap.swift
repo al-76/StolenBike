@@ -8,6 +8,7 @@
 import ComposableArchitecture
 import CoreLocation
 import MapKit
+import SharedModel
 
 struct BikeMap: ReducerProtocol {
     static let areaDistance = 10_000.0

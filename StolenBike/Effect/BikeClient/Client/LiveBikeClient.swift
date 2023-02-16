@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SharedModel
 
 extension BikeClient {
     enum ClientError: Error {
@@ -37,7 +38,6 @@ extension BikeClient {
             URLQueryItem(name: "per_page", value: "100"),
             URLQueryItem(name: "stolenness", value: "proximity")
         ]
-        print(components?.url)
         return components?.url
     }
 }

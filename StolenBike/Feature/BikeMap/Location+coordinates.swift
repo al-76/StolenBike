@@ -6,6 +6,7 @@
 //
 
 import MapKit
+import SharedModel
 
 extension Location {
     init(_ location: CLLocationCoordinate2D) {

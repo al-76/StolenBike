@@ -5,10 +5,13 @@
 //  Created by Vyacheslav Konopkin on 29.09.2022.
 //
 
-import ComposableArchitecture
-import SwiftUI
-import MapKit
 import CoreLocationUI
+import ComposableArchitecture
+import MapKit
+import SwiftUI
+
+import MapView
+import SharedModel
 
 struct BikeMapView: View {
     let store: StoreOf<BikeMap>

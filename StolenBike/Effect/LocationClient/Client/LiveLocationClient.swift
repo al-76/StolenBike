@@ -6,6 +6,7 @@
 //
 
 import CoreLocation
+import SharedModel
 
 extension LocationClient {
     static var live: Self {

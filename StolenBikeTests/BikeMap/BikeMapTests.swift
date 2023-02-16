@@ -7,6 +7,7 @@
 
 import ComposableArchitecture
 import MapKit
+import SharedModel
 import XCTest
 
 @testable import StolenBike
