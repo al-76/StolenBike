@@ -22,7 +22,7 @@ struct ViewError: LocalizedError {
 }
 
 extension View {
-    func alert(error: Error?, action: (() -> Void)? = nil) -> some View {
+    public func alert(error: Error?, action: (() -> Void)? = nil) -> some View {
         let suggestion = (action == nil ?
                           "Try again later" : "Tap to try again")
         let viewError = ViewError(error: error,
@@ -38,7 +38,7 @@ extension View {
         }
     }
 
-    func alert(error: StateError?, action: (() -> Void)? = nil) -> some View {
+    public func alert(error: StateError?, action: (() -> Void)? = nil) -> some View {
         alert(error: error?.error, action: action)
     }
 }

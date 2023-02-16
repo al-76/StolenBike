@@ -6,6 +6,7 @@
 //
 
 import MapKit
+
 import SharedModel
 
 extension Location {

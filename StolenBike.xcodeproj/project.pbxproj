@@ -9,13 +9,11 @@
 /* Begin PBXBuildFile section */
 		CD0EBAAE28EB305B00DFD34D /* Bike.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD0EBAAD28EB305B00DFD34D /* Bike.swift */; };
 		CD2DE60528ECF25500BE6F8D /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2DE60428ECF25500BE6F8D /* Answer.swift */; };
-		CD386AD52903078A00C55AF7 /* View+alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD386AD42903078A00C55AF7 /* View+alert.swift */; };
 		CD91290928E5EA400056B9C4 /* StolenBikeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91290828E5EA400056B9C4 /* StolenBikeApp.swift */; };
 		CD91290B28E5EA400056B9C4 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91290A28E5EA400056B9C4 /* AppView.swift */; };
 		CD91290D28E5EA430056B9C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290C28E5EA430056B9C4 /* Assets.xcassets */; };
 		CD91291028E5EA430056B9C4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */; };
 		CD91291828E5EB7D0056B9C4 /* BikeMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91291728E5EB7D0056B9C4 /* BikeMapView.swift */; };
-		CDB0C21D2996AB7900E86B0B /* StateError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C21C2996AB7900E86B0B /* StateError.swift */; };
 		CDB0C2222996AC5F00E86B0B /* BikeClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C2212996AC5F00E86B0B /* BikeClient.swift */; };
 		CDB0C2272996AE4500E86B0B /* LocationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C2262996AE4500E86B0B /* LocationClient.swift */; };
 		CDB0C22D2996B02400E86B0B /* StubBike.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDB0C22C2996B02400E86B0B /* StubBike.swift */; };
@@ -31,6 +29,7 @@
 		CDBEFE2D299BD7E700BA48A1 /* MKCoordinateRegion+Equatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBEFE2C299BD7E700BA48A1 /* MKCoordinateRegion+Equatable.swift */; };
 		CDBEFE3D299E710600BA48A1 /* SharedModel in Frameworks */ = {isa = PBXBuildFile; productRef = CDBEFE3C299E710600BA48A1 /* SharedModel */; };
 		CDBEFE3F299E710A00BA48A1 /* MapView in Frameworks */ = {isa = PBXBuildFile; productRef = CDBEFE3E299E710A00BA48A1 /* MapView */; };
+		CDBEFE43299E77C000BA48A1 /* Utils in Frameworks */ = {isa = PBXBuildFile; productRef = CDBEFE42299E77C000BA48A1 /* Utils */; };
 		CDBF2FF22976166200DFBCA1 /* ComposableArchitecture in Frameworks */ = {isa = PBXBuildFile; productRef = CDBF2FF12976166200DFBCA1 /* ComposableArchitecture */; };
 		CDBF2FF929788E5A00DFBCA1 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBF2FF829788E5A00DFBCA1 /* App.swift */; };
 		CDC9C0A32995222C00770B1F /* BikeMap.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDC9C0A22995222C00770B1F /* BikeMap.swift */; };
@@ -53,7 +52,6 @@
 		CD0EBAAD28EB305B00DFD34D /* Bike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bike.swift; sourceTree = "<group>"; };
 		CD2DE5EE28ECB2CB00BE6F8D /* StolenBikeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StolenBikeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD2DE60428ECF25500BE6F8D /* Answer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
-		CD386AD42903078A00C55AF7 /* View+alert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+alert.swift"; sourceTree = "<group>"; };
 		CD4F2CC728EF31AC007444DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CD91290528E5EA400056B9C4 /* StolenBike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StolenBike.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD91290828E5EA400056B9C4 /* StolenBikeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StolenBikeApp.swift; sourceTree = "<group>"; };
@@ -61,7 +59,6 @@
 		CD91290C28E5EA430056B9C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CD91291728E5EB7D0056B9C4 /* BikeMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapView.swift; sourceTree = "<group>"; };
-		CDB0C21C2996AB7900E86B0B /* StateError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateError.swift; sourceTree = "<group>"; };
 		CDB0C2212996AC5F00E86B0B /* BikeClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeClient.swift; sourceTree = "<group>"; };
 		CDB0C2262996AE4500E86B0B /* LocationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationClient.swift; sourceTree = "<group>"; };
 		CDB0C22C2996B02400E86B0B /* StubBike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StubBike.swift; sourceTree = "<group>"; };
@@ -77,6 +74,7 @@
 		CDBEFE2C299BD7E700BA48A1 /* MKCoordinateRegion+Equatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKCoordinateRegion+Equatable.swift"; sourceTree = "<group>"; };
 		CDBEFE3A299E6EA900BA48A1 /* SharedModel */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = SharedModel; sourceTree = "<group>"; };
 		CDBEFE3B299E6EAE00BA48A1 /* MapView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MapView; sourceTree = "<group>"; };
+		CDBEFE41299E760000BA48A1 /* Utils */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = Utils; sourceTree = "<group>"; };
 		CDBF2FF829788E5A00DFBCA1 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CDC9C0A22995222C00770B1F /* BikeMap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMap.swift; sourceTree = "<group>"; };
 		CDC9C0A42995223700770B1F /* RegisterBike.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBike.swift; sourceTree = "<group>"; };
@@ -98,6 +96,7 @@
 			files = (
 				CDBEFE3F299E710A00BA48A1 /* MapView in Frameworks */,
 				CDBF2FF22976166200DFBCA1 /* ComposableArchitecture in Frameworks */,
+				CDBEFE43299E77C000BA48A1 /* Utils in Frameworks */,
 				CDBEFE3D299E710600BA48A1 /* SharedModel in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -305,8 +304,7 @@
 			children = (
 				CDBEFE3B299E6EAE00BA48A1 /* MapView */,
 				CDBEFE3A299E6EA900BA48A1 /* SharedModel */,
-				CD386AD42903078A00C55AF7 /* View+alert.swift */,
-				CDB0C21C2996AB7900E86B0B /* StateError.swift */,
+				CDBEFE41299E760000BA48A1 /* Utils */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -350,6 +348,7 @@
 				CDBF2FF12976166200DFBCA1 /* ComposableArchitecture */,
 				CDBEFE3C299E710600BA48A1 /* SharedModel */,
 				CDBEFE3E299E710A00BA48A1 /* MapView */,
+				CDBEFE42299E77C000BA48A1 /* Utils */,
 			);
 			productName = StolenBike;
 			productReference = CD91290528E5EA400056B9C4 /* StolenBike.app */;
@@ -453,7 +452,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD386AD52903078A00C55AF7 /* View+alert.swift in Sources */,
 				CDB0C2312996B15800E86B0B /* LiveLocationClient.swift in Sources */,
 				CD91290B28E5EA400056B9C4 /* AppView.swift in Sources */,
 				CD91291828E5EB7D0056B9C4 /* BikeMapView.swift in Sources */,
@@ -466,7 +464,6 @@
 				CD91290928E5EA400056B9C4 /* StolenBikeApp.swift in Sources */,
 				CDB0C239299819BA00E86B0B /* BikeClient+Dependency.swift in Sources */,
 				CDBEFE2D299BD7E700BA48A1 /* MKCoordinateRegion+Equatable.swift in Sources */,
-				CDB0C21D2996AB7900E86B0B /* StateError.swift in Sources */,
 				CDC9C0A32995222C00770B1F /* BikeMap.swift in Sources */,
 				CDB9548328E9D8A400FA3941 /* RegisterBikeView.swift in Sources */,
 				CD0EBAAE28EB305B00DFD34D /* Bike.swift in Sources */,
@@ -765,6 +762,10 @@
 		CDBEFE3E299E710A00BA48A1 /* MapView */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MapView;
+		};
+		CDBEFE42299E77C000BA48A1 /* Utils */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = Utils;
 		};
 		CDBF2FF12976166200DFBCA1 /* ComposableArchitecture */ = {
 			isa = XCSwiftPackageProductDependency;
