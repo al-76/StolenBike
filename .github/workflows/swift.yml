@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: macos-12
     env:
-      xcode_simulator: 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.0'
+      xcode_simulator: 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2'
       xcode_project: app/StolenBike.xcodeproj
     name: Build
     steps:
