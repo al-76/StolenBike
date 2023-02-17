@@ -18,7 +18,7 @@ jobs:
     - name: AppFeatureTests
       run: xcodebuild test -scheme AppFeatureTests -project ${xcode_project} -destination "${xcode_simulator}" | xcpretty
     - name: BikeFeatureTests
-      run: xcodebuild test -scheme BikeFeatureTests -project ${xcode_project} -destination "${xcode_simulator}" | xcpretty
+      run: xcodebuild test -scheme BikeMapFeatureTests -project ${xcode_project} -destination "${xcode_simulator}" | xcpretty
       
 #    - name: Swift Coverage Conversion
 #      run: tools/generate_lcov.sh
