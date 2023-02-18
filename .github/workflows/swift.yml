@@ -9,12 +9,17 @@ on:
 jobs:
   build:
     runs-on: macos-12
-    
+    env:
+      xcode_simulator: 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2'
+      xcode_project: app/StolenBike.xcodeproj
     name: Build
     steps:
     - uses: actions/checkout@v3
-    - name: Run tests
-      run: xcodebuild test -scheme StolenBike -project StolenBike.xcodeproj -destination 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.0' | xcpretty
+    - name: AppFeatureTests
+      run: xcodebuild test -scheme AppFeatureTests -project ${xcode_project} -destination "${xcode_simulator}" | xcpretty
+    - name: BikeFeatureTests
+      run: xcodebuild test -scheme BikeMapFeatureTests -project ${xcode_project} -destination "${xcode_simulator}" | xcpretty
+      
 #    - name: Swift Coverage Conversion
 #      run: tools/generate_lcov.sh
 #    - name: Codecov
