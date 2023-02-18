@@ -11,6 +11,7 @@
 		CD91290D28E5EA430056B9C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290C28E5EA430056B9C4 /* Assets.xcassets */; };
 		CD91291028E5EA430056B9C4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */; };
 		CDD782CB299FBAC8002EB9EB /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = CDD782CA299FBAC8002EB9EB /* AppFeature */; };
+		CDD782CD29A118FA002EB9EB /* EmptyTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDD782CC29A118FA002EB9EB /* EmptyTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		CD91290C28E5EA430056B9C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CDD782C9299F0743002EB9EB /* StolenBikeKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = StolenBikeKit; path = ../StolenBikeKit; sourceTree = "<group>"; };
+		CDD782CC29A118FA002EB9EB /* EmptyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmptyTest.swift; path = StolenBikeTests/EmptyTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,23 +57,14 @@
 		CD2DE5EF28ECB2CB00BE6F8D /* StolenBikeTests */ = {
 			isa = PBXGroup;
 			children = (
-				CD2DE5FF28ECE5B900BE6F8D /* Common */,
-				CDC9C0A929959E8D00770B1F /* App */,
-				CDC9C0A629959E1000770B1F /* BikeMap */,
 			);
 			path = StolenBikeTests;
-			sourceTree = "<group>";
-		};
-		CD2DE5FF28ECE5B900BE6F8D /* Common */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Common;
 			sourceTree = "<group>";
 		};
 		CD9128FC28E5EA400056B9C4 = {
 			isa = PBXGroup;
 			children = (
+				CDD782CC29A118FA002EB9EB /* EmptyTest.swift */,
 				CDD782C9299F0743002EB9EB /* StolenBikeKit */,
 				CD91290728E5EA400056B9C4 /* StolenBike */,
 				CD2DE5EF28ECB2CB00BE6F8D /* StolenBikeTests */,
@@ -113,20 +106,6 @@
 			children = (
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		CDC9C0A629959E1000770B1F /* BikeMap */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = BikeMap;
-			sourceTree = "<group>";
-		};
-		CDC9C0A929959E8D00770B1F /* App */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -183,7 +162,7 @@
 				TargetAttributes = {
 					CD2DE5ED28ECB2CB00BE6F8D = {
 						CreatedOnToolsVersion = 14.0.1;
-						LastSwiftMigration = 1400;
+						LastSwiftMigration = 1420;
 						TestTargetID = CD91290428E5EA400056B9C4;
 					};
 					CD91290428E5EA400056B9C4 = {
@@ -258,6 +237,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CDD782CD29A118FA002EB9EB /* EmptyTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
