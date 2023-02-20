@@ -32,7 +32,7 @@
 		CD91290C28E5EA430056B9C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CDD782C9299F0743002EB9EB /* StolenBikeKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = StolenBikeKit; path = ../StolenBikeKit; sourceTree = "<group>"; };
-		CDD782CC29A118FA002EB9EB /* EmptyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = EmptyTest.swift; path = StolenBikeTests/EmptyTest.swift; sourceTree = "<group>"; };
+		CDD782CC29A118FA002EB9EB /* EmptyTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +57,7 @@
 		CD2DE5EF28ECB2CB00BE6F8D /* StolenBikeTests */ = {
 			isa = PBXGroup;
 			children = (
+				CDD782CC29A118FA002EB9EB /* EmptyTest.swift */,
 			);
 			path = StolenBikeTests;
 			sourceTree = "<group>";
@@ -64,7 +65,6 @@
 		CD9128FC28E5EA400056B9C4 = {
 			isa = PBXGroup;
 			children = (
-				CDD782CC29A118FA002EB9EB /* EmptyTest.swift */,
 				CDD782C9299F0743002EB9EB /* StolenBikeKit */,
 				CD91290728E5EA400056B9C4 /* StolenBike */,
 				CD2DE5EF28ECB2CB00BE6F8D /* StolenBikeTests */,
