@@ -163,12 +163,13 @@ final class BikeMapTests: XCTestCase {
         await store.send(.fetch) {
             $0.isOutOfArea = false
             $0.isLoading = true
+            $0.bikes = []
         }
 
         // Assert
         await store.receive(.fetchResult(.success([]))) {
             $0.isLoading = false
-            $0.bikes = .stub
+            $0.bikes = []
         }
     }
 

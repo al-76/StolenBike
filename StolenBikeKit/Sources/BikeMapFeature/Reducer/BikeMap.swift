@@ -104,6 +104,7 @@ public struct BikeMap: ReducerProtocol {
                                       distance: Self.areaDistance)
 
         case .fetch:
+            state.bikes = []
             state.isOutOfArea = false
             return reduceFetch(state: &state)
 
@@ -119,9 +120,7 @@ public struct BikeMap: ReducerProtocol {
 
             state.bikes += bikes
             state.isLoading = true
-            return .run { send in
-                await send(.fetchMore)
-            }
+            return .task { .fetchMore }
 
         case let .fetchResult(.failure(error)):
             state.isLoading = false
