@@ -24,11 +24,7 @@ public struct BikeMapView: View {
     public var body: some View {
         WithViewStore(store) { viewStore in
             ZStack {
-                MapView(region: viewStore.binding(get: \.region,
-                                                  send: { .updateRegion($0) }),
-                        annotations: viewStore.bikes.compactMap { $0.pointAnnotation() },
-                        overlays: mapOverlays(viewStore.area))
-                .edgesIgnoringSafeArea(.top)
+                mapView(viewStore)
 
                 VStack {
                     Spacer()
@@ -69,6 +65,19 @@ public struct BikeMapView: View {
             .onChange(of: viewStore.area) { _ in
                 viewStore.send(.fetch)
             }
+        }
+    }
+
+    @ViewBuilder
+    private func mapView(_ viewStore: ViewStore<BikeMap.State, BikeMap.Action>) -> some View {
+        if _XCTIsTesting { // Snapshot testing doesn't work with maps
+            EmptyView()
+        } else {
+            MapView(region: viewStore.binding(get: \.region,
+                                                     send: { .updateRegion($0) }),
+                           annotations: viewStore.bikes.compactMap { $0.pointAnnotation() },
+                           overlays: mapOverlays(viewStore.area))
+            .edgesIgnoringSafeArea(.top)
         }
     }
 
