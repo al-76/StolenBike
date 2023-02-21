@@ -9,23 +9,23 @@ import Foundation
 
 import SharedModel
 
-extension BikeClient {
-    enum ClientError: Error {
-        case badUrl
-    }
+private enum BikeClientError: Error {
+    case badUrl
+}
 
-    private struct BikeResponse: Decodable {
+extension BikeClient {
+    struct Response: Decodable {
         let bikes: [Bike]
     }
 
     static var live = Self(fetch: { area, page in
         guard let url = getApiUrl(area, page) else {
-            throw ClientError.badUrl
+            throw BikeClientError.badUrl
         }
 
         let (data, _) = try await URLSession.shared.data(from: url)
         return try JSONDecoder()
-            .decode(BikeResponse.self, from: data)
+            .decode(Response.self, from: data)
             .bikes
     })
 

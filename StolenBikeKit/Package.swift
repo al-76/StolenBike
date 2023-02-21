@@ -13,6 +13,8 @@ let package = Package(
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture",
                  from: "0.50.0"),
+        .package(url: "https://github.com/pointfreeco/swift-snapshot-testing",
+                 from: "1.10.0"),
     ],
     targets: [
         // MARK: - Feature
@@ -57,6 +59,11 @@ let package = Package(
                     "SharedModel",
                     .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 ]),
+        .testTarget(name: "BikeClientTests",
+                    dependencies: [
+                        "BikeClient",
+                        .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+                    ]),
         // MARK: - Common
         .target(name: "MapView",
                 dependencies: []),

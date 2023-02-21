@@ -62,6 +62,17 @@
                ReferencedContainer = "container:../StolenBikeKit">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "BikeClientTests"
+               BuildableName = "BikeClientTests"
+               BlueprintName = "BikeClientTests"
+               ReferencedContainer = "container:../StolenBikeKit">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
