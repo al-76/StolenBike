@@ -75,9 +75,9 @@ public struct BikeMap: ReducerProtocol {
 
         case .getLocation:
             state.locationError = nil
-            return .run { @MainActor send in
+            return .run { send in
                 for try await location in locationClient.get() {
-                    send(.getLocationResult(.success(location)))
+                    await send(.getLocationResult(.success(location)))
                 }
             } catch: { error, send in
                 await send(.getLocationResult(.failure(error)))

@@ -10,42 +10,51 @@ import CoreLocation
 import SharedModel
 
 extension LocationClient {
-    static var live: Self {
-        return Self(get: {
-            return AsyncThrowingStream { continuation in
-                let locationManager = LocationManager()
-                locationManager.onGetLocation = {
-                    continuation.yield(with: $0)
+    static var live = Self(get: {
+        AsyncThrowingStream { continuation in
+            Task {
+                await MainActor.run {
+                    let locationManager = LocationManager() {
+                        continuation.yield(with: $0)
+                    }
+                    continuation.onTermination = { @Sendable _ in
+                        locationManager.stop()
+                    }
+                    locationManager.start()
                 }
-                continuation.onTermination = { @Sendable _ in
-                    locationManager.stop()
-                }
-                locationManager.start()
             }
-        })
-    }
+        }
+    })
+}
+
+private enum LocationManagerError: Error {
+    case serviceIsNotAvailable
+    case noLocation
 }
 
 private final class LocationManager: NSObject {
     typealias OnGetLocation = (Result<Location, Error>) -> Void
 
-    enum LocationManagerError: Error {
-        case serviceIsNotAvailable
-        case noLocation
+    private let locationManager = CLLocationManager()
+    private let onGetLocation: OnGetLocation
+
+    init(onGetLocation: @escaping OnGetLocation) {
+        self.onGetLocation = onGetLocation
+        super.init()
+
+        locationManager.delegate = self
     }
 
-    private let locationManager = CLLocationManager()
-
-    var onGetLocation: OnGetLocation?
-
     func start() {
-        locationManager.delegate = self
-        locationManager.startUpdatingLocation()
+        if locationManager.authorizationStatus == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+        } else {
+            locationManager.startUpdatingLocation()
+        }
     }
 
     func stop() {
         locationManager.stopUpdatingLocation()
-        locationManager.delegate = nil
     }
 }
 
@@ -53,11 +62,11 @@ extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else {
-            onGetLocation?(.failure(LocationManagerError.noLocation))
+            onGetLocation(.failure(LocationManagerError.noLocation))
             return
         }
 
-        onGetLocation?(.success(Location(latitude:
+        onGetLocation(.success(Location(latitude:
                                             location.coordinate.latitude,
                                          longitude:
                                             location.coordinate.longitude)))
@@ -65,7 +74,7 @@ extension LocationManager: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
-        onGetLocation?(.failure(error))
+        onGetLocation(.failure(error))
     }
 
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -75,7 +84,7 @@ extension LocationManager: CLLocationManagerDelegate {
 
         case .restricted, .denied:
             print(manager.authorizationStatus.customDumpDescription)
-            onGetLocation?(.failure(LocationManagerError.serviceIsNotAvailable))
+            onGetLocation(.failure(LocationManagerError.serviceIsNotAvailable))
 
         case .notDetermined:
             manager.requestWhenInUseAuthorization()
@@ -86,7 +95,7 @@ extension LocationManager: CLLocationManagerDelegate {
     }
 }
 
-extension LocationManager.LocationManagerError: LocalizedError {
+extension LocationManagerError: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .serviceIsNotAvailable:
