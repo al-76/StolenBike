@@ -7,10 +7,10 @@
 
 public struct LocationArea: Equatable {
     public let location: Location
-    public let distance: Double // meters
+    public let radius: Double // meters
 
     public init(location: Location, distance: Double) {
         self.location = location
-        self.distance = distance
+        self.radius = distance
     }
 }

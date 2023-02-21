@@ -31,7 +31,7 @@ extension BikeClient {
 
     private static func getApiUrl(_ area: LocationArea, _ page: Int) -> URL? {
         var components = URLComponents(string: "https://bikeindex.org:443/api/v3/search")
-        let distance = max(area.distanceMiles() / 2, 1.0)
+        let distance = max(area.radiusMiles() / 2, 1.0)
         components?.queryItems = [
             URLQueryItem(name: "location", value: "\(area.location.latitude),\(area.location.longitude)"),
             URLQueryItem(name: "distance", value: "\(distance)"),
@@ -44,8 +44,8 @@ extension BikeClient {
 }
 
 private extension LocationArea {
-    func distanceMiles() -> Double {
-        distance / 1609.34
+    func radiusMiles() -> Double {
+        radius / 1609.34
     }
 }
 

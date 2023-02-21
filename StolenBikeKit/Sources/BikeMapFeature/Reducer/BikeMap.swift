@@ -162,6 +162,6 @@ private extension CLLocation {
     }
 
     func isOutOf(area: LocationArea) -> Bool {
-        distance(from: CLLocation(area.location)) > area.distance
+        distance(from: CLLocation(area.location)) > area.radius
     }
 }

@@ -111,7 +111,7 @@ private final class AreaCircle: MKCircle, MapOverlay {
 
     convenience init(area: LocationArea) {
         self.init(center: area.location.coordinates(),
-                  radius: area.distance)
+                  radius: area.radius)
     }
 }
 
