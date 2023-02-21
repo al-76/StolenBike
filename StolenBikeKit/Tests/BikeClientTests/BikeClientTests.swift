@@ -14,10 +14,6 @@ import SharedModel
 @testable import BikeClient
 
 final class BikeClientTests: XCTestCase {
-    override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-    }
-
     func testDecode() throws {
         // Arrange
         let data = Data("""
@@ -61,7 +57,11 @@ final class BikeClientTests: XCTestCase {
         XCTAssertEqual(bikes, expectedBikes)
     }
 
-    func testModelHasntChanged() throws {
-        assertSnapshot(matching: [Bike].stub, as: .dump)
+    func testSnapshotModel() throws {
+        // Arrange
+        let data = [Bike].stub
+
+        // Assert
+        assertSnapshot(matching: data, as: .dump)
     }
 }
