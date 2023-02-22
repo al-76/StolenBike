@@ -13,6 +13,7 @@ import SwiftUI
 import BikeClient
 import MapView
 import SharedModel
+import Utils
 
 public struct BikeMapView: View {
     private let store: StoreOf<BikeMap>
@@ -27,6 +28,8 @@ public struct BikeMapView: View {
                 mapView(viewStore)
 
                 VStack {
+                    errorView(viewStore)
+
                     Spacer()
                     if viewStore.isLoading {
                         ProgressView("Loading...")
@@ -53,12 +56,6 @@ public struct BikeMapView: View {
                     .padding()
                 }
             }
-            .alert(error: viewStore.locationError) {
-                viewStore.send(.getLocation)
-            }
-            .alert(error: viewStore.fetchError) {
-                viewStore.send(.fetch)
-            }
             .onAppear {
                 viewStore.send(.getLocation)
             }
@@ -78,6 +75,24 @@ public struct BikeMapView: View {
                            annotations: viewStore.bikes.compactMap { $0.pointAnnotation() },
                            overlays: mapOverlays(viewStore.area))
             .edgesIgnoringSafeArea(.top)
+        }
+    }
+
+    private func errorView(_ viewStore: ViewStore<BikeMap.State, BikeMap.Action>) -> some View {
+        VStack {
+            if let error = viewStore.locationError?.error {
+                ErrorView(title: "Location error",
+                          error: error) {
+                    viewStore.send(.getLocation)
+                }
+            }
+
+            if let error = viewStore.fetchError?.error {
+                ErrorView(title: "Fetch error",
+                          error: error) {
+                    viewStore.send(.fetch)
+                }
+            }
         }
     }
 

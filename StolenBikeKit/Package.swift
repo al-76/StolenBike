@@ -42,6 +42,7 @@ let package = Package(
                     dependencies: [
                         "BikeMapFeature",
                         "TestUtils",
+                        .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
                     ]),
         .target(name: "RegisterBikeFeature",
                 dependencies: [
