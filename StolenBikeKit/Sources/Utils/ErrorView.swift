@@ -11,6 +11,7 @@ public struct ErrorView: View {
     private let title: String
     private let error: Error
     private let onTryAgain: (() -> Void)?
+
     @State private var isShown = true
 
     public init(title: String,
@@ -37,16 +38,12 @@ public struct ErrorView: View {
                         Button("Try again") {
                             withAnimation(.easeInOut) {
                                 onTryAgain()
-                                withAnimation {
-                                    isShown = false
-                                }
+                                isShown = false
                             }
                         }
                     } else {
                         Button("Try again later") {
-                            withAnimation {
-                                isShown = false
-                            }
+                            isShown = false
                         }
                     }
                 }
@@ -57,10 +54,11 @@ public struct ErrorView: View {
                 .padding()
                 .transition(.asymmetric(
                     insertion: .move(edge: .top).combined(with: .opacity),
-                    removal: .move(edge: .bottom).combined(with: .opacity)
+                    removal: .move(edge: .top).combined(with: .opacity)
                 ))
             }
         }
+        .animation(.default, value: isShown)
     }
 }
 
