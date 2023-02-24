@@ -25,7 +25,7 @@ public struct ErrorView: View {
     public var body: some View {
         VStack {
             if isShown {
-                VStack {
+                VStack(alignment: .leading) {
                     VStack(alignment: .leading) {
                         Text(title)
                             .font(.title2)
@@ -33,17 +33,19 @@ public struct ErrorView: View {
                         Text(error.localizedDescription)
                     }
 
-                    Divider()
-                    if let onTryAgain {
-                        Button("Try again") {
-                            withAnimation(.easeInOut) {
-                                onTryAgain()
+                    VStack(alignment: .center) {
+                        Divider()
+                        if let onTryAgain {
+                            Button("Try again") {
+                                withAnimation(.easeInOut) {
+                                    onTryAgain()
+                                    isShown = false
+                                }
+                            }
+                        } else {
+                            Button("Try again later") {
                                 isShown = false
                             }
-                        }
-                    } else {
-                        Button("Try again later") {
-                            isShown = false
                         }
                     }
                 }
