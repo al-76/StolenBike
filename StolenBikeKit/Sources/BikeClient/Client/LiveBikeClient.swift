@@ -18,8 +18,8 @@ extension BikeClient {
         let bikes: [Bike]
     }
 
-    static var live = Self(fetch: { area, page in
-        guard let url = getApiUrl(area, page) else {
+    static var live = Self(fetch: { area, page, query in
+        guard let url = getApiUrl(area, page, query) else {
             throw BikeClientError.badUrl
         }
 
@@ -29,7 +29,9 @@ extension BikeClient {
             .bikes
     })
 
-    private static func getApiUrl(_ area: LocationArea, _ page: Int) -> URL? {
+    private static func getApiUrl(_ area: LocationArea,
+                                  _ page: Int,
+                                  _ query: String) -> URL? {
         var components = URLComponents(string: "https://bikeindex.org:443/api/v3/search")
         let distance = max(area.radiusMiles() / 2, 1.0)
         components?.queryItems = [
@@ -37,8 +39,10 @@ extension BikeClient {
             URLQueryItem(name: "distance", value: "\(distance)"),
             URLQueryItem(name: "page", value: "\(page)"),
             URLQueryItem(name: "per_page", value: "100"),
-            URLQueryItem(name: "stolenness", value: "proximity")
+            URLQueryItem(name: "stolenness", value: "proximity"),
+            URLQueryItem(name: "query", value: query)
         ]
+        print(components?.url)
         return components?.url
     }
 }

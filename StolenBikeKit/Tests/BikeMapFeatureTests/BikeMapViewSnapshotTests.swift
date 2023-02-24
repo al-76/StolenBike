@@ -77,4 +77,15 @@ final class BikeMapViewSnapshotTests: XCTestCase {
         // Assert
         assertSnapshot(matching: view, as: .image(layout: layout))
     }
+
+    func testQuery() throws {
+        // Arrange
+        let view = BikeMapView(
+            store: .init(initialState: .init(query: "test"),
+                         reducer: EmptyReducer())
+        )
+
+        // Assert
+        assertSnapshot(matching: view, as: .image(layout: layout))
+    }
 }

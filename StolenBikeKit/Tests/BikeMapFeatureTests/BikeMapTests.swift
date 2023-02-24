@@ -65,6 +65,16 @@ final class BikeMapTests: XCTestCase {
         await store.send(.updateRegion(region))
     }
 
+    func testUpdateQuery() async {
+        // Arrange
+        let query = "test"
+
+        // Act, Assert
+        await store.send(.updateQuery(query)) {
+            $0.query = query
+        }
+    }
+
     func testGetLocation() async {
         // Arrange
         store.dependencies.locationClient.get = { Answer.streamSuccess([.stub]) }
@@ -135,7 +145,7 @@ final class BikeMapTests: XCTestCase {
         // Arrange
         store = TestStore(initialState: .init(area: .stub),
                           reducer: BikeMap())
-        store.dependencies.bikeClient.fetch = { @Sendable _, _ in .stub }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in .stub }
 
         // Act
         await store.send(.fetch) {
@@ -157,7 +167,7 @@ final class BikeMapTests: XCTestCase {
         store = TestStore(initialState: .init(area: .stub,
                                               bikes: .stub),
                           reducer: BikeMap())
-        store.dependencies.bikeClient.fetch = { @Sendable _, _ in [] }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in [] }
 
         // Act
         await store.send(.fetch) {
@@ -191,7 +201,7 @@ final class BikeMapTests: XCTestCase {
         // Arrange
         store = TestStore(initialState: .init(area: .stub),
                           reducer: BikeMap())
-        store.dependencies.bikeClient.fetch = { @Sendable _, _ in throw TestError.someError }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in throw TestError.someError }
 
         // Act
         await store.send(.fetch) {
@@ -213,7 +223,7 @@ final class BikeMapTests: XCTestCase {
         store = TestStore(initialState: .init(area: .stub,
                                               page: testPage),
                           reducer: BikeMap())
-        store.dependencies.bikeClient.fetch = { @Sendable _, _ in throw TestError.someError }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in throw TestError.someError }
 
         // Act
         await store.send(.fetchMore) {

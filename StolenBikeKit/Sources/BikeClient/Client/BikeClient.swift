@@ -10,6 +10,7 @@ import SharedModel
 public struct BikeClient {
     public var fetch: @Sendable (
         /* area */ LocationArea,
-        /* page */ Int
+        /* page */ Int,
+        /* query */ String
     ) async throws -> [Bike]
 }

@@ -25,6 +25,7 @@ public struct BikeMap: ReducerProtocol {
         var page: Int
         var isLoading: Bool
         var isOutOfArea: Bool
+        var query: String
         var fetchError: StateError?
         var locationError: StateError?
 
@@ -34,6 +35,7 @@ public struct BikeMap: ReducerProtocol {
                     page: Int = 1,
                     isLoading: Bool = false,
                     isOutOfArea: Bool = false,
+                    query: String = "",
                     fetchError: StateError? = nil,
                     locationError: StateError? = nil) {
             self.region = region
@@ -42,6 +44,7 @@ public struct BikeMap: ReducerProtocol {
             self.page = page
             self.isLoading = isLoading
             self.isOutOfArea = isOutOfArea
+            self.query = query
             self.fetchError = fetchError
             self.locationError = locationError
         }
@@ -49,6 +52,7 @@ public struct BikeMap: ReducerProtocol {
 
     public enum Action: Equatable {
         case updateRegion(MKCoordinateRegion?)
+        case updateQuery(String)
 
         case getLocation
         case getLocationResult(TaskResult<Location>)
@@ -72,6 +76,9 @@ public struct BikeMap: ReducerProtocol {
 
             state.region = region
             state.isOutOfArea = CLLocation(region.center).isOutOf(area: area)
+
+        case let .updateQuery(query):
+            state.query = query
 
         case .getLocation:
             state.locationError = nil
@@ -142,9 +149,9 @@ public struct BikeMap: ReducerProtocol {
         state.page = page
         state.fetchError = nil
 
-        return .task { [page = state.page] in
+        return .task { [page = state.page, query = state.query] in
             await .fetchResult(TaskResult {
-                try await bikeClient.fetch(area, page)
+                try await bikeClient.fetch(area, page, query)
             })
         }
     }

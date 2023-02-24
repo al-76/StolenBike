@@ -28,6 +28,16 @@ public struct BikeMapView: View {
                 mapView(viewStore)
 
                 VStack {
+                    HStack {
+                        Image(systemName: "magnifyingglass")
+                        TextField("Type something to filter...",
+                                  text: viewStore
+                            .binding(get: \.query,
+                                     send: { .updateQuery($0) }))
+                    }
+                    .mapElement(opacity: 0.95)
+                    .padding()
+
                     errorView(viewStore)
 
                     Spacer()
@@ -61,6 +71,12 @@ public struct BikeMapView: View {
             }
             .onChange(of: viewStore.area) { _ in
                 viewStore.send(.fetch)
+            }
+            .task(id: viewStore.query) {
+                do {
+                    try await Task.sleep(nanoseconds: NSEC_PER_SEC / 2)
+                    viewStore.send(.fetch)
+                } catch { }
             }
         }
     }

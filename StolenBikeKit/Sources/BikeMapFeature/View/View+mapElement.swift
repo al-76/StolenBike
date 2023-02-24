@@ -8,17 +8,19 @@
 import SwiftUI
 
 struct MapElement: ViewModifier {
+    let opacity: Double
+
     func body(content: Content) -> some View {
         content
             .padding()
             .background(.white)
-            .opacity(0.9)
+            .opacity(opacity)
             .cornerRadius(8)
     }
 }
 
 extension View {
-    func mapElement() -> some View {
-        modifier(MapElement())
+    func mapElement(opacity: Double = 0.9) -> some View {
+        modifier(MapElement(opacity: opacity))
     }
 }
