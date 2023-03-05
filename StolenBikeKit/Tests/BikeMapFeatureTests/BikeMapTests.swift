@@ -188,13 +188,18 @@ final class BikeMapTests: XCTestCase {
         store = TestStore(initialState: .init(area: .stub,
                                               page: BikeMap.maxPages),
                           reducer: BikeMap())
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in .stub }
 
-        // Act, Assert
-        await store.send(.fetchMore)
-    }
+        // Act
+        await store.send(.fetchMore) {
+            $0.isLoading = true
+            $0.page = BikeMap.maxPages + 1
+        }
 
-    func testFetchSkipNilArea() async {
-        await store.send(.fetch)
+        // Assert
+        await store.receive(.fetchResult(.success(.stub))) {
+            $0.isLoading = false
+        }
     }
 
     func testFetchError() async {
@@ -238,5 +243,29 @@ final class BikeMapTests: XCTestCase {
             $0.page = testPage
             $0.fetchError = StateError(error: TestError.someError)
         }
+    }
+
+    func testSettingsGlobalSearchIsTrue() async {
+        // Arrange
+        store = TestStore(initialState: .init(area: .stub),
+                          reducer: BikeMap())
+
+        // Act, Assert
+        await store.send(.settings(.updateIsGlobalSearch(true))) {
+            $0.area = nil
+            $0.settings = .init(isGlobalSearch: true)
+        }
+    }
+
+    func testSettingsGlobalSearchIsFalse() async {
+        // Arrange
+        store = TestStore(initialState: .init(),
+                          reducer: BikeMap())
+
+        // Act
+        await store.send(.settings(.updateIsGlobalSearch(false)))
+
+        // Assert
+        await store.receive(.getLocation)
     }
 }

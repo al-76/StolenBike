@@ -29,19 +29,24 @@ extension BikeClient {
             .bikes
     })
 
-    private static func getApiUrl(_ area: LocationArea,
+    private static func getApiUrl(_ area: LocationArea?,
                                   _ page: Int,
                                   _ query: String) -> URL? {
         var components = URLComponents(string: "https://bikeindex.org:443/api/v3/search")
-        let distance = max(area.radiusMiles() / 2, 1.0)
         components?.queryItems = [
-            URLQueryItem(name: "location", value: "\(area.location.latitude),\(area.location.longitude)"),
-            URLQueryItem(name: "distance", value: "\(distance)"),
             URLQueryItem(name: "page", value: "\(page)"),
             URLQueryItem(name: "per_page", value: "100"),
-            URLQueryItem(name: "stolenness", value: "proximity"),
             URLQueryItem(name: "query", value: query)
         ]
+
+        if let area {
+            let distance = max(area.radiusMiles() / 2, 1.0)
+            components?.queryItems?.append(contentsOf: [
+                URLQueryItem(name: "location", value: "\(area.location.latitude),\(area.location.longitude)"),
+                URLQueryItem(name: "distance", value: "\(distance)"),
+                URLQueryItem(name: "stolenness", value: "proximity"),
+            ])
+        }
         print(components?.url)
         return components?.url
     }

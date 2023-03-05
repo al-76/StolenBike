@@ -17,6 +17,7 @@ import Utils
 
 public struct BikeMapView: View {
     private let store: StoreOf<BikeMap>
+    @State private var showSettings = false
 
     public init(store: StoreOf<BikeMap>) {
         self.store = store
@@ -29,11 +30,15 @@ public struct BikeMapView: View {
 
                 VStack {
                     HStack {
-                        Image(systemName: "magnifyingglass")
+                        Image(systemName: "slider.horizontal.3")
+                            .onTapGesture {
+                                showSettings.toggle()
+                            }
                         TextField("Type something to filter...",
-                                  text: viewStore
-                            .binding(get: \.query,
-                                     send: { .updateQuery($0) }))
+                                  text: viewStore.binding(
+                                    get: \.query,
+                                    send: { .updateQuery($0) }
+                                  ))
                     }
                     .mapElement(opacity: 0.95)
                     .padding()
@@ -76,7 +81,15 @@ public struct BikeMapView: View {
                 do {
                     try await Task.sleep(nanoseconds: NSEC_PER_SEC / 2)
                     viewStore.send(.fetch)
-                } catch { }
+                } catch {
+                    // TODO: Handle an error
+                }
+            }
+            .sheet(isPresented: $showSettings) {
+                BikeMapSettingsView(store: store.scope(
+                    state: \.settings,
+                    action: BikeMap.Action.settings
+                ))
             }
         }
     }
@@ -86,10 +99,13 @@ public struct BikeMapView: View {
         if _XCTIsTesting { // Snapshot testing doesn't work with maps
             EmptyView()
         } else {
-            MapView(region: viewStore.binding(get: \.region,
-                                                     send: { .updateRegion($0) }),
-                           annotations: viewStore.bikes.compactMap { $0.pointAnnotation() },
-                           overlays: mapOverlays(viewStore.area))
+            MapView(region: viewStore.binding(
+                get: \.region,
+                send: { .updateRegion($0) }
+            ),
+                    annotations: viewStore.bikes
+                .compactMap { $0.pointAnnotation() },
+                    overlays: mapOverlays(viewStore.area))
             .edgesIgnoringSafeArea(.top)
         }
     }

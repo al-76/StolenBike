@@ -14,7 +14,7 @@ import TestUtils
 
 @testable import BikeMapFeature
 
-final class BikeMapViewSnapshotTests: XCTestCase {
+final class BikeMapViewTests: XCTestCase {
     private let layout: SwiftUISnapshotLayout = .device(config: .iPhone13Pro)
 
     override func setUp() {

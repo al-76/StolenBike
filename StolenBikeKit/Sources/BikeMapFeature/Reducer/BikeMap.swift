@@ -29,6 +29,8 @@ public struct BikeMap: ReducerProtocol {
         var fetchError: StateError?
         var locationError: StateError?
 
+        var settings: BikeMapSettings.State
+
         public init(region: MKCoordinateRegion? = nil,
                     area: LocationArea? = nil,
                     bikes: [Bike] = [],
@@ -37,7 +39,8 @@ public struct BikeMap: ReducerProtocol {
                     isOutOfArea: Bool = false,
                     query: String = "",
                     fetchError: StateError? = nil,
-                    locationError: StateError? = nil) {
+                    locationError: StateError? = nil,
+                    settings: BikeMapSettings.State = .init()) {
             self.region = region
             self.area = area
             self.bikes = bikes
@@ -47,6 +50,7 @@ public struct BikeMap: ReducerProtocol {
             self.query = query
             self.fetchError = fetchError
             self.locationError = locationError
+            self.settings = settings
         }
     }
 
@@ -62,6 +66,8 @@ public struct BikeMap: ReducerProtocol {
         case fetch
         case fetchMore
         case fetchResult(TaskResult<[Bike]>)
+
+        case settings(BikeMapSettings.Action)
     }
 
     @Dependency(\.locationClient) var locationClient
@@ -69,87 +75,99 @@ public struct BikeMap: ReducerProtocol {
 
     public init() {}
 
-    public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-        switch action {
-        case let .updateRegion(region):
-            guard let region, let area = state.area else { break }
-
-            state.region = region
-            state.isOutOfArea = CLLocation(region.center).isOutOf(area: area)
-
-        case let .updateQuery(query):
-            state.query = query
-
-        case .getLocation:
-            state.locationError = nil
-            return .run { send in
-                for try await location in locationClient.get() {
-                    await send(.getLocationResult(.success(location)))
-                }
-            } catch: { error, send in
-                await send(.getLocationResult(.failure(error)))
-            }
-
-        case let .getLocationResult(.success(location)):
-            if state.region == nil {
-                state.region = MKCoordinateRegion(center: location.coordinates(),
-                                                  latitudinalMeters: Self.areaDistance / 2,
-                                                  longitudinalMeters: Self.areaDistance / 2)
-            } else {
-                state.region?.center = location.coordinates()
-            }
-            state.area = LocationArea(location: location,
-                                      distance: Self.areaDistance)
-
-        case let .getLocationResult(.failure(error)):
-            state.locationError = StateError(error: error)
-
-        case .changeArea:
-            guard let region = state.region else { break }
-
-            state.area = LocationArea(location: Location(region.center),
-                                      distance: Self.areaDistance)
-
-        case .fetch:
-            state.bikes = []
-            state.isOutOfArea = false
-            return reduceFetch(state: &state)
-
-        case .fetchMore:
-            return reduceFetch(state: &state, pageIncrement: 1)
-
-        case let .fetchResult(.success(bikes)):
-            state.isLoading = false
-            guard state.bikes.last != bikes.last,
-                  !bikes.isEmpty else {
-                break
-            }
-
-            state.bikes += bikes
-            state.isLoading = true
-            return .task { .fetchMore }
-
-        case let .fetchResult(.failure(error)):
-            state.isLoading = false
-            state.page = max(1, state.page - 1)
-            state.fetchError = StateError(error: error)
+    public var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.settings, action: /Action.settings) {
+            BikeMapSettings()
         }
 
-        return .none
+        Reduce { state, action in
+            switch action {
+            case let .updateRegion(region):
+                guard let region, let area = state.area else { break }
+
+                state.region = region
+                state.isOutOfArea = CLLocation(region.center).isOutOf(area: area)
+
+            case let .updateQuery(query):
+                state.query = query
+
+            case .getLocation:
+                state.locationError = nil
+                return .run { send in
+                    for try await location in locationClient.get() {
+                        await send(.getLocationResult(.success(location)))
+                    }
+                } catch: { error, send in
+                    await send(.getLocationResult(.failure(error)))
+                }
+
+            case let .getLocationResult(.success(location)):
+                if state.region == nil {
+                    state.region = MKCoordinateRegion(center: location.coordinates(),
+                                                      latitudinalMeters: Self.areaDistance / 2,
+                                                      longitudinalMeters: Self.areaDistance / 2)
+                } else {
+                    state.region?.center = location.coordinates()
+                }
+                state.area = LocationArea(location: location,
+                                          distance: Self.areaDistance)
+
+            case let .getLocationResult(.failure(error)):
+                state.locationError = StateError(error: error)
+
+            case .changeArea:
+                guard let region = state.region else { break }
+
+                state.area = LocationArea(location: Location(region.center),
+                                          distance: Self.areaDistance)
+
+            case .fetch:
+                state.bikes = []
+                state.isOutOfArea = false
+                return reduceFetch(state: &state)
+
+            case .fetchMore:
+                return reduceFetch(state: &state, pageIncrement: 1)
+
+            case let .fetchResult(.success(bikes)):
+                state.isLoading = false
+                guard state.bikes.last != bikes.last,
+                      !bikes.isEmpty,
+                      state.page < Self.maxPages else {
+                    break
+                }
+
+                state.bikes += bikes
+                state.isLoading = true
+                return .task { .fetchMore }
+
+            case let .fetchResult(.failure(error)):
+                state.isLoading = false
+                state.page = max(1, state.page - 1)
+                state.fetchError = StateError(error: error)
+
+            case let .settings(.updateIsGlobalSearch(value)):
+                if value {
+                    state.area = nil
+                } else {
+                    return .task { .getLocation }
+                }
+            }
+
+            return .none
+        }
     }
 
     private func reduceFetch(state: inout State, pageIncrement: Int = 0) -> EffectTask<Action> {
         let page = (pageIncrement == 0 ? 1 : state.page + 1)
-        guard let area = state.area,
-              page < Self.maxPages else {
-            return .none
-        }
 
         state.isLoading = true
         state.page = page
         state.fetchError = nil
 
-        return .task { [page = state.page, query = state.query] in
+        return .task { [area = state.area,
+                        page = state.page,
+                        query = state.query] in
             await .fetchResult(TaskResult {
                 try await bikeClient.fetch(area, page, query)
             })

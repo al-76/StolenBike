@@ -1,8 +1,8 @@
 //
-//  AppViewSnapshotTests.swift
+//  BikeMapSettingsViewTests.swift
 //  
 //
-//  Created by Vyacheslav Konopkin on 21.02.2023.
+//  Created by Vyacheslav Konopkin on 06.03.2023.
 //
 
 import ComposableArchitecture
@@ -10,15 +10,21 @@ import SnapshotTesting
 import SwiftUI
 import XCTest
 
-@testable import AppFeature
+import TestUtils
 
-final class AppViewSnapshotTests: XCTestCase {
+@testable import BikeMapFeature
+
+final class BikeMapSettingsViewTests: XCTestCase {
     private let layout: SwiftUISnapshotLayout = .device(config: .iPhone13Pro)
 
-    func testBikeMap() {
+    override func setUp() {
+//        isRecording = true
+    }
+
+    func testGeneral() throws {
         // Arrange
-        let view = AppView(
-            store: .init(initialState: .init(tab: .bikeMap),
+        let view = BikeMapSettingsView(
+            store: .init(initialState: .init(),
                          reducer: EmptyReducer())
         )
 
@@ -26,10 +32,10 @@ final class AppViewSnapshotTests: XCTestCase {
         assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testRegisterBike() {
+    func testIsGlobalSearch() throws {
         // Arrange
-        let view = AppView(
-            store: .init(initialState: .init(tab: .registerBike),
+        let view = BikeMapSettingsView(
+            store: .init(initialState: .init(isGlobalSearch: true),
                          reducer: EmptyReducer())
         )
 
