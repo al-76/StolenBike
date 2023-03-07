@@ -13,4 +13,9 @@ public struct BikeClient {
         /* page */ Int,
         /* query */ String
     ) async throws -> [Bike]
+
+    public var fetchCount: @Sendable (
+        /* area */ LocationArea?,
+        /* query */ String
+    ) async throws -> Int
 }

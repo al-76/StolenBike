@@ -62,13 +62,25 @@ public struct BikeMapView: View {
                     }
 
                     Spacer()
-                    LocationButton {
-                        viewStore.send(.getLocation)
+                    HStack {
+                        Button {
+
+                        } label: {
+                            Image(systemName: "list.bullet.rectangle")
+                        }
+                        .mapElement()
+                        .badge(count: viewStore.fetchCount)
+                        .padding()
+
+                        LocationButton {
+                            viewStore.send(.getLocation)
+                        }
+                        .symbolVariant(.fill)
+                        .cornerRadius(8.0)
+                        .foregroundColor(.white)
+                        .padding()
+                        Spacer()
                     }
-                    .symbolVariant(.fill)
-                    .cornerRadius(8.0)
-                    .foregroundColor(.white)
-                    .padding()
                 }
             }
             .onAppear {

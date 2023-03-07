@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CD16197B29B61C5F00DFB863 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD16197A29B61C5F00DFB863 /* Assets.xcassets */; };
+		CD16197E29B61C5F00DFB863 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD16197D29B61C5F00DFB863 /* Preview Assets.xcassets */; };
+		CD16198329B61CA300DFB863 /* BikeMapFeaturePreviewApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD16198229B61CA300DFB863 /* BikeMapFeaturePreviewApp.swift */; };
+		CD16198529B61F6900DFB863 /* BikeMapFeature in Frameworks */ = {isa = PBXBuildFile; productRef = CD16198429B61F6900DFB863 /* BikeMapFeature */; };
 		CD91290928E5EA400056B9C4 /* StolenBikeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD91290828E5EA400056B9C4 /* StolenBikeApp.swift */; };
 		CD91290D28E5EA430056B9C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290C28E5EA430056B9C4 /* Assets.xcassets */; };
 		CD91291028E5EA430056B9C4 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD91290F28E5EA430056B9C4 /* Preview Assets.xcassets */; };
@@ -25,6 +29,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		CD16197429B61C5E00DFB863 /* BikeMapFeaturePreview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BikeMapFeaturePreview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD16197A29B61C5F00DFB863 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CD16197D29B61C5F00DFB863 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		CD16198229B61CA300DFB863 /* BikeMapFeaturePreviewApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMapFeaturePreviewApp.swift; sourceTree = "<group>"; };
 		CD2DE5EE28ECB2CB00BE6F8D /* StolenBikeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StolenBikeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD4F2CC728EF31AC007444DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CD91290528E5EA400056B9C4 /* StolenBike.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StolenBike.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -36,6 +44,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		CD16197129B61C5E00DFB863 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD16198529B61F6900DFB863 /* BikeMapFeature in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD2DE5EB28ECB2CB00BE6F8D /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -54,6 +70,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CD16197529B61C5E00DFB863 /* BikeMapFeaturePreview */ = {
+			isa = PBXGroup;
+			children = (
+				CD16198229B61CA300DFB863 /* BikeMapFeaturePreviewApp.swift */,
+				CD16197A29B61C5F00DFB863 /* Assets.xcassets */,
+				CD16197C29B61C5F00DFB863 /* Preview Content */,
+			);
+			path = BikeMapFeaturePreview;
+			sourceTree = "<group>";
+		};
+		CD16197C29B61C5F00DFB863 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				CD16197D29B61C5F00DFB863 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		CD2DE5EF28ECB2CB00BE6F8D /* StolenBikeTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -68,6 +102,7 @@
 				CDD782C9299F0743002EB9EB /* StolenBikeKit */,
 				CD91290728E5EA400056B9C4 /* StolenBike */,
 				CD2DE5EF28ECB2CB00BE6F8D /* StolenBikeTests */,
+				CD16197529B61C5E00DFB863 /* BikeMapFeaturePreview */,
 				CD91290628E5EA400056B9C4 /* Products */,
 				CDBEFE34299E6A4400BA48A1 /* Frameworks */,
 			);
@@ -78,6 +113,7 @@
 			children = (
 				CD91290528E5EA400056B9C4 /* StolenBike.app */,
 				CD2DE5EE28ECB2CB00BE6F8D /* StolenBikeTests.xctest */,
+				CD16197429B61C5E00DFB863 /* BikeMapFeaturePreview.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -111,6 +147,26 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		CD16197329B61C5E00DFB863 /* BikeMapFeaturePreview */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CD16197F29B61C5F00DFB863 /* Build configuration list for PBXNativeTarget "BikeMapFeaturePreview" */;
+			buildPhases = (
+				CD16197029B61C5E00DFB863 /* Sources */,
+				CD16197129B61C5E00DFB863 /* Frameworks */,
+				CD16197229B61C5E00DFB863 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BikeMapFeaturePreview;
+			packageProductDependencies = (
+				CD16198429B61F6900DFB863 /* BikeMapFeature */,
+			);
+			productName = BikeMapFeaturePreview;
+			productReference = CD16197429B61C5E00DFB863 /* BikeMapFeaturePreview.app */;
+			productType = "com.apple.product-type.application";
+		};
 		CD2DE5ED28ECB2CB00BE6F8D /* StolenBikeTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = CD2DE5F628ECB2CB00BE6F8D /* Build configuration list for PBXNativeTarget "StolenBikeTests" */;
@@ -157,9 +213,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1400;
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					CD16197329B61C5E00DFB863 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					CD2DE5ED28ECB2CB00BE6F8D = {
 						CreatedOnToolsVersion = 14.0.1;
 						LastSwiftMigration = 1420;
@@ -187,11 +246,21 @@
 			targets = (
 				CD91290428E5EA400056B9C4 /* StolenBike */,
 				CD2DE5ED28ECB2CB00BE6F8D /* StolenBikeTests */,
+				CD16197329B61C5E00DFB863 /* BikeMapFeaturePreview */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		CD16197229B61C5E00DFB863 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD16197E29B61C5F00DFB863 /* Preview Assets.xcassets in Resources */,
+				CD16197B29B61C5F00DFB863 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD2DE5EC28ECB2CB00BE6F8D /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -233,6 +302,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		CD16197029B61C5E00DFB863 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CD16198329B61CA300DFB863 /* BikeMapFeaturePreviewApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CD2DE5EA28ECB2CB00BE6F8D /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -260,6 +337,68 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		CD16198029B61C5F00DFB863 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BikeMapFeaturePreview/Preview Content\"";
+				DEVELOPMENT_TEAM = 6894A8BA33;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be used to locate your position on the map.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = company.BikeMapFeaturePreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CD16198129B61C5F00DFB863 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BikeMapFeaturePreview/Preview Content\"";
+				DEVELOPMENT_TEAM = 6894A8BA33;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Your location will be used to locate your position on the map.";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = company.BikeMapFeaturePreview;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		CD2DE5F428ECB2CB00BE6F8D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -488,6 +627,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		CD16197F29B61C5F00DFB863 /* Build configuration list for PBXNativeTarget "BikeMapFeaturePreview" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CD16198029B61C5F00DFB863 /* Debug */,
+				CD16198129B61C5F00DFB863 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		CD2DE5F628ECB2CB00BE6F8D /* Build configuration list for PBXNativeTarget "StolenBikeTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -518,6 +666,10 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CD16198429B61F6900DFB863 /* BikeMapFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = BikeMapFeature;
+		};
 		CDD782CA299FBAC8002EB9EB /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppFeature;

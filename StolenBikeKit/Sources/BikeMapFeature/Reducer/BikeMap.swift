@@ -26,6 +26,7 @@ public struct BikeMap: ReducerProtocol {
         var isLoading: Bool
         var isOutOfArea: Bool
         var query: String
+        var fetchCount: Int
         var fetchError: StateError?
         var locationError: StateError?
 
@@ -40,6 +41,7 @@ public struct BikeMap: ReducerProtocol {
                     query: String = "",
                     fetchError: StateError? = nil,
                     locationError: StateError? = nil,
+                    fetchCount: Int = 0,
                     settings: BikeMapSettings.State = .init()) {
             self.region = region
             self.area = area
@@ -50,6 +52,7 @@ public struct BikeMap: ReducerProtocol {
             self.query = query
             self.fetchError = fetchError
             self.locationError = locationError
+            self.fetchCount = fetchCount
             self.settings = settings
         }
     }
@@ -66,6 +69,9 @@ public struct BikeMap: ReducerProtocol {
         case fetch
         case fetchMore
         case fetchResult(TaskResult<[Bike]>)
+
+        case fetchCount
+        case fetchCountResult(Int)
 
         case settings(BikeMapSettings.Action)
     }
@@ -134,17 +140,31 @@ public struct BikeMap: ReducerProtocol {
                 guard state.bikes.last != bikes.last,
                       !bikes.isEmpty,
                       state.page < Self.maxPages else {
-                    break
+                    return .send(.fetchCount)
                 }
 
                 state.bikes += bikes
                 state.isLoading = true
-                return .task { .fetchMore }
+                return .send(.fetchMore)
 
             case let .fetchResult(.failure(error)):
                 state.isLoading = false
                 state.page = max(1, state.page - 1)
                 state.fetchError = StateError(error: error)
+
+            case .fetchCount:
+                state.isLoading = true
+                return .task { [area = state.area,
+                                query = state.query] in
+                    .fetchCountResult(try await bikeClient.fetchCount(area, query))
+                } catch: { error in
+                    print(".fetchCount error: \(error)")
+                    return .fetchCountResult(0)
+                }
+
+            case let .fetchCountResult(count):
+                state.isLoading = false
+                state.fetchCount = count
 
             case let .settings(.updateIsGlobalSearch(value)):
                 if value {

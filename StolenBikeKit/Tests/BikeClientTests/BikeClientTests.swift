@@ -14,7 +14,7 @@ import SharedModel
 @testable import BikeClient
 
 final class BikeClientTests: XCTestCase {
-    func testDecode() throws {
+    func testFetchDecode() throws {
         // Arrange
         let data = Data("""
         {
@@ -55,6 +55,25 @@ final class BikeClientTests: XCTestCase {
 
         // Assert
         XCTAssertEqual(bikes, expectedBikes)
+    }
+
+    func testFetchCountDecode() throws {
+        // Arrange
+        let data = Data("""
+        {
+            "stolen":10000,
+            "proximity":100
+        }
+        """.utf8)
+        let expectedCount = (stolen: 10000, proximity: 100)
+
+        // Act
+        let count = try JSONDecoder()
+            .decode(BikeClient.ResponseCount.self, from: data)
+
+        // Assert
+        XCTAssertEqual(count.stolen, expectedCount.stolen)
+        XCTAssertEqual(count.proximity, expectedCount.proximity)
     }
 
     func testSnapshotModel() throws {

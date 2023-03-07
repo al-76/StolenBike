@@ -146,6 +146,7 @@ final class BikeMapTests: XCTestCase {
         store = TestStore(initialState: .init(area: .stub),
                           reducer: BikeMap())
         store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in .stub }
+        store.dependencies.bikeClient.fetchCount = { @Sendable _, _ in .stub }
 
         // Act
         await store.send(.fetch) {
@@ -168,6 +169,7 @@ final class BikeMapTests: XCTestCase {
                                               bikes: .stub),
                           reducer: BikeMap())
         store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in [] }
+        store.dependencies.bikeClient.fetchCount = { @Sendable _, _ in .stub }
 
         // Act
         await store.send(.fetch) {
@@ -181,6 +183,9 @@ final class BikeMapTests: XCTestCase {
             $0.isLoading = false
             $0.bikes = []
         }
+        await store.receive(.fetchCount) {
+            $0.isLoading = true
+        }
     }
 
     func testFetchMoreSkipMaxPages() async {
@@ -189,6 +194,7 @@ final class BikeMapTests: XCTestCase {
                                               page: BikeMap.maxPages),
                           reducer: BikeMap())
         store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in .stub }
+        store.dependencies.bikeClient.fetchCount = { @Sendable _, _ in .stub }
 
         // Act
         await store.send(.fetchMore) {
@@ -199,6 +205,9 @@ final class BikeMapTests: XCTestCase {
         // Assert
         await store.receive(.fetchResult(.success(.stub))) {
             $0.isLoading = false
+        }
+        await store.receive(.fetchCount) {
+            $0.isLoading = true
         }
     }
 
@@ -242,6 +251,38 @@ final class BikeMapTests: XCTestCase {
             $0.isLoading = false
             $0.page = testPage
             $0.fetchError = StateError(error: TestError.someError)
+        }
+    }
+
+    func testFetchCount() async {
+        // Arrange
+        store.dependencies.bikeClient.fetchCount = { @Sendable _, _ in .stub }
+
+        // Act
+        await store.send(.fetchCount) {
+            $0.isLoading = true
+        }
+
+        // Assert
+        await store.receive(.fetchCountResult(.stub)) {
+            $0.isLoading = false
+            $0.fetchCount = .stub
+        }
+    }
+
+    func testFetchCountError() async {
+        // Arrange
+        store.dependencies.bikeClient.fetchCount = { @Sendable _, _ in throw TestError.someError }
+
+        // Act
+        await store.send(.fetchCount) {
+            $0.isLoading = true
+        }
+
+        // Assert
+        await store.receive(.fetchCountResult(0)) {
+            $0.isLoading = false
+            $0.fetchCount = 0
         }
     }
 
