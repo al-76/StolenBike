@@ -19,7 +19,7 @@ public struct BikeMapSettingsView: View {
         WithViewStore(store) { viewStore in
             VStack {
                 Text("Search settings")
-                    .font(.title2)
+                    .font(.headline)
                 Spacer()
                 Toggle("Global search",
                        isOn: viewStore.binding(

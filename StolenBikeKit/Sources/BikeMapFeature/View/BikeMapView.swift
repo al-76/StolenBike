@@ -11,13 +11,15 @@ import MapKit
 import SwiftUI
 
 import BikeClient
+import BottomSheetView
 import MapView
 import SharedModel
 import Utils
 
 public struct BikeMapView: View {
     private let store: StoreOf<BikeMap>
-    @State private var showSettings = false
+    @State private var isShowingSettings = false
+    @State private var isShowingList = false
 
     public init(store: StoreOf<BikeMap>) {
         self.store = store
@@ -27,61 +29,28 @@ public struct BikeMapView: View {
         WithViewStore(store) { viewStore in
             ZStack {
                 mapView(viewStore)
-
                 VStack {
-                    HStack {
-                        Image(systemName: "slider.horizontal.3")
-                            .onTapGesture {
-                                showSettings.toggle()
-                            }
-                        TextField("Type something to filter...",
-                                  text: viewStore.binding(
-                                    get: \.query,
-                                    send: { .updateQuery($0) }
-                                  ))
-                    }
-                    .mapElement(opacity: 0.95)
-                    .padding()
-
-                    errorView(viewStore)
-
+                    mapButtons(viewStore)
                     Spacer()
-                    if viewStore.isLoading {
-                        ProgressView("Loading...")
-                            .mapElement()
-                    }
-
-                    if viewStore.isOutOfArea {
-                        VStack {
-                            Text("You're out of the initial area!")
-                            Button("Change area") {
-                                viewStore.send(.changeArea)
-                            }
-                        }
-                        .mapElement()
-                    }
-
-                    Spacer()
-                    HStack {
-                        Button {
-
-                        } label: {
-                            Image(systemName: "list.bullet.rectangle")
-                        }
-                        .mapElement()
-                        .badge(count: viewStore.fetchCount)
-                        .padding()
-
-                        LocationButton {
-                            viewStore.send(.getLocation)
-                        }
-                        .symbolVariant(.fill)
-                        .cornerRadius(8.0)
-                        .foregroundColor(.white)
-                        .padding()
-                        Spacer()
-                    }
                 }
+            }
+            .overlay {
+                if viewStore.isLoading {
+                    ProgressView("Loading...")
+                        .mapElement()
+                }
+
+                if viewStore.isOutOfArea {
+                    VStack {
+                        Text("You're out of the initial area!")
+                        Button("Change area") {
+                            viewStore.send(.changeArea)
+                        }
+                    }
+                    .mapElement()
+                }
+
+                errorView(viewStore)
             }
             .onAppear {
                 viewStore.send(.getLocation)
@@ -89,19 +58,21 @@ public struct BikeMapView: View {
             .onChange(of: viewStore.area) { _ in
                 viewStore.send(.fetch)
             }
-            .task(id: viewStore.query) {
-                do {
-                    try await Task.sleep(nanoseconds: NSEC_PER_SEC / 2)
-                    viewStore.send(.fetch)
-                } catch {
-                    // TODO: Handle an error
-                }
-            }
-            .sheet(isPresented: $showSettings) {
-                BikeMapSettingsView(store: store.scope(
-                    state: \.settings,
-                    action: BikeMap.Action.settings
+            .bottomSheet(
+                detents: [.fraction(0.05),
+                          .medium(),
+                          .large()]
+            ) {
+                BikeMapListView(store: store.scope(
+                    state: \.list,
+                    action: BikeMap.Action.list
                 ))
+                .sheet(isPresented: $isShowingSettings) {
+                    BikeMapSettingsView(store: store.scope(
+                        state: \.settings,
+                        action: BikeMap.Action.settings
+                    ))
+                }
             }
         }
     }
@@ -119,6 +90,27 @@ public struct BikeMapView: View {
                 .compactMap { $0.pointAnnotation() },
                     overlays: mapOverlays(viewStore.area))
             .edgesIgnoringSafeArea(.top)
+        }
+    }
+
+    private func mapButtons(_ viewStore: ViewStore<BikeMap.State, BikeMap.Action>) -> some View {
+        HStack {
+            Spacer()
+            VStack {
+                Image(systemName: "slider.horizontal.3")
+                    .onTapGesture {
+                        isShowingSettings.toggle()
+                    }
+                    .mapElement()
+
+                LocationButton {
+                    viewStore.send(.getLocation)
+                }
+                .labelStyle(.iconOnly)
+                .symbolVariant(.fill)
+                .cornerRadius(8.0)
+                .foregroundColor(.white)
+            }.padding()
         }
     }
 

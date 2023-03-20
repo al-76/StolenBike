@@ -9,11 +9,7 @@ import XCTestDynamicOverlay
 
 // MARK: - Preview
 extension LocationClient {
-    static var preview = Self(get: {
-        AsyncThrowingStream {
-            $0.yield(.stub)
-        }
-    })
+    static var preview = Self(get: { .stub })
 }
 
 // MARK: - Test

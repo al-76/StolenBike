@@ -14,42 +14,71 @@ import SharedModel
 @testable import BikeClient
 
 final class BikeClientTests: XCTestCase {
+    override func setUp() {
+//        isRecording = true
+    }
+
     func testFetchDecode() throws {
         // Arrange
         let data = Data("""
         {
         "bikes":[
             {
-                "id":1435627,
-                "stolen_coordinates":[
-                    37.35,
-                    -122.03
-                ],
-            },
-            {
-                "id":1238267,
-                "stolen_coordinates":[
-                    37.35,
-                    -122.04
-                ],
+                "id":1467483,
+                "title":"2021 Rad Power Bikes Rad MiniST(White)",
+                "stolen_coordinates":[37.31,-122.07],
+                "date_stolen":1678052700,
+                "frame_colors":["White"],
+                "frame_model":"Rad Mini ST (White)",
+                "large_img":"https://files.bikeind.org/uploads/Pu/677396/large_20211028_1459.jpg",
+                "thumb":"https://files.bikeind.org/uploads/Pu/677396/small_20211028_1459.jpg",
+                "manufacturer_name":"Rad Power Bikes",
+                "serial":"MU2A21J1704",
+                "year":2021
             },
             {
                 "id":100500,
-                "stolen_coordinates":null
+                "title":"Haro Shredder pro",
+                "stolen_coordinates":null,
+                "date_stolen":null,
+                "frame_colors":["Black"],
+                "frame_model":null,
+                "large_img":null,
+                "thumb":null,
+                "manufacturer_name":"Haro",
+                "serial":"Hidden",
+                "year":null
             }
         ]
         }
         """.utf8)
         let expectedBikes = [
-            Bike(id: 1435627, stolenLocation: Location(latitude: 37.35,
-                                                       longitude: -122.03)),
-            Bike(id: 1238267, stolenLocation: Location(latitude: 37.35,
-                                                       longitude: -122.04)),
-            Bike(id: 100500, stolenLocation: nil)
+            Bike(id: 1467483,
+                 title: "2021 Rad Power Bikes Rad MiniST(White)",
+                 stolenLocation: Location(latitude: 37.31, longitude: -122.07),
+                 dateStolen: Date(timeIntervalSince1970: 1678052700),
+                 frameColors: ["White"],
+                 frameModel: "Rad Mini ST (White)",
+                 largeImageUrl: URL(string: "https://files.bikeind.org/uploads/Pu/677396/large_20211028_1459.jpg"),
+                 thumbImageUrl: URL(string: "https://files.bikeind.org/uploads/Pu/677396/small_20211028_1459.jpg"),
+                 manufacturerName: "Rad Power Bikes",
+                 serial: "MU2A21J1704",
+                 year: 2021),
+            Bike(id: 100500,
+                 title: "Haro Shredder pro",
+                 stolenLocation: nil,
+                 dateStolen: nil,
+                 frameColors: ["Black"],
+                 frameModel: nil,
+                 largeImageUrl: nil,
+                 thumbImageUrl: nil,
+                 manufacturerName: "Haro",
+                 serial: "Hidden",
+                 year: nil)
         ]
 
         // Act
-        let bikes = try JSONDecoder()
+        let bikes = try BikeClient.fetchDecoder
             .decode(BikeClient.Response.self, from: data)
             .bikes
 

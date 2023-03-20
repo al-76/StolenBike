@@ -32,7 +32,7 @@ final class BikeMapViewTests: XCTestCase {
         assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func  testIsLoading() throws {
+    func testIsLoading() throws {
         // Arrange
         let view = BikeMapView(
             store: .init(initialState: .init(isLoading: true),
@@ -72,28 +72,6 @@ final class BikeMapViewTests: XCTestCase {
             store: .init(initialState: .init(
                 fetchError: .init(error: TestError.someError)
             ), reducer: EmptyReducer())
-        )
-
-        // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
-    }
-
-    func testQuery() throws {
-        // Arrange
-        let view = BikeMapView(
-            store: .init(initialState: .init(query: "test"),
-                         reducer: EmptyReducer())
-        )
-
-        // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
-    }
-
-    func testFetchCount() throws {
-        // Arrange
-        let view = BikeMapView(
-            store: .init(initialState: .init(fetchCount: 1000),
-                         reducer: EmptyReducer())
         )
 
         // Assert

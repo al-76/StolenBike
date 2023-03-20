@@ -10,57 +10,48 @@ import SwiftUI
 public struct ErrorView: View {
     private let title: String
     private let error: Error
-    private let onTryAgain: (() -> Void)?
+    private let onTryAgain: (() -> Void)
 
-    @State private var isShown = true
+    @State private var isShown = false
 
     public init(title: String,
                 error: Error,
-                onTryAgain: (() -> Void)? = nil) {
+                onTryAgain: @escaping (() -> Void)) {
         self.title = title
         self.error = error
         self.onTryAgain = onTryAgain
     }
 
     public var body: some View {
-        VStack {
-            if isShown {
-                VStack(alignment: .leading) {
-                    VStack(alignment: .leading) {
-                        Text(title)
-                            .font(.title2)
-                            .bold()
-                        Text(error.localizedDescription)
-                    }
+        VStack(alignment: .leading) {
+            VStack(alignment: .leading) {
+                Text(title)
+                    .font(.title2)
+                    .bold()
+                Text(error.localizedDescription)
+            }
 
-                    VStack(alignment: .center) {
-                        Divider()
-                        if let onTryAgain {
-                            Button("Try again") {
-                                withAnimation(.easeInOut) {
-                                    onTryAgain()
-                                    isShown = false
-                                }
-                            }
-                        } else {
-                            Button("Try again later") {
-                                isShown = false
-                            }
-                        }
+            VStack(alignment: .center) {
+                Divider()
+                Button("Try again") {
+                    withAnimation {
+                        onTryAgain()
                     }
                 }
-                .padding()
-                .background(.red)
-                .foregroundColor(.white)
-                .cornerRadius(8.0)
-                .padding()
-                .transition(.asymmetric(
-                    insertion: .move(edge: .top).combined(with: .opacity),
-                    removal: .move(edge: .top).combined(with: .opacity)
-                ))
             }
         }
-        .animation(.default, value: isShown)
+        .padding()
+        .background(.red)
+        .foregroundColor(.white)
+        .cornerRadius(8.0)
+        .padding()
+        .transition(.moveTop)
+    }
+}
+
+private extension AnyTransition {
+    static var moveTop: AnyTransition {
+        .move(edge: .top).combined(with: .opacity)
     }
 }
 

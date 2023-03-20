@@ -44,11 +44,10 @@ final class BikeMapTests: XCTestCase {
         // Arrange
         store = TestStore(initialState: .init(area: .stub),
                           reducer: BikeMap())
-        let region = MKCoordinateRegion()
+        store.exhaustivity = .off
 
         // Act, Assert
-        await store.send(.updateRegion(region)) {
-            $0.region = region
+        await store.send(.updateRegion(MKCoordinateRegion())) {
             $0.isOutOfArea = true
         }
     }
@@ -65,19 +64,9 @@ final class BikeMapTests: XCTestCase {
         await store.send(.updateRegion(region))
     }
 
-    func testUpdateQuery() async {
-        // Arrange
-        let query = "test"
-
-        // Act, Assert
-        await store.send(.updateQuery(query)) {
-            $0.query = query
-        }
-    }
-
     func testGetLocation() async {
         // Arrange
-        store.dependencies.locationClient.get = { Answer.streamSuccess([.stub]) }
+        store.dependencies.locationClient.get = { .stub }
 
         // Act
         await store.send(.getLocation)
@@ -97,7 +86,7 @@ final class BikeMapTests: XCTestCase {
         let region = MKCoordinateRegion()
         store = TestStore(initialState: .init(region: region),
                           reducer: BikeMap())
-        store.dependencies.locationClient.get = { Answer.streamSuccess([.stub]) }
+        store.dependencies.locationClient.get = { .stub }
 
         // Act
         await store.send(.getLocation)
@@ -111,16 +100,37 @@ final class BikeMapTests: XCTestCase {
         }
     }
 
-    func testGetLocationError() async {
+    func testGetLocationSkipSameArea() async {
         // Arrange
-        store.dependencies.locationClient.get = { Answer.streamFailure() }
+        let region = MKCoordinateRegion()
+        store = TestStore(initialState: .init(
+            region: region,
+            area: .stub
+        ),
+                          reducer: BikeMap())
+        store.dependencies.locationClient.get = { .stub }
 
         // Act
         await store.send(.getLocation)
 
         // Assert
-        await store.receive(.getLocationResult(.failure(TestError.someError))) {
-            $0.locationError = StateError(error: TestError.someError)
+        await store.receive(.getLocationResult(.success(.stub))) {
+            $0.region = MKCoordinateRegion(center: Location.stub.coordinates(),
+                                           span: region.span)
+        }
+    }
+
+    func testGetLocationError() async {
+        // Arrange
+        let error = TestError.someError
+        store.dependencies.locationClient.get = { throw error }
+
+        // Act
+        await store.send(.getLocation)
+
+        // Assert
+        await store.receive(.getLocationResult(.failure(error))) {
+            $0.locationError = StateError(error: error)
         }
     }
 
@@ -145,8 +155,9 @@ final class BikeMapTests: XCTestCase {
         // Arrange
         store = TestStore(initialState: .init(area: .stub),
                           reducer: BikeMap())
+        store.exhaustivity = .off
         store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in .stub }
-        store.dependencies.bikeClient.fetchCount = { @Sendable _, _ in .stub }
+        store.dependencies.bikeClient.pageSize = { .stub }
 
         // Act
         await store.send(.fetch) {
@@ -155,140 +166,37 @@ final class BikeMapTests: XCTestCase {
         }
 
         // Assert
-        await store.receive(.fetchResult(.success(.stub))) {
+        await store.receive(.list(.fetchResult(.success(.stub)))) {
+            $0.isLoading = false
             $0.bikes = .stub
-        }
-        await store.receive(.fetchMore) {
-            $0.page = 2
-        }
-    }
-
-    func testFetchEmptyBikes() async {
-        // Arrange
-        store = TestStore(initialState: .init(area: .stub,
-                                              bikes: .stub),
-                          reducer: BikeMap())
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in [] }
-        store.dependencies.bikeClient.fetchCount = { @Sendable _, _ in .stub }
-
-        // Act
-        await store.send(.fetch) {
-            $0.isOutOfArea = false
-            $0.isLoading = true
-            $0.bikes = []
-        }
-
-        // Assert
-        await store.receive(.fetchResult(.success([]))) {
-            $0.isLoading = false
-            $0.bikes = []
-        }
-        await store.receive(.fetchCount) {
-            $0.isLoading = true
-        }
-    }
-
-    func testFetchMoreSkipMaxPages() async {
-        // Arrange
-        store = TestStore(initialState: .init(area: .stub,
-                                              page: BikeMap.maxPages),
-                          reducer: BikeMap())
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in .stub }
-        store.dependencies.bikeClient.fetchCount = { @Sendable _, _ in .stub }
-
-        // Act
-        await store.send(.fetchMore) {
-            $0.isLoading = true
-            $0.page = BikeMap.maxPages + 1
-        }
-
-        // Assert
-        await store.receive(.fetchResult(.success(.stub))) {
-            $0.isLoading = false
-        }
-        await store.receive(.fetchCount) {
-            $0.isLoading = true
         }
     }
 
     func testFetchError() async {
         // Arrange
+        let error = TestError.someError
         store = TestStore(initialState: .init(area: .stub),
                           reducer: BikeMap())
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in throw TestError.someError }
+        store.exhaustivity = .off
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in throw error }
 
         // Act
         await store.send(.fetch) {
             $0.isLoading = true
-            $0.fetchError = nil
         }
 
         // Assert
-        await store.receive(.fetchResult(.failure(TestError.someError))) {
+        await store.receive(.list(.fetchResult(.failure(error)))) {
             $0.isLoading = false
-            $0.page = 1
-            $0.fetchError = StateError(error: TestError.someError)
-        }
-    }
-
-    func testFetchMoreError() async {
-        // Arrange
-        let testPage = 2
-        store = TestStore(initialState: .init(area: .stub,
-                                              page: testPage),
-                          reducer: BikeMap())
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in throw TestError.someError }
-
-        // Act
-        await store.send(.fetchMore) {
-            $0.isLoading = true
-            $0.page = testPage + 1
-            $0.fetchError = nil
-        }
-
-        // Assert
-        await store.receive(.fetchResult(.failure(TestError.someError))) {
-            $0.isLoading = false
-            $0.page = testPage
-            $0.fetchError = StateError(error: TestError.someError)
-        }
-    }
-
-    func testFetchCount() async {
-        // Arrange
-        store.dependencies.bikeClient.fetchCount = { @Sendable _, _ in .stub }
-
-        // Act
-        await store.send(.fetchCount) {
-            $0.isLoading = true
-        }
-
-        // Assert
-        await store.receive(.fetchCountResult(.stub)) {
-            $0.isLoading = false
-            $0.fetchCount = .stub
-        }
-    }
-
-    func testFetchCountError() async {
-        // Arrange
-        store.dependencies.bikeClient.fetchCount = { @Sendable _, _ in throw TestError.someError }
-
-        // Act
-        await store.send(.fetchCount) {
-            $0.isLoading = true
-        }
-
-        // Assert
-        await store.receive(.fetchCountResult(0)) {
-            $0.isLoading = false
-            $0.fetchCount = 0
+            $0.fetchError = StateError(error: error)
         }
     }
 
     func testSettingsGlobalSearchIsTrue() async {
         // Arrange
-        store = TestStore(initialState: .init(area: .stub),
+        store = TestStore(initialState: .init(
+            list: .init(area: .stub)
+        ),
                           reducer: BikeMap())
 
         // Act, Assert
@@ -302,6 +210,7 @@ final class BikeMapTests: XCTestCase {
         // Arrange
         store = TestStore(initialState: .init(),
                           reducer: BikeMap())
+        store.dependencies.locationClient.get = { .stub }
 
         // Act
         await store.send(.settings(.updateIsGlobalSearch(false)))

@@ -8,5 +8,5 @@
 import SharedModel
 
 public struct LocationClient {
-    public var get: () -> AsyncThrowingStream<Location, Error>
+    public var get: () async throws -> Location
 }

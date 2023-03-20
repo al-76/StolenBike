@@ -1,91 +1,159 @@
-▿ 15 elements
+▿ 8 elements
   ▿ Bike
+    ▿ dateStolen: Optional<Date>
+      - some: 2023-03-09T15:17:33Z
+    ▿ frameColors: 1 element
+      - "White"
+    ▿ frameModel: Optional<String>
+      - some: "Rad Mini ST (White)"
     - id: 1411331
+    ▿ largeImageUrl: Optional<URL>
+      - some: https://files.bikeindex.org/uploads/Pu/677396/large_20211028_145926.jpg
+    - manufacturerName: "Rad Power Bikes"
+    - serial: "MU2A21J1704"
     ▿ stolenLocation: Optional<Location>
       ▿ some: Location
         - latitude: 59.34
         - longitude: 18.07
+    ▿ thumbImageUrl: Optional<URL>
+      - some: https://files.bikeindex.org/uploads/Pu/677396/small_20211028_145926.jpg
+    - title: "2021 Rad Power Bikes Rad Mini ST (White)"
+    ▿ year: Optional<Int>
+      - some: 2021
   ▿ Bike
+    - dateStolen: Optional<Date>.none
+    ▿ frameColors: 1 element
+      - "Black"
+    ▿ frameModel: Optional<String>
+      - some: "Shredder pro"
     - id: 1355137
+    - largeImageUrl: Optional<URL>.none
+    - manufacturerName: "Haro"
+    - serial: "Hidden"
     ▿ stolenLocation: Optional<Location>
       ▿ some: Location
         - latitude: 59.33
         - longitude: 18.07
+    - thumbImageUrl: Optional<URL>.none
+    - title: "Haro Shredder pro"
+    - year: Optional<Int>.none
   ▿ Bike
+    ▿ dateStolen: Optional<Date>
+      - some: 2023-03-09T17:03:12Z
+    ▿ frameColors: 3 elements
+      - "Orange"
+      - "Brown"
+      - "Purple"
+    ▿ frameModel: Optional<String>
+      - some: "MtVnH2Gw7oZ9k"
     - id: 1355185
+    - largeImageUrl: Optional<URL>.none
+    - manufacturerName: "lZ3afAiXENGdgrUAo"
+    - serial: "jHsMKhTGoRhnM"
     ▿ stolenLocation: Optional<Location>
       ▿ some: Location
         - latitude: 59.33
         - longitude: 18.07
+    - thumbImageUrl: Optional<URL>.none
+    - title: "lZ3afAiXENGdgrUAo MtVnH2Gw7oZ9k"
+    ▿ year: Optional<Int>
+      - some: 2007
   ▿ Bike
+    ▿ dateStolen: Optional<Date>
+      - some: 2023-03-09T17:03:12Z
+    ▿ frameColors: 1 element
+      - "Black"
+    ▿ frameModel: Optional<String>
+      - some: "Sectuer"
     - id: 1316596
+    - largeImageUrl: Optional<URL>.none
+    - manufacturerName: "Specialized"
+    - serial: "Hidden"
     ▿ stolenLocation: Optional<Location>
       ▿ some: Location
         - latitude: 59.3
         - longitude: 18.04
+    - thumbImageUrl: Optional<URL>.none
+    - title: "Specialized Sectuer"
+    - year: Optional<Int>.none
   ▿ Bike
+    ▿ dateStolen: Optional<Date>
+      - some: 2023-03-09T17:03:12Z
+    ▿ frameColors: 1 element
+      - "Silver, gray or bare metal"
+    ▿ frameModel: Optional<String>
+      - some: "FX 2 DISC"
     - id: 1241051
+    ▿ largeImageUrl: Optional<URL>
+      - some: https://files.bikeindex.org/uploads/Pu/678067/large_E883D744-BD8B-4E6A-BAE2-2408BEED5372.jpeg
+    - manufacturerName: "Trek"
+    - serial: "WTU345XC2643S"
     ▿ stolenLocation: Optional<Location>
       ▿ some: Location
         - latitude: 59.31
         - longitude: 18.03
+    ▿ thumbImageUrl: Optional<URL>
+      - some: https://files.bikeindex.org/uploads/Pu/678067/small_E883D744-BD8B-4E6A-BAE2-2408BEED5372.jpeg
+    - title: "Trek FX 2 DISC"
+    ▿ year: Optional<Int>
+      - some: 2022
   ▿ Bike
+    ▿ dateStolen: Optional<Date>
+      - some: 2023-03-09T17:03:12Z
+    ▿ frameColors: 1 element
+      - "Black"
+    ▿ frameModel: Optional<String>
+      - some: "Grade FB Comp"
     - id: 1241046
+    ▿ largeImageUrl: Optional<URL>
+      - some: https://files.bikeindex.org/uploads/Pu/676593/large_GT_Grade.png
+    - manufacturerName: "GT Bicycles"
+    - serial: "CM15J503445"
     ▿ stolenLocation: Optional<Location>
       ▿ some: Location
         - latitude: 59.31
         - longitude: 18.03
+    ▿ thumbImageUrl: Optional<URL>
+      - some: https://files.bikeindex.org/uploads/Pu/676593/small_GT_Grade.png
+    - title: "2016 GT Bicycles Grade FB Comp"
+    ▿ year: Optional<Int>
+      - some: 2016
   ▿ Bike
+    ▿ dateStolen: Optional<Date>
+      - some: 2023-03-09T17:03:12Z
+    ▿ frameColors: 1 element
+      - "Silver, gray or bare metal"
+    ▿ frameModel: Optional<String>
+      - some: "tUeofDPGmATi04w0MEi"
     - id: 1198475
+    - largeImageUrl: Optional<URL>.none
+    - manufacturerName: "Transition Bikes"
+    - serial: "TBC4303387"
     ▿ stolenLocation: Optional<Location>
       ▿ some: Location
         - latitude: 59.33
         - longitude: 18.01
+    - thumbImageUrl: Optional<URL>.none
+    - title: "2017 Transition Bikes Sentinel"
+    ▿ year: Optional<Int>
+      - some: 2017
   ▿ Bike
-    - id: 1241046
+    ▿ dateStolen: Optional<Date>
+      - some: 2023-03-09T17:03:12Z
+    ▿ frameColors: 1 element
+      - "Silver, gray or bare metal"
+    ▿ frameModel: Optional<String>
+      - some: "Specialized"
+    - id: 1241047
+    ▿ largeImageUrl: Optional<URL>
+      - some: https://files.bikeindex.org/uploads/Pu/674815/large_Screenshot_2023-02-16-13-11-22-25_965bbf4d18d205f782c6b8409c5773a4.jpg
+    - manufacturerName: "Turbo commuter e bike"
+    - serial: "WSBC601026514J"
     ▿ stolenLocation: Optional<Location>
       ▿ some: Location
         - latitude: 59.31
         - longitude: 18.03
-  ▿ Bike
-    - id: 1161381
-    ▿ stolenLocation: Optional<Location>
-      ▿ some: Location
-        - latitude: 59.32
-        - longitude: 18.08
-  ▿ Bike
-    - id: 1133487
-    ▿ stolenLocation: Optional<Location>
-      ▿ some: Location
-        - latitude: 59.33
-        - longitude: 18.07
-  ▿ Bike
-    - id: 1110317
-    ▿ stolenLocation: Optional<Location>
-      ▿ some: Location
-        - latitude: 59.33
-        - longitude: 18.07
-  ▿ Bike
-    - id: 937900
-    ▿ stolenLocation: Optional<Location>
-      ▿ some: Location
-        - latitude: 59.37
-        - longitude: 17.98
-  ▿ Bike
-    - id: 933253
-    ▿ stolenLocation: Optional<Location>
-      ▿ some: Location
-        - latitude: 59.35
-        - longitude: 18.07
-  ▿ Bike
-    - id: 919399
-    ▿ stolenLocation: Optional<Location>
-      ▿ some: Location
-        - latitude: 59.33
-        - longitude: 18.05
-  ▿ Bike
-    - id: 866177
-    ▿ stolenLocation: Optional<Location>
-      ▿ some: Location
-        - latitude: 59.3
-        - longitude: 18.12
+    ▿ thumbImageUrl: Optional<URL>
+      - some: https://files.bikeindex.org/uploads/Pu/674815/small_Screenshot_2023-02-16-13-11-22-25_965bbf4d18d205f782c6b8409c5773a4.jpg
+    - title: "Turbo commuter e bike Specialized"
+    - year: Optional<Int>.none
