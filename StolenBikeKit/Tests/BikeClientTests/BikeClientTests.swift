@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import ComposableArchitecture
 import SnapshotTesting
 import XCTest
 
@@ -24,30 +25,18 @@ final class BikeClientTests: XCTestCase {
         {
         "bikes":[
             {
-                "id":1467483,
-                "title":"2021 Rad Power Bikes Rad MiniST(White)",
-                "stolen_coordinates":[37.31,-122.07],
-                "date_stolen":1678052700,
-                "frame_colors":["White"],
-                "frame_model":"Rad Mini ST (White)",
-                "large_img":"https://files.bikeind.org/uploads/Pu/677396/large_20211028_1459.jpg",
-                "thumb":"https://files.bikeind.org/uploads/Pu/677396/small_20211028_1459.jpg",
-                "manufacturer_name":"Rad Power Bikes",
-                "serial":"MU2A21J1704",
-                "year":2021
+                "id": 1467483,
+                "title": "2021 Rad Power Bikes Rad MiniST(White)",
+                "stolen_coordinates": [37.31, -122.07],
+                "date_stolen": 1678052700,
+                "thumb": "https://files.bikeind.org/uploads/Pu/677396/small_20211028_1459.jpg"
             },
             {
-                "id":100500,
-                "title":"Haro Shredder pro",
-                "stolen_coordinates":null,
-                "date_stolen":null,
-                "frame_colors":["Black"],
-                "frame_model":null,
-                "large_img":null,
-                "thumb":null,
-                "manufacturer_name":"Haro",
-                "serial":"Hidden",
-                "year":null
+                "id": 100500,
+                "title": "Haro Shredder pro",
+                "stolen_coordinates": null,
+                "date_stolen": null,
+                "thumb": null
             }
         ]
         }
@@ -55,26 +44,14 @@ final class BikeClientTests: XCTestCase {
         let expectedBikes = [
             Bike(id: 1467483,
                  title: "2021 Rad Power Bikes Rad MiniST(White)",
-                 stolenLocation: Location(latitude: 37.31, longitude: -122.07),
+                 stolenCoordinates: [37.31, -122.07],
                  dateStolen: Date(timeIntervalSince1970: 1678052700),
-                 frameColors: ["White"],
-                 frameModel: "Rad Mini ST (White)",
-                 largeImageUrl: URL(string: "https://files.bikeind.org/uploads/Pu/677396/large_20211028_1459.jpg"),
-                 thumbImageUrl: URL(string: "https://files.bikeind.org/uploads/Pu/677396/small_20211028_1459.jpg"),
-                 manufacturerName: "Rad Power Bikes",
-                 serial: "MU2A21J1704",
-                 year: 2021),
+                 thumb: URL(string: "https://files.bikeind.org/uploads/Pu/677396/small_20211028_1459.jpg")),
             Bike(id: 100500,
                  title: "Haro Shredder pro",
-                 stolenLocation: nil,
+                 stolenCoordinates: nil,
                  dateStolen: nil,
-                 frameColors: ["Black"],
-                 frameModel: nil,
-                 largeImageUrl: nil,
-                 thumbImageUrl: nil,
-                 manufacturerName: "Haro",
-                 serial: "Hidden",
-                 year: nil)
+                 thumb: nil)
         ]
 
         // Act
@@ -83,7 +60,7 @@ final class BikeClientTests: XCTestCase {
             .bikes
 
         // Assert
-        XCTAssertEqual(bikes, expectedBikes)
+        XCTAssertNoDifference(bikes, expectedBikes)
     }
 
     func testFetchCountDecode() throws {
@@ -107,7 +84,7 @@ final class BikeClientTests: XCTestCase {
 
     func testSnapshotModel() throws {
         // Arrange
-        let data = [Bike].stub
+        let data: [Bike] = .stub
 
         // Assert
         assertSnapshot(matching: data, as: .dump)

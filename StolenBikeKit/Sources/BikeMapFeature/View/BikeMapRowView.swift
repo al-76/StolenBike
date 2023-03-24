@@ -25,7 +25,7 @@ struct BikeMapRowView: View {
                     }
                 }
                 Spacer()
-                DownloadImageView(url: bike.thumbImageUrl)
+                DownloadImageView(url: bike.thumb)
                     .frame(width: 80, height: 80)
                     .cornerRadius(12.0)
             }

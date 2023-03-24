@@ -168,7 +168,7 @@ private final class AreaCircle: MKCircle, MapOverlay {
 
 private extension Bike {
     func pointAnnotation() -> PointAnnotation? {
-        guard let location = stolenLocation else { return nil }
+        guard let location else { return nil }
         return PointAnnotation(id: id, coordinate: location.coordinates())
     }
 }

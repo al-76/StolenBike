@@ -9,40 +9,29 @@ import Foundation
 
 import SharedModel
 
-public struct Bike: Identifiable, Equatable {
+public struct Bike: Identifiable, Equatable, Decodable {
     public let id: Int
     public let title: String
-    public let stolenLocation: Location?
+
+    private let stolenCoordinates: [Double]?
+    public var location: Location? {
+        guard let stolenCoordinates else { return nil }
+        return Location(latitude: stolenCoordinates[0],
+                        longitude: stolenCoordinates[1])
+    }
+
     public let dateStolen: Date?
-    public let frameColors: [String]
-    public let frameModel: String?
-    public let largeImageUrl: URL?
-    public let thumbImageUrl: URL?
-    public let manufacturerName: String
-    public let serial: String
-    public let year: Int?
+    public let thumb: URL?
 
     public init(id: Int,
                 title: String,
-                stolenLocation: Location?,
+                stolenCoordinates: [Double]?,
                 dateStolen: Date?,
-                frameColors: [String],
-                frameModel: String?,
-                largeImageUrl: URL?,
-                thumbImageUrl: URL?,
-                manufacturerName: String,
-                serial: String,
-                year: Int?) {
+                thumb: URL?) {
         self.id = id
         self.title = title
-        self.stolenLocation = stolenLocation
+        self.stolenCoordinates = stolenCoordinates
         self.dateStolen = dateStolen
-        self.frameColors = frameColors
-        self.frameModel = frameModel
-        self.largeImageUrl = largeImageUrl
-        self.thumbImageUrl = thumbImageUrl
-        self.manufacturerName = manufacturerName
-        self.serial = serial
-        self.year = year
+        self.thumb = thumb
     }
 }

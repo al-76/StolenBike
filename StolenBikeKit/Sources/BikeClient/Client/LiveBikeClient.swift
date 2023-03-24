@@ -39,6 +39,7 @@ extension BikeClient {
     static var fetchDecoder: JSONDecoder {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .secondsSince1970
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
         return decoder
     }
 
@@ -76,47 +77,5 @@ extension BikeClient {
 private extension LocationArea {
     func radiusMiles() -> Double {
         radius / 1609.34
-    }
-}
-
-// MARK: - Bike decoding
-extension Bike: Decodable {
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case title
-        case stolenLocation = "stolen_coordinates"
-        case dateStolen = "date_stolen"
-        case frameColors = "frame_colors"
-        case frameModel = "frame_model"
-        case largeImageUrl = "large_img"
-        case thumbImageUrl = "thumb"
-        case manufacturerName = "manufacturer_name"
-        case serial
-        case year
-    }
-
-    public init(from decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-
-        id = try container.decode(Int.self, forKey: .id)
-        title = try container.decode(String.self, forKey: .title)
-
-        if let locationValues = try container
-            .decodeIfPresent([Double].self, forKey: .stolenLocation),
-           locationValues.count >= 2 {
-            stolenLocation = Location(latitude: locationValues[0],
-                                      longitude: locationValues[1])
-        } else {
-            stolenLocation = nil
-        }
-
-        dateStolen = try container.decodeIfPresent(Date.self, forKey: .dateStolen)
-        frameColors = try container.decode([String].self, forKey: .frameColors)
-        frameModel = try container.decodeIfPresent(String.self, forKey: .frameModel)
-        largeImageUrl = try container.decodeIfPresent(URL.self, forKey: .largeImageUrl)
-        thumbImageUrl = try container.decodeIfPresent(URL.self, forKey: .thumbImageUrl)
-        manufacturerName = try container.decode(String.self, forKey: .manufacturerName)
-        serial = try container.decode(String.self, forKey: .serial)
-        year = try container.decodeIfPresent(Int.self, forKey: .year)
     }
 }
