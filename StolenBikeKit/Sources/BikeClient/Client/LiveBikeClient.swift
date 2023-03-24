@@ -18,9 +18,8 @@ extension BikeClient {
         let bikes: [Bike]
     }
 
-    struct ResponseCount: Decodable {
-        let stolen: Int
-        let proximity: Int
+    struct ResponseDetails: Decodable {
+        let bike: BikeDetails
     }
 
     private static let pageSize = 100
@@ -34,6 +33,14 @@ extension BikeClient {
         return try fetchDecoder
             .decode(Response.self, from: data)
             .bikes
+    }, fetchDetails: { id in
+        guard let url = getApiUrlDetails(id) else {
+            throw BikeClientError.badUrl
+        }
+
+        let (data, _) = try await URLSession.shared.data(from: url)
+        return try fetchDecoder
+            .decode(BikeDetails.self, from: data)
     }, pageSize: { pageSize })
 
     static var fetchDecoder: JSONDecoder {
@@ -60,6 +67,10 @@ extension BikeClient {
         print(components?.url)
 
         return components?.url
+    }
+
+    private static func getApiUrlDetails(_ id: Int) -> URL? {
+        nil
     }
 
     private static func urlQueryItems(with area: LocationArea?) -> [URLQueryItem] {

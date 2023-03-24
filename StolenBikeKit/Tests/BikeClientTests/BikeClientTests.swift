@@ -63,23 +63,97 @@ final class BikeClientTests: XCTestCase {
         XCTAssertNoDifference(bikes, expectedBikes)
     }
 
-    func testFetchCountDecode() throws {
+    func testFetchDetailsDecode() throws {
         // Arrange
         let data = Data("""
         {
-            "stolen":10000,
-            "proximity":100
+          "bike": {
+            "date_stolen": 1679280446,
+            "description": null,
+            "frame_colors": [
+              "Blue"
+            ],
+            "frame_model": "Backwoods",
+            "id": 1472201,
+            "is_stock_img": false,
+            "large_img": "https://files.bikeindex.org/uploads/Pu/679958/large_0AD24935-8E01-4956-A37E-4CD43EA75CA0.jpeg",
+            "location_found": null,
+            "manufacturer_name": "GT Bicycles",
+            "external_id": null,
+            "registry_name": null,
+            "registry_url": null,
+            "serial": "Unknown",
+            "status": "stolen",
+            "stolen": true,
+            "stolen_coordinates": [32.74, -117.12],
+            "stolen_location": "San Diego, CA 92104, US",
+            "thumb": "https://files.bikeindex.org/uploads/Pu/679958/small_0AD24935-8E01-4956-A37E-4CD43EA75CA0.jpeg",
+            "title": "GT Bicycles Backwoods",
+            "url": "https://bikeindex.org/bikes/1472201",
+            "year": null,
+            "registration_created_at": 1679280511,
+            "registration_updated_at": 1679335170,
+            "api_url": "https://bikeindex.org/api/v1/bikes/1472201",
+            "manufacturer_id": 119,
+            "paint_description": null,
+            "name": null,
+            "frame_size": null,
+            "rear_tire_narrow": true,
+            "front_tire_narrow": null,
+            "type_of_cycle": "Bike",
+            "test_bike": false,
+            "rear_wheel_size_iso_bsd": null,
+            "front_wheel_size_iso_bsd": null,
+            "handlebar_type_slug": null,
+            "frame_material_slug": null,
+            "front_gear_type_slug": null,
+            "rear_gear_type_slug": null,
+            "extra_registration_number": null,
+            "additional_registration": null,
+            "stolen_record": {
+              "date_stolen": 1679280446,
+              "location": "San Diego, CA 92104, US",
+              "latitude": 32.74,
+              "longitude": -117.12,
+              "theft_description": null,
+              "locking_description": null,
+              "lock_defeat_description": null,
+              "police_report_number": null,
+              "police_report_department": null,
+              "created_at": 1679280511,
+              "create_open311": false,
+              "id": 141067
+            },
+            "public_images": [
+              {
+                "name": "GT Bicycles Backwoods Blue",
+                "full": "https://files.bikeindex.org/uploads/Pu/679958/0AD24935-8E01-4956-A37E-4CD43EA75CA0.jpeg",
+                "large": "https://files.bikeindex.org/uploads/Pu/679958/large_0AD24935-8E01-4956-A37E-4CD43EA75CA0.jpeg",
+                "medium": "https://files.bikeindex.org/uploads/Pu/679958/medium_0AD24935-8E01-4956-A37E-4CD43EA75CA0.jpeg",
+                "thumb": "https://files.bikeindex.org/uploads/Pu/679958/small_0AD24935-8E01-4956-A37E-4CD43EA75CA0.jpeg",
+                "id": 679958
+              },
+              {
+                "name": "GT Bicycles Backwoods Blue",
+                "full": "https://files.bikeindex.org/uploads/Pu/679959/151B0C84-B541-4B5A-8016-7F972FF43D7A.png",
+                "large": "https://files.bikeindex.org/uploads/Pu/679959/large_151B0C84-B541-4B5A-8016-7F972FF43D7A.png",
+                "medium": "https://files.bikeindex.org/uploads/Pu/679959/medium_151B0C84-B541-4B5A-8016-7F972FF43D7A.png",
+                "thumb": "https://files.bikeindex.org/uploads/Pu/679959/small_151B0C84-B541-4B5A-8016-7F972FF43D7A.png",
+                "id": 679959
+              }
+            ]
+          }
         }
         """.utf8)
-        let expectedCount = (stolen: 10000, proximity: 100)
+        let expectedDetails: BikeDetails = .stub
 
         // Act
-        let count = try JSONDecoder()
-            .decode(BikeClient.ResponseCount.self, from: data)
+        let details = try BikeClient.fetchDecoder
+            .decode(BikeClient.ResponseDetails.self, from: data)
+            .bike
 
         // Assert
-        XCTAssertEqual(count.stolen, expectedCount.stolen)
-        XCTAssertEqual(count.proximity, expectedCount.proximity)
+        XCTAssertNoDifference(details, expectedDetails)
     }
 
     func testSnapshotModel() throws {
