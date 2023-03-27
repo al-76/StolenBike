@@ -15,7 +15,7 @@ jobs:
     name: Build
     steps:
     - uses: actions/checkout@v3
-    - name: Unit Tests
+    - name: Tests
       run: xcodebuild test -scheme StolenBike -project ${xcode_project} -destination "${xcode_simulator}" | xcpretty
     - name: Codecov
       run: bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
