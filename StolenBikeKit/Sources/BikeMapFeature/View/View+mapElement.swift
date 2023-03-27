@@ -16,7 +16,7 @@ struct MapElement: ViewModifier {
             .padding(padding)
             .background(.white)
             .opacity(opacity)
-            .cornerRadius(8.0)
+            .cornerRadius()
     }
 }
 

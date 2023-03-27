@@ -108,7 +108,7 @@ public struct BikeMapView: View {
                 }
                 .labelStyle(.iconOnly)
                 .symbolVariant(.fill)
-                .cornerRadius(8.0)
+                .cornerRadius()
                 .foregroundColor(.white)
             }.padding()
         }

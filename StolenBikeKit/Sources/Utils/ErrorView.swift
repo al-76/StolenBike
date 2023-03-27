@@ -43,7 +43,7 @@ public struct ErrorView: View {
         .padding()
         .background(.red)
         .foregroundColor(.white)
-        .cornerRadius(8.0)
+        .cornerRadius()
         .padding()
         .transition(.moveTop)
     }

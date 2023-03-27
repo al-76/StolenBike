@@ -27,13 +27,16 @@ public struct BikeMapList: ReducerProtocol {
         var isLoading: Bool
         var error: StateError?
 
+        var details: BikeMapDetails.State
+
         public init(area: LocationArea? = nil,
                     query: String = "",
                     bikes: [Bike] = [],
                     page: Int = 1,
                     isLastPage: Bool = false,
                     isLoading: Bool = false,
-                    error: StateError? = nil) {
+                    error: StateError? = nil,
+                    details: BikeMapDetails.State = .init()) {
             self.area = area
             self._query = query.isEmpty ? nil : query
             self.bikes = bikes
@@ -41,6 +44,7 @@ public struct BikeMapList: ReducerProtocol {
             self.isLastPage = isLastPage
             self.isLoading = isLoading
             self.error = error
+            self.details = details
         }
     }
 
@@ -51,53 +55,64 @@ public struct BikeMapList: ReducerProtocol {
         case fetch
         case fetchMore(Bike)
         case fetchResult(TaskResult<[Bike]>)
+
+        case details(BikeMapDetails.Action)
     }
 
     @Dependency(\.bikeClient) var bikeClient
 
     public init() {}
 
-    public func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-        switch action {
-        case let .updateQuery(query):
-            state.query = query
-
-        case .updateQueryDebounced:
-            guard state._query != nil else {
-                break
-            }
-            return .send(.fetch)
-
-        case .fetch:
-            state.page = 1
-            state.isLastPage = false
-            return reduceFetch(&state)
-
-        case let .fetchMore(bike):
-            guard !state.isLoading,
-                  bike == state.bikes.last,
-                  !state.isLastPage else {
-                return .none
-            }
-            state.page += 1
-            return reduceFetch(&state)
-
-        case let .fetchResult(.success(bikes)):
-            state.isLoading = false
-            if state.page == 1 {
-                state.bikes = []
-            }
-            state.bikes += bikes
-            state.isLastPage = (bikes.count != bikeClient.pageSize())
-            state.error = nil
-
-        case let .fetchResult(.failure(error)):
-            state.isLoading = false
-            state.page = max(1, state.page - 1)
-            state.error = StateError(error: error)
+    public var body: some ReducerProtocol<State, Action> {
+        Scope(state: \.details, action: /Action.details) {
+            BikeMapDetails()
         }
 
-        return .none
+        Reduce { state, action in
+            switch action {
+            case let .updateQuery(query):
+                state.query = query
+
+            case .updateQueryDebounced:
+                guard state._query != nil else {
+                    break
+                }
+                return .send(.fetch)
+
+            case .fetch:
+                state.page = 1
+                state.isLastPage = false
+                return reduceFetch(&state)
+
+            case let .fetchMore(bike):
+                guard !state.isLoading,
+                      bike == state.bikes.last,
+                      !state.isLastPage else {
+                    return .none
+                }
+                state.page += 1
+                return reduceFetch(&state)
+
+            case let .fetchResult(.success(bikes)):
+                state.isLoading = false
+                if state.page == 1 {
+                    state.bikes = []
+                }
+                state.bikes += bikes
+                state.isLastPage = (bikes.count != bikeClient.pageSize())
+                state.error = nil
+
+            case let .fetchResult(.failure(error)):
+                state.isLoading = false
+                state.page = max(1, state.page - 1)
+                state.error = StateError(error: error)
+
+            default:
+                break
+            }
+
+            return .none
+        }
     }
 
     private func reduceFetch(_ state: inout State) -> EffectTask<Action> {

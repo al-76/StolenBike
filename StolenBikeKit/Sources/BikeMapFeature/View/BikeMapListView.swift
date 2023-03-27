@@ -18,15 +18,24 @@ struct BikeMapListView: View {
         WithViewStore(store) { viewStore in
             NavigationStack {
                 List(viewStore.bikes) { bike in
-                    BikeMapRowView(bike: bike)
-                        .onAppear {
-                            viewStore.send(.fetchMore(bike))
-                        }
+                    NavigationLink(value: bike) {
+                        BikeMapRowView(bike: bike)
+                    }
+                    .onAppear {
+                        viewStore.send(.fetchMore(bike))
+                    }
                 }
                 .refreshable {
                     await viewStore.send(.fetch, while: \.isLoading)
                 }
                 .navigationBarTitleDisplayMode(.inline)
+                .navigationDestination(for: Bike.self) {
+                    BikeMapDetailsView(id: $0.id,
+                                       store: store.scope(
+                                        state: \.details,
+                                        action: BikeMapList.Action.details
+                                       ))
+                }
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         VStack(alignment: .leading) {

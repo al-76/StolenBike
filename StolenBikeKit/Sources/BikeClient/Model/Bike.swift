@@ -9,7 +9,7 @@ import Foundation
 
 import SharedModel
 
-public struct Bike: Identifiable, Equatable, Decodable {
+public struct Bike: Identifiable, Equatable, Decodable, Hashable {
     public let id: Int
     public let title: String
 
