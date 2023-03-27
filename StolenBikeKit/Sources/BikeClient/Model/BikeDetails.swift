@@ -49,8 +49,8 @@ public struct BikeDetails: Equatable, Decodable {
     public let frontTireNarrow: Bool?
     public let typeOfCycle: String?
     public let testBike: Bool?
-    public let rearWheelSizeIsoBsd: String?
-    public let frontWheelSizeIsoBsd: String?
+    public let rearWheelSizeIsoBsd: Int?
+    public let frontWheelSizeIsoBsd: Int?
     public let handlebarTypeSlug: String?
     public let frameMaterialSlug: String?
     public let frontGearTypeSlug: String?
@@ -92,8 +92,8 @@ public struct BikeDetails: Equatable, Decodable {
                 frontTireNarrow: Bool?,
                 typeOfCycle: String?,
                 testBike: Bool?,
-                rearWheelSizeIsoBsd: String?,
-                frontWheelSizeIsoBsd: String?,
+                rearWheelSizeIsoBsd: Int?,
+                frontWheelSizeIsoBsd: Int?,
                 handlebarTypeSlug: String?,
                 frameMaterialSlug: String?,
                 frontGearTypeSlug: String?,
@@ -147,20 +147,20 @@ public struct BikeDetails: Equatable, Decodable {
     }
 }
 
-public struct BikeImage: Equatable, Decodable {
+public struct BikeImage: Identifiable, Equatable, Decodable {
     public let name: String?
     public let full: URL?
     public let large: URL?
     public let medium: URL?
     public let thumb: URL?
-    public let id: Int?
+    public let id: Int
 
     public init(name: String?,
                 full: URL?,
                 large: URL?,
                 medium: URL?,
                 thumb: URL?,
-                id: Int?) {
+                id: Int) {
         self.name = name
         self.full = full
         self.large = large
