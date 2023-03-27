@@ -10,9 +10,11 @@ import SDWebImageSwiftUI
 
 public struct DownloadImageView: View {
     private let url: URL?
+    private let stubImage: Image
 
-    public init(url: URL?) {
+    public init(url: URL?, stubImage: Image = Image(systemName: "bicycle")) {
         self.url = url
+        self.stubImage = stubImage
     }
 
     public var body: some View {
@@ -23,7 +25,7 @@ public struct DownloadImageView: View {
                 .scaledToFit()
                 .transition(.fade(duration: 0.5))
         } else {
-            Image(systemName: "photo")
+            stubImage
                 .renderingMode(.original)
                 .resizable()
                 .scaledToFit()
