@@ -40,7 +40,8 @@ extension BikeClient {
 
         let (data, _) = try await URLSession.shared.data(from: url)
         return try fetchDecoder
-            .decode(BikeDetails.self, from: data)
+            .decode(ResponseDetails.self, from: data)
+            .bike
     }, pageSize: { pageSize })
 
     static var fetchDecoder: JSONDecoder {
@@ -69,10 +70,6 @@ extension BikeClient {
         return components?.url
     }
 
-    private static func getApiUrlDetails(_ id: Int) -> URL? {
-        nil
-    }
-
     private static func urlQueryItems(with area: LocationArea?) -> [URLQueryItem] {
         guard let area else { return [] }
 
@@ -82,6 +79,14 @@ extension BikeClient {
             URLQueryItem(name: "distance", value: "\(distance)"),
             URLQueryItem(name: "stolenness", value: "proximity"),
         ]
+    }
+
+    private static func getApiUrlDetails(_ id: Int) -> URL? {
+        var components = URLComponents(string: "https://bikeindex.org:443/api/v3/bikes/\(id)")
+
+        print(components?.url)
+
+        return components?.url
     }
 }
 
