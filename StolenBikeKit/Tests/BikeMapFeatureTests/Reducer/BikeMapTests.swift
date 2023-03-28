@@ -69,10 +69,13 @@ final class BikeMapTests: XCTestCase {
         store.dependencies.locationClient.get = { .stub }
 
         // Act
-        await store.send(.getLocation)
+        await store.send(.getLocation) {
+            $0.isLoading = true
+        }
 
         // Assert
         await store.receive(.getLocationResult(.success(.stub))) {
+            $0.isLoading = false
             $0.region = MKCoordinateRegion(center: Location.stub.coordinates(),
                                            latitudinalMeters: BikeMap.areaDistance / 2,
                                            longitudinalMeters: BikeMap.areaDistance / 2)
@@ -89,10 +92,13 @@ final class BikeMapTests: XCTestCase {
         store.dependencies.locationClient.get = { .stub }
 
         // Act
-        await store.send(.getLocation)
+        await store.send(.getLocation) {
+            $0.isLoading = true
+        }
 
         // Assert
         await store.receive(.getLocationResult(.success(.stub))) {
+            $0.isLoading = false
             $0.region = MKCoordinateRegion(center: Location.stub.coordinates(),
                                            span: region.span)
             $0.area = LocationArea(location: .stub,
@@ -108,6 +114,7 @@ final class BikeMapTests: XCTestCase {
             area: .stub
         ),
                           reducer: BikeMap())
+        store.exhaustivity = .off
         store.dependencies.locationClient.get = { .stub }
 
         // Act
@@ -126,10 +133,13 @@ final class BikeMapTests: XCTestCase {
         store.dependencies.locationClient.get = { throw error }
 
         // Act
-        await store.send(.getLocation)
+        await store.send(.getLocation) {
+            $0.isLoading = true
+        }
 
         // Assert
         await store.receive(.getLocationResult(.failure(error))) {
+            $0.isLoading = false
             $0.locationError = StateError(error: error)
         }
     }
@@ -210,6 +220,7 @@ final class BikeMapTests: XCTestCase {
         // Arrange
         store = TestStore(initialState: .init(),
                           reducer: BikeMap())
+        store.exhaustivity = .off
         store.dependencies.locationClient.get = { .stub }
 
         // Act

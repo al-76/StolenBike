@@ -107,6 +107,7 @@ public struct BikeMap: ReducerProtocol {
                 state.isOutOfArea = CLLocation(region.center).isOutOf(area: area)
 
             case .getLocation:
+                state.isLoading = true
                 state.locationError = nil
                 return .task {
                     await .getLocationResult(TaskResult { @MainActor in
@@ -115,6 +116,7 @@ public struct BikeMap: ReducerProtocol {
                 }
 
             case let .getLocationResult(.success(location)):
+                state.isLoading = false
                 if state.region == nil {
                     state.region = MKCoordinateRegion(center: location.coordinates(),
                                                       latitudinalMeters: Self.areaDistance / 2,
@@ -131,6 +133,7 @@ public struct BikeMap: ReducerProtocol {
                                           distance: Self.areaDistance)
 
             case let .getLocationResult(.failure(error)):
+                state.isLoading = false
                 state.locationError = StateError(error: error)
 
             case .changeArea:
