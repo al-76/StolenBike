@@ -39,7 +39,7 @@ struct BikeMapListView: View {
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         VStack(alignment: .leading) {
-                            SearchBarView("Type to find a bike...",
+                            SearchBarView("Manufacturer, serial, color or something else...",
                                           text: viewStore.binding(
                                             get: \.query,
                                             send: { .updateQuery($0) }
