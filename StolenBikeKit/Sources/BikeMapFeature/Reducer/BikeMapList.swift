@@ -12,6 +12,13 @@ import SharedModel
 import Utils
 
 public struct BikeMapList: ReducerProtocol {
+    public enum SearchMode: Equatable {
+        case localStolen
+        case allStolen
+        case allNonStolen
+        case all
+    }
+
     public struct State: Equatable {
         var area: LocationArea?
 
@@ -26,6 +33,7 @@ public struct BikeMapList: ReducerProtocol {
         var isLastPage: Bool
         var isLoading: Bool
         var error: StateError?
+        var searchMode: SearchMode
 
         var details: BikeMapDetails.State
 
@@ -36,6 +44,7 @@ public struct BikeMapList: ReducerProtocol {
                     isLastPage: Bool = false,
                     isLoading: Bool = false,
                     error: StateError? = nil,
+                    searchMode: SearchMode = .localStolen,
                     details: BikeMapDetails.State = .init()) {
             self.area = area
             self._query = query.isEmpty ? nil : query
@@ -44,6 +53,7 @@ public struct BikeMapList: ReducerProtocol {
             self.isLastPage = isLastPage
             self.isLoading = isLoading
             self.error = error
+            self.searchMode = searchMode
             self.details = details
         }
     }
@@ -51,6 +61,7 @@ public struct BikeMapList: ReducerProtocol {
     public enum Action: Equatable {
         case updateQuery(String)
         case updateQueryDebounced
+        case updateSearchMode(SearchMode)
 
         case fetch
         case fetchMore(Bike)
@@ -78,6 +89,9 @@ public struct BikeMapList: ReducerProtocol {
                     break
                 }
                 return .send(.fetch)
+
+            case let .updateSearchMode(searchMode):
+                state.searchMode = searchMode
 
             case .fetch:
                 state.page = 1
@@ -121,10 +135,29 @@ public struct BikeMapList: ReducerProtocol {
 
         return .task { [area = state.area,
                         page = state.page,
-                        query = state.query] in
+                        query = state.query,
+                        searchMode = state.searchMode] in
             await .fetchResult(TaskResult {
-                try await bikeClient.fetch(area, page, query)
+                try await bikeClient.fetch(area,
+                                           page,
+                                           query,
+                                           searchMode.bikeClientStolenness)
             })
+        }
+    }
+}
+
+private extension BikeMapList.SearchMode {
+    var bikeClientStolenness: BikeClient.Stolenness {
+        switch self {
+        case .localStolen:
+            return .proximity
+        case .allStolen:
+            return .stolen
+        case .allNonStolen:
+            return .non
+        case .all:
+            return .all
         }
     }
 }

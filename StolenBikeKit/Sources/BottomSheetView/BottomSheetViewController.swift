@@ -12,11 +12,14 @@ final class BottomSheetViewController<Content: View>: UIViewController,
                                                       UISheetPresentationControllerDelegate {
     private let detents: [UISheetPresentationController.Detent]
     private let contentView: UIHostingController<Content>
+    private let onChangedDetent: ((UISheetPresentationController.Detent.Identifier) -> Void)?
 
     init(detents: [UISheetPresentationController.Detent],
-         content: Content) {
+         content: Content,
+         onChangedDetent: ((UISheetPresentationController.Detent.Identifier) -> Void)?) {
         self.detents = detents
         self.contentView = UIHostingController(rootView: content)
+        self.onChangedDetent = onChangedDetent
 
         super.init(nibName: nil, bundle: nil)
 
@@ -50,5 +53,12 @@ final class BottomSheetViewController<Content: View>: UIViewController,
         sheetController.prefersGrabberVisible = true
         sheetController.delegate = self
         sheetController.largestUndimmedDetentIdentifier = .fraction
+    }
+
+    func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
+        guard let detentId = sheetPresentationController.selectedDetentIdentifier else {
+            return
+        }
+        onChangedDetent?(detentId)
     }
 }

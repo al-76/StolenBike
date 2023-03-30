@@ -8,10 +8,18 @@
 import SharedModel
 
 public struct BikeClient {
+    public enum Stolenness: String {
+        case proximity
+        case stolen
+        case non
+        case all
+    }
+
     public var fetch: @Sendable (
         /* area */ LocationArea?,
         /* page */ Int,
-        /* query */ String
+        /* query */ String,
+        /* stolenness */ Stolenness /*! applicable only if area == nil !*/
     ) async throws -> [Bike]
 
     public var fetchDetails: @Sendable (

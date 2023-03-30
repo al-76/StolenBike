@@ -18,8 +18,8 @@ import Utils
 
 public struct BikeMapView: View {
     private let store: StoreOf<BikeMap>
-    @State private var isShowingSettings = false
     @State private var isShowingList = false
+    @State private var detentId: UISheetPresentationController.Detent.Identifier = .fraction
 
     public init(store: StoreOf<BikeMap>) {
         self.store = store
@@ -55,24 +55,17 @@ public struct BikeMapView: View {
             .onAppear {
                 viewStore.send(.getLocation)
             }
-            .onChange(of: viewStore.area) { _ in
-                viewStore.send(.fetch)
-            }
             .bottomSheet(
-                detents: [.fraction(0.05),
+                detents: [.fraction(0.050),
                           .medium(),
-                          .large()]
+                          .large()],
+                selectedDetentId: $detentId.animation()
             ) {
                 BikeMapListView(store: store.scope(
                     state: \.list,
                     action: BikeMap.Action.list
-                ))
-                .sheet(isPresented: $isShowingSettings) {
-                    BikeMapSettingsView(store: store.scope(
-                        state: \.settings,
-                        action: BikeMap.Action.settings
-                    ))
-                }
+                ),
+                                detendId: $detentId)
             }
         }
     }
@@ -96,21 +89,14 @@ public struct BikeMapView: View {
     private func mapButtons(_ viewStore: ViewStore<BikeMap.State, BikeMap.Action>) -> some View {
         HStack {
             Spacer()
-            VStack {
-                Image(systemName: "slider.horizontal.3")
-                    .onTapGesture {
-                        isShowingSettings.toggle()
-                    }
-                    .mapElement()
-
-                LocationButton {
-                    viewStore.send(.getLocation)
-                }
-                .labelStyle(.iconOnly)
-                .symbolVariant(.fill)
-                .cornerRadius()
-                .foregroundColor(.white)
-            }.padding()
+            LocationButton {
+                viewStore.send(.getLocation)
+            }
+            .labelStyle(.iconOnly)
+            .symbolVariant(.fill)
+            .cornerRadius()
+            .foregroundColor(.white)
+            .padding()
         }
     }
 

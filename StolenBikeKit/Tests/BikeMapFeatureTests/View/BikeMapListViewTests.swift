@@ -21,35 +21,76 @@ final class BikeMapListViewTests: XCTestCase {
 //        isRecording = true
     }
 
-    func testGeneral() throws {
+    func testGeneralFraction() throws {
         // Arrange
         let view = BikeMapListView(
             store: .init(initialState: .init(bikes: .stub),
-                        reducer: EmptyReducer())
+                         reducer: EmptyReducer()),
+            detendId: .constant(.fraction)
         )
 
         // Assert
         assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testIsLoading() throws {
+    func testGeneralLarge() throws {
+        // Arrange
+        let view = BikeMapListView(
+            store: .init(initialState: .init(bikes: .stub),
+                         reducer: EmptyReducer()),
+            detendId: .constant(.large)
+        )
+
+        // Assert
+        assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testIsLoadingFraction() throws {
         // Arrange
         let view = BikeMapListView(
             store: .init(initialState: .init(bikes: .stub,
                                              isLoading: true),
-                        reducer: EmptyReducer())
+                         reducer: EmptyReducer()),
+            detendId: .constant(.fraction)
         )
 
         // Assert
         assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
-    func testQuery() throws {
+    func testIsLoadingLarge() throws {
+        // Arrange
+        let view = BikeMapListView(
+            store: .init(initialState: .init(bikes: .stub,
+                                             isLoading: true),
+                         reducer: EmptyReducer()),
+            detendId: .constant(.large)
+        )
+
+        // Assert
+        assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testQueryFraction() throws {
         // Arrange
         let view = BikeMapListView(
             store: .init(initialState: .init(query: "test",
                                              bikes: .stub),
-                        reducer: EmptyReducer())
+                        reducer: EmptyReducer()),
+            detendId: .constant(.fraction)
+        )
+
+        // Assert
+        assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testQueryLarge() throws {
+        // Arrange
+        let view = BikeMapListView(
+            store: .init(initialState: .init(query: "test",
+                                             bikes: .stub),
+                        reducer: EmptyReducer()),
+            detendId: .constant(.large)
         )
 
         // Assert

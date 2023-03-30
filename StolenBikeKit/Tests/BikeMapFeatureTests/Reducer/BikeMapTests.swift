@@ -66,7 +66,10 @@ final class BikeMapTests: XCTestCase {
 
     func testGetLocation() async {
         // Arrange
+        store.exhaustivity = .off
         store.dependencies.locationClient.get = { .stub }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
+        store.dependencies.bikeClient.pageSize = { .stub }
 
         // Act
         await store.send(.getLocation) {
@@ -82,6 +85,7 @@ final class BikeMapTests: XCTestCase {
             $0.area = LocationArea(location: .stub,
                                    distance: BikeMap.areaDistance)
         }
+        await store.receive(.fetch)
     }
 
     func testGetLocationUpdateRegion() async {
@@ -89,7 +93,10 @@ final class BikeMapTests: XCTestCase {
         let region = MKCoordinateRegion()
         store = TestStore(initialState: .init(region: region),
                           reducer: BikeMap())
+        store.exhaustivity = .off
         store.dependencies.locationClient.get = { .stub }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
+        store.dependencies.bikeClient.pageSize = { .stub }
 
         // Act
         await store.send(.getLocation) {
@@ -104,6 +111,7 @@ final class BikeMapTests: XCTestCase {
             $0.area = LocationArea(location: .stub,
                                    distance: BikeMap.areaDistance)
         }
+        await store.receive(.fetch)
     }
 
     func testGetLocationSkipSameArea() async {
@@ -149,12 +157,18 @@ final class BikeMapTests: XCTestCase {
         let region = MKCoordinateRegion()
         store = TestStore(initialState: .init(region: region),
                           reducer: BikeMap())
+        store.exhaustivity = .off
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
+        store.dependencies.bikeClient.pageSize = { .stub }
 
-        // Act, Assert
+        // Act
         await store.send(.changeArea) {
             $0.area = LocationArea(location: Location(region.center),
                                    distance: BikeMap.areaDistance)
         }
+
+        // Assert
+        await store.receive(.fetch)
     }
 
     func testChangeAreaSkipNilRegion() async {
@@ -166,7 +180,7 @@ final class BikeMapTests: XCTestCase {
         store = TestStore(initialState: .init(area: .stub),
                           reducer: BikeMap())
         store.exhaustivity = .off
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in .stub }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
         store.dependencies.bikeClient.pageSize = { .stub }
 
         // Act
@@ -188,7 +202,7 @@ final class BikeMapTests: XCTestCase {
         store = TestStore(initialState: .init(area: .stub),
                           reducer: BikeMap())
         store.exhaustivity = .off
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in throw error }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in throw error }
 
         // Act
         await store.send(.fetch) {
@@ -202,21 +216,7 @@ final class BikeMapTests: XCTestCase {
         }
     }
 
-    func testSettingsGlobalSearchIsTrue() async {
-        // Arrange
-        store = TestStore(initialState: .init(
-            list: .init(area: .stub)
-        ),
-                          reducer: BikeMap())
-
-        // Act, Assert
-        await store.send(.settings(.updateIsGlobalSearch(true))) {
-            $0.area = nil
-            $0.settings = .init(isGlobalSearch: true)
-        }
-    }
-
-    func testSettingsGlobalSearchIsFalse() async {
+    func testListUpdateSearchModeIsLocal() async {
         // Arrange
         store = TestStore(initialState: .init(),
                           reducer: BikeMap())
@@ -224,9 +224,28 @@ final class BikeMapTests: XCTestCase {
         store.dependencies.locationClient.get = { .stub }
 
         // Act
-        await store.send(.settings(.updateIsGlobalSearch(false)))
+        await store.send(.list(.updateSearchMode(.localStolen)))
 
         // Assert
         await store.receive(.getLocation)
+    }
+
+    func testListUpdateSearchModeIsGlobal() async {
+        // Arrange
+        store = TestStore(initialState: .init(
+            list: .init(area: .stub)
+        ),
+                          reducer: BikeMap())
+        store.exhaustivity = .off
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
+        store.dependencies.bikeClient.pageSize = { .stub }
+
+        // Act
+        await store.send(.list(.updateSearchMode(.all))) {
+            $0.area = nil
+        }
+
+        // Assert
+        await store.receive(.fetch)
     }
 }

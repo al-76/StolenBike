@@ -24,8 +24,8 @@ extension BikeClient {
 
     private static let pageSize = 100
 
-    static var live = Self(fetch: { area, page, query in
-        guard let url = getApiUrlSearch(area, page, query) else {
+    static var live = Self(fetch: { area, page, query, stolenness in
+        guard let url = getApiUrlSearch(area, page, query, stolenness) else {
             throw BikeClientError.badUrl
         }
 
@@ -53,19 +53,21 @@ extension BikeClient {
 
     private static func getApiUrlSearch(_ area: LocationArea?,
                                         _ page: Int,
-                                        _ query: String) -> URL? {
+                                        _ query: String,
+                                        _ stolenness: Stolenness) -> URL? {
         var components = URLComponents(string: "https://bikeindex.org:443/api/v3/search")
         components?.queryItems = [
             URLQueryItem(name: "page", value: "\(page)"),
             URLQueryItem(name: "per_page", value: "\(pageSize)"),
-            URLQueryItem(name: "query", value: query)
+            URLQueryItem(name: "query", value: query),
+            URLQueryItem(name: "stolenness", value: stolenness.rawValue)
         ]
 
         components?
             .queryItems?
             .append(contentsOf: urlQueryItems(with: area))
 
-        print(components?.url)
+//        print(components?.url)
 
         return components?.url
     }
@@ -76,15 +78,14 @@ extension BikeClient {
         let distance = max(area.radiusMiles() / 2, 1.0)
         return [
             URLQueryItem(name: "location", value: "\(area.location.latitude),\(area.location.longitude)"),
-            URLQueryItem(name: "distance", value: "\(distance)"),
-            URLQueryItem(name: "stolenness", value: "proximity"),
+            URLQueryItem(name: "distance", value: "\(distance)")
         ]
     }
 
     private static func getApiUrlDetails(_ id: Int) -> URL? {
         var components = URLComponents(string: "https://bikeindex.org:443/api/v3/bikes/\(id)")
 
-        print(components?.url)
+//        print(components?.url)
 
         return components?.url
     }

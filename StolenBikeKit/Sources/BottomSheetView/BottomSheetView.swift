@@ -12,8 +12,11 @@ public struct BottomSheetView<ContentView: View>: ViewModifier {
     private let bottomSheet: BottomSheetViewController<ContentView>
 
     public init(detents: [UISheetPresentationController.Detent],
-         contentView: () -> ContentView) {
-        self.bottomSheet = BottomSheetViewController(detents: detents, content: contentView())
+                contentView: () -> ContentView,
+                selectedDetentId: Binding<UISheetPresentationController.Detent.Identifier>) {
+        self.bottomSheet = BottomSheetViewController(detents: detents, content: contentView()) {
+            selectedDetentId.wrappedValue = $0
+        }
     }
 
     public func body(content: Content) -> some View {
@@ -41,9 +44,12 @@ public struct BottomSheetView<ContentView: View>: ViewModifier {
 extension View {
     public func bottomSheet<ContentView: View>(
         detents: [UISheetPresentationController.Detent],
+        selectedDetentId: Binding<UISheetPresentationController.Detent.Identifier>,
         @ViewBuilder contentView: @escaping () -> ContentView
     ) -> some View {
-        modifier(BottomSheetView(detents: detents, contentView: contentView))
+        modifier(BottomSheetView(detents: detents,
+                                 contentView: contentView,
+                                 selectedDetentId: selectedDetentId))
     }
 }
 
@@ -52,8 +58,9 @@ struct BottomSheetView_Previews: PreviewProvider {
         Button("Click") { }
             .bottomSheet(detents: [.fraction(0.2),
                                    .medium(),
-                                   .large()]) {
-                                       Text("Some text")
-                                   }
+                                   .large()],
+                         selectedDetentId: .constant(.fraction)) {
+                Text("Some text")
+            }
     }
 }

@@ -36,20 +36,17 @@ public struct BikeMap: ReducerProtocol {
         }
         var locationError: StateError?
 
-        var settings: BikeMapSettings.State
         var list: BikeMapList.State
 
         public init(region: MKCoordinateRegion? = nil,
                     isLoading: Bool = false,
                     isOutOfArea: Bool = false,
                     locationError: StateError? = nil,
-                    settings: BikeMapSettings.State = .init(),
                     list: BikeMapList.State = .init()) {
             self.region = region
             self.isLoading = isLoading
             self.isOutOfArea = isOutOfArea
             self.locationError = locationError
-            self.settings = settings
             self.list = list
         }
 
@@ -59,13 +56,11 @@ public struct BikeMap: ReducerProtocol {
                     isLoading: Bool = false,
                     isOutOfArea: Bool = false,
                     fetchError: StateError? = nil,
-                    locationError: StateError? = nil,
-                    settings: BikeMapSettings.State = .init()) {
+                    locationError: StateError? = nil) {
             self.region = region
             self.isLoading = isLoading
             self.isOutOfArea = isOutOfArea
             self.locationError = locationError
-            self.settings = settings
             self.list = .init(area: area, bikes: bikes, error: fetchError)
         }
     }
@@ -79,7 +74,6 @@ public struct BikeMap: ReducerProtocol {
         case changeArea
         case fetch
 
-        case settings(BikeMapSettings.Action)
         case list(BikeMapList.Action)
     }
 
@@ -88,10 +82,6 @@ public struct BikeMap: ReducerProtocol {
     public init() {}
 
     public var body: some ReducerProtocol<State, Action> {
-        Scope(state: \.settings, action: /Action.settings) {
-            BikeMapSettings()
-        }
-
         Scope(state: \.list, action: /Action.list) {
             BikeMapList()
         }
@@ -131,6 +121,7 @@ public struct BikeMap: ReducerProtocol {
                 }
                 state.area = LocationArea(location: location,
                                           distance: Self.areaDistance)
+                return .send(.fetch)
 
             case let .getLocationResult(.failure(error)):
                 state.isLoading = false
@@ -141,6 +132,7 @@ public struct BikeMap: ReducerProtocol {
 
                 state.area = LocationArea(location: Location(region.center),
                                           distance: Self.areaDistance)
+                return .send(.fetch)
 
             case .fetch:
                 state.isOutOfArea = false
@@ -150,10 +142,10 @@ public struct BikeMap: ReducerProtocol {
             case .list(.fetchResult):
                 state.isLoading = false
 
-            case let .settings(.updateIsGlobalSearch(value)):
-                if value {
+            case let .list(.updateSearchMode(searchMode)):
+                guard searchMode == .localStolen else {
                     state.area = nil
-                    break
+                    return .send(.fetch)
                 }
                 return .send(.getLocation)
 

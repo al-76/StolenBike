@@ -24,6 +24,8 @@ final class BikeMapListTests: XCTestCase {
     override func setUp() {
         store = TestStore(initialState: .init(),
                           reducer: BikeMapList())
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
+        store.dependencies.bikeClient.pageSize = { .stub }
     }
 
     func testUpdateQuery() async throws {
@@ -45,7 +47,7 @@ final class BikeMapListTests: XCTestCase {
         store = TestStore(initialState: .init(query: "test"),
                           reducer: BikeMapList())
         store.exhaustivity = .off
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in .stub }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
         store.dependencies.bikeClient.pageSize = { .stub }
 
         // Act
@@ -56,10 +58,6 @@ final class BikeMapListTests: XCTestCase {
     }
 
     func testFetch() async throws {
-        // Arrange
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in .stub }
-        store.dependencies.bikeClient.pageSize = { .stub }
-
         // Act
         await store.send(.fetch) {
             $0.isLoading = true
@@ -76,7 +74,6 @@ final class BikeMapListTests: XCTestCase {
     func testFetchIsNotLastPage() async throws {
         // Arrange
         store.exhaustivity = .off
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in .stub }
         store.dependencies.bikeClient.pageSize = { [Bike].stub.count }
 
         // Act
@@ -95,7 +92,7 @@ final class BikeMapListTests: XCTestCase {
         let secondPart = Array(bikes[(bikes.count / 2)...])
         store = TestStore(initialState: .init(bikes: firstPart),
                           reducer: BikeMapList())
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in secondPart }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in secondPart }
         store.dependencies.bikeClient.pageSize = { .stub }
 
         // Act
@@ -119,7 +116,7 @@ final class BikeMapListTests: XCTestCase {
         store = TestStore(initialState: .init(bikes: bikes),
                           reducer: BikeMapList())
         store.exhaustivity = .off
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _ in throw error }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in throw error }
 
         // Act
         await store.send(.fetchMore(bikes.last!)) {

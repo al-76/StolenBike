@@ -9,7 +9,7 @@ import XCTestDynamicOverlay
 
 // MARK: - Preview
 extension BikeClient {
-    static var preview = Self(fetch: { _, _, _ in .stub },
+    static var preview = Self(fetch: { _, _, _, _ in .stub },
                               fetchDetails: { _ in .stub },
                               pageSize: { .stub })
 }

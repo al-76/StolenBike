@@ -13,10 +13,32 @@ import SearchBarView
 
 struct BikeMapListView: View {
     let store: StoreOf<BikeMapList>
+    @State var text = ""
+    @Binding var detendId: UISheetPresentationController.Detent.Identifier
 
     var body: some View {
         WithViewStore(store) { viewStore in
             NavigationStack {
+                if detendId != .fraction {
+                    Picker("Search mode",
+                           selection: viewStore.binding(
+                            get: \.searchMode,
+                            send: { .updateSearchMode($0) }
+                           )
+                    ) {
+                        Text("Local stolen")
+                            .tag(BikeMapList.SearchMode.localStolen)
+                        Text("All stolen")
+                            .tag(BikeMapList.SearchMode.allStolen)
+                        Text("All non-stolen")
+                            .tag(BikeMapList.SearchMode.allNonStolen)
+                        Text("All")
+                            .tag(BikeMapList.SearchMode.all)
+                    }
+                    .pickerStyle(.segmented)
+                    .padding()
+                }
+
                 List(viewStore.bikes) { bike in
                     NavigationLink(value: bike) {
                         BikeMapRowView(bike: bike)
@@ -38,17 +60,17 @@ struct BikeMapListView: View {
                 }
                 .toolbar {
                     ToolbarItem(placement: .principal) {
-                        VStack(alignment: .leading) {
-                            SearchBarView("Manufacturer, serial, color or something else...",
-                                          text: viewStore.binding(
-                                            get: \.query,
-                                            send: { .updateQuery($0) }
-                                          ))
-                            .padding(.top, 6)
-                        }
+                        SearchBarView("Manufacturer, serial, color or something else...",
+                                      text: viewStore.binding(
+                                        get: \.query,
+                                        send: { .updateQuery($0) }
+                                      ))
+                        .padding(.top, 6)
                     }
                 }
-                if viewStore.isLoading {
+
+                if detendId != .fraction,
+                   viewStore.isLoading {
                     ProgressView("Fetching bikes 🚲...")
                 }
             }
@@ -69,6 +91,7 @@ struct BikeMapListView_Previews: PreviewProvider {
         BikeMapListView(store: .init(
             initialState: .init(bikes: .stub),
             reducer: BikeMapList()
-        ))
+        ),
+                        detendId: .constant(.fraction))
     }
 }
