@@ -23,13 +23,16 @@ public struct MapView: UIViewRepresentable {
     fileprivate let region: Binding<MKCoordinateRegion?>
     private let annotations: [any MapViewPointAnnotation]
     private let overlays: [any MapOverlay]
+    fileprivate let onSelectedAnnotations: ([any MapViewPointAnnotation]) -> Void
 
     public init(region: Binding<MKCoordinateRegion?>,
                 annotations: [any MapViewPointAnnotation],
-                overlays: [any MapOverlay]) {
+                overlays: [any MapOverlay],
+                onSelectedAnnotations: @escaping ([any MapViewPointAnnotation]) -> Void) {
         self.region = region
         self.annotations = annotations
         self.overlays = overlays
+        self.onSelectedAnnotations = onSelectedAnnotations
     }
 
     public func makeUIView(context: Context) -> MKMapView {
@@ -112,6 +115,17 @@ public final class Coordinator: NSObject, MKMapViewDelegate {
             return MKOverlayRenderer()
         }
         return overlay.renderer
+    }
+
+    public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let cluster = view.annotation as? MKClusterAnnotation,
+              let annotations = cluster.memberAnnotations as? [any MapViewPointAnnotation] else {
+            if let annotation = view.annotation as? (any MapViewPointAnnotation) {
+                self.mapView.onSelectedAnnotations([annotation])
+            }
+            return
+        }
+        self.mapView.onSelectedAnnotations(annotations)
     }
 }
 

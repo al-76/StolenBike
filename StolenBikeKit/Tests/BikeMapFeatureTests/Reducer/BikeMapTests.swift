@@ -9,6 +9,7 @@ import ComposableArchitecture
 import MapKit
 import XCTest
 
+import BikeClient
 import SharedModel
 import Utils
 import TestUtils
@@ -222,6 +223,8 @@ final class BikeMapTests: XCTestCase {
                           reducer: BikeMap())
         store.exhaustivity = .off
         store.dependencies.locationClient.get = { .stub }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
+        store.dependencies.bikeClient.pageSize = { .stub }
 
         // Act
         await store.send(.list(.updateSearchMode(.localStolen)))
@@ -247,5 +250,19 @@ final class BikeMapTests: XCTestCase {
 
         // Assert
         await store.receive(.fetch)
+    }
+
+    func testSelectBikesIds() async {
+        // Arrange
+        store = TestStore(initialState: .init(
+            list: .init(bikes: .stub)
+        ),
+                          reducer: BikeMap())
+        let bikeIds = [Bike].stub.map(\.id)
+
+        // Act, Assert
+        await store.send(.select(bikeIds)) {
+            $0.selection.bikes = .stub
+        }
     }
 }

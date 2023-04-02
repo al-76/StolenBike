@@ -18,7 +18,7 @@ import Utils
 
 public struct BikeMapView: View {
     private let store: StoreOf<BikeMap>
-    @State private var isShowingList = false
+    @State private var isShownBikesSelection = false
     @State private var detentId: UISheetPresentationController.Detent.Identifier = .fraction
 
     public init(store: StoreOf<BikeMap>) {
@@ -66,6 +66,12 @@ public struct BikeMapView: View {
                     action: BikeMap.Action.list
                 ),
                                 detendId: $detentId)
+                .sheet(isPresented: $isShownBikesSelection) {
+                    BikeMapSelectionView(store: store.scope(
+                        state: \.selection,
+                        action: BikeMap.Action.selection)
+                    )
+                }
             }
         }
     }
@@ -81,7 +87,10 @@ public struct BikeMapView: View {
             ),
                     annotations: viewStore.bikes
                 .compactMap { $0.pointAnnotation() },
-                    overlays: mapOverlays(viewStore.area))
+                    overlays: mapOverlays(viewStore.area)) { annotations in
+                viewStore.send(.select(annotations.map { $0.id }))
+                isShownBikesSelection = true
+            }
             .edgesIgnoringSafeArea(.top)
         }
     }

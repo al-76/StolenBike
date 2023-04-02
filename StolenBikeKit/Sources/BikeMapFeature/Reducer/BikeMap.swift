@@ -37,17 +37,20 @@ public struct BikeMap: ReducerProtocol {
         var locationError: StateError?
 
         var list: BikeMapList.State
+        var selection: BikeMapSelection.State
 
         public init(region: MKCoordinateRegion? = nil,
                     isLoading: Bool = false,
                     isOutOfArea: Bool = false,
                     locationError: StateError? = nil,
-                    list: BikeMapList.State = .init()) {
+                    list: BikeMapList.State = .init(),
+                    selection: BikeMapSelection.State = .init()) {
             self.region = region
             self.isLoading = isLoading
             self.isOutOfArea = isOutOfArea
             self.locationError = locationError
             self.list = list
+            self.selection = selection
         }
 
         public init(region: MKCoordinateRegion? = nil,
@@ -56,12 +59,14 @@ public struct BikeMap: ReducerProtocol {
                     isLoading: Bool = false,
                     isOutOfArea: Bool = false,
                     fetchError: StateError? = nil,
-                    locationError: StateError? = nil) {
+                    locationError: StateError? = nil,
+                    selection: BikeMapSelection.State = .init()) {
             self.region = region
             self.isLoading = isLoading
             self.isOutOfArea = isOutOfArea
             self.locationError = locationError
             self.list = .init(area: area, bikes: bikes, error: fetchError)
+            self.selection = selection
         }
     }
 
@@ -73,8 +78,10 @@ public struct BikeMap: ReducerProtocol {
 
         case changeArea
         case fetch
+        case select([Int])
 
         case list(BikeMapList.Action)
+        case selection(BikeMapSelection.Action)
     }
 
     @Dependency(\.locationClient) var locationClient
@@ -84,6 +91,10 @@ public struct BikeMap: ReducerProtocol {
     public var body: some ReducerProtocol<State, Action> {
         Scope(state: \.list, action: /Action.list) {
             BikeMapList()
+        }
+
+        Scope(state: \.selection, action: /Action.selection) {
+            BikeMapSelection()
         }
 
         Reduce { state, action in
@@ -138,6 +149,13 @@ public struct BikeMap: ReducerProtocol {
                 state.isOutOfArea = false
                 state.isLoading = true
                 return .send(.list(.fetch))
+
+            case let .select(bikesIds):
+                state.selection.bikes = bikesIds
+                    .map { id in
+                        state.bikes.filter { $0.id == id }
+                    }
+                    .flatMap { $0 }
 
             case .list(.fetchResult):
                 state.isLoading = false
