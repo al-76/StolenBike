@@ -52,7 +52,7 @@ final class BottomSheetViewController<Content: View>: UIViewController,
         sheetController.detents = detents
         sheetController.prefersGrabberVisible = true
         sheetController.delegate = self
-        sheetController.largestUndimmedDetentIdentifier = .fraction
+        sheetController.largestUndimmedDetentIdentifier = .medium
     }
 
     func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
