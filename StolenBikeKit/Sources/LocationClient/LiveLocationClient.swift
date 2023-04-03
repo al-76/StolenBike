@@ -35,18 +35,13 @@ private final class LocationManager: NSObject {
     private let locationManager = CLLocationManager()
     private var onGetLocation: OnGetLocation?
 
-    override init() {
-        super.init()
-
-        locationManager.delegate = self
-    }
-
     func getLocation(onGetLocation: @escaping OnGetLocation) {
         self.onGetLocation = onGetLocation
         requestLocation()
     }
 
     private func requestLocation() {
+        locationManager.delegate = self
         if locationManager.authorizationStatus == .notDetermined {
             locationManager.requestWhenInUseAuthorization()
         } else {
@@ -58,7 +53,7 @@ private final class LocationManager: NSObject {
 extension LocationManager: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager,
                          didUpdateLocations locations: [CLLocation]) {
-        manager.stopUpdatingLocation()
+        stop(manager)
 
         guard let location = locations.last else {
             onGetLocation?(.failure(LocationManagerError.noLocation))
@@ -73,6 +68,7 @@ extension LocationManager: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager,
                          didFailWithError error: Error) {
+        stop(manager)
         onGetLocation?(.failure(error))
     }
 
@@ -82,6 +78,7 @@ extension LocationManager: CLLocationManagerDelegate {
             manager.requestLocation()
 
         case .restricted, .denied:
+            stop(manager)
             onGetLocation?(.failure(LocationManagerError.serviceIsNotAvailable))
 
         case .notDetermined:
@@ -90,6 +87,11 @@ extension LocationManager: CLLocationManagerDelegate {
         default:
             break
         }
+    }
+
+    private func stop(_ manager: CLLocationManager) {
+        manager.stopUpdatingLocation()
+        manager.delegate = nil
     }
 }
 
