@@ -8,27 +8,27 @@
 import MapKit
 import SwiftUI
 
-public protocol MapViewPointAnnotation: Identifiable, Equatable, MKPointAnnotation {
-    var id: Int { get }
+public protocol MapViewPointAnnotation: Identifiable, MKPointAnnotation {
     var glyphImageName: String { get }
 }
 
-public protocol MapOverlay: MKOverlay {
+public protocol MapOverlay: Identifiable, MKOverlay {
     var renderer: MKOverlayRenderer { get }
 }
 
-public struct MapView: UIViewRepresentable {
+public struct MapView<Annotation: MapViewPointAnnotation,
+                      Overlay: MapOverlay>: UIViewRepresentable {
     public typealias UIViewType = MKMapView
 
     fileprivate let region: Binding<MKCoordinateRegion?>
-    private let annotations: [any MapViewPointAnnotation]
-    private let overlays: [any MapOverlay]
-    fileprivate let onSelectedAnnotations: ([any MapViewPointAnnotation]) -> Void
+    private let annotations: [Annotation]
+    private let overlays: [Overlay]
+    fileprivate let onSelectedAnnotations: ([Annotation]) -> Void
 
     public init(region: Binding<MKCoordinateRegion?>,
-                annotations: [any MapViewPointAnnotation],
-                overlays: [any MapOverlay],
-                onSelectedAnnotations: @escaping ([any MapViewPointAnnotation]) -> Void) {
+                annotations: [Annotation],
+                overlays: [Overlay],
+                onSelectedAnnotations: @escaping ([Annotation]) -> Void) {
         self.region = region
         self.annotations = annotations
         self.overlays = overlays
@@ -57,52 +57,50 @@ public struct MapView: UIViewRepresentable {
     }
 
     private func updateAnnotations(_ view: MKMapView) {
-        let oldAnnotations = view.annotations
-            .compactMap { $0 as? (any MapViewPointAnnotation) }
-        let obsoleteAnnotations = oldAnnotations
-            .filter { annotation in
-                !annotations.contains { annotation.id == $0.id }
-            }
-        let newAnnotations = annotations
-            .filter { annotation in
-                !oldAnnotations.contains { annotation.id == $0.id }
-            }
-
-        if !obsoleteAnnotations.isEmpty {
-            view.removeAnnotations(obsoleteAnnotations)
-        }
-        if !newAnnotations.isEmpty {
-            view.addAnnotations(newAnnotations)
-        }
+        updateItems(newItems: annotations,
+                    oldItems: view.annotations.compactMap { $0 as? Annotation },
+                    onRemoveItems: { view.removeAnnotations($0) },
+                    onAddItems: { view.addAnnotations($0) })
     }
 
     private func updateOverlays(_ view: MKMapView) {
-        let obsoleteOverlays = view.overlays
-            .filter { overlay in
-                !overlays.contains { overlay.coordinate == $0.coordinate }
-            }
-        let newOverlays = overlays
-            .filter { overlay in
-                !view.overlays.contains { overlay.coordinate == $0.coordinate }
-            }
+        updateItems(newItems: overlays,
+                    oldItems: view.overlays.compactMap { $0 as? Overlay },
+                    onRemoveItems: { view.removeOverlays($0) },
+                    onAddItems: { view.addOverlays($0) })
+    }
 
-        if !obsoleteOverlays.isEmpty {
-            view.removeOverlays(obsoleteOverlays)
+    private func updateItems<Item: Identifiable>(newItems: [Item],
+                                                 oldItems: [Item],
+                                                 onRemoveItems: ([Item]) -> Void,
+                                                 onAddItems: ([Item]) -> Void) {
+        let oldItemsIds = Set(oldItems.map(\.id))
+        let newItemsIds = Set(newItems.map(\.id))
+        guard oldItemsIds != newItemsIds else {
+            return
         }
-        if !newOverlays.isEmpty {
-            view.addOverlays(newOverlays)
+
+        let removeItemsIds = oldItemsIds.subtracting(newItemsIds)
+        let addItemsIds = newItemsIds.subtracting(oldItemsIds)
+
+        if !removeItemsIds.isEmpty {
+            onRemoveItems(oldItems.filter { removeItemsIds.contains($0.id) })
+        }
+        if !addItemsIds.isEmpty {
+            onAddItems(newItems.filter { addItemsIds.contains($0.id) })
         }
     }
 
-    public func makeCoordinator() -> Coordinator {
+    public func makeCoordinator() -> Coordinator<Annotation, Overlay> {
         Coordinator(mapView: self)
     }
 }
 
-public final class Coordinator: NSObject, MKMapViewDelegate {
-    private let mapView: MapView
+public final class Coordinator<Annotation: MapViewPointAnnotation,
+                               Overlay: MapOverlay>: NSObject, MKMapViewDelegate {
+    private let mapView: MapView<Annotation, Overlay>
 
-    init(mapView: MapView) {
+    init(mapView: MapView<Annotation, Overlay>) {
         self.mapView = mapView
     }
 
@@ -111,7 +109,7 @@ public final class Coordinator: NSObject, MKMapViewDelegate {
     }
 
     public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        guard let overlay = overlay as? MapOverlay else {
+        guard let overlay = overlay as? Overlay else {
             return MKOverlayRenderer()
         }
         return overlay.renderer
@@ -119,8 +117,8 @@ public final class Coordinator: NSObject, MKMapViewDelegate {
 
     public func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let cluster = view.annotation as? MKClusterAnnotation,
-              let annotations = cluster.memberAnnotations as? [any MapViewPointAnnotation] else {
-            if let annotation = view.annotation as? (any MapViewPointAnnotation) {
+              let annotations = cluster.memberAnnotations as? [Annotation] else {
+            if let annotation = view.annotation as? Annotation {
                 self.mapView.onSelectedAnnotations([annotation])
             }
             return

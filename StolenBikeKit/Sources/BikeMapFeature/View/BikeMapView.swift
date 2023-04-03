@@ -127,28 +127,29 @@ public struct BikeMapView: View {
         }
     }
 
-    private func mapOverlays(_ area: LocationArea?) -> [any MapOverlay] {
+    private func mapOverlays(_ area: LocationArea?) -> [AreaCircle] {
         guard let area else { return [] }
         return [AreaCircle(area: area)]
     }
 }
 
 private final class PointAnnotation: MKPointAnnotation, MapViewPointAnnotation {
-    var id: Int = 0
+    let id: Int
     var glyphImageName: String = "bicycle.circle.fill"
 
     init(id: Int, coordinate: CLLocationCoordinate2D) {
+        self.id = id
         super.init()
 
-        self.id = id
         self.coordinate = coordinate
     }
 }
 
 private final class AreaCircle: MKCircle, MapOverlay {
+    private(set) var id: Int = 0
+
     var renderer: MKOverlayRenderer {
-        let renderer = MKCircleRenderer(circle: MKCircle(center: coordinate,
-                                                         radius: radius))
+        let renderer = MKCircleRenderer(circle: self)
         renderer.lineWidth = 5.0
         renderer.strokeColor = .red
         renderer.alpha = 0.5
@@ -158,6 +159,12 @@ private final class AreaCircle: MKCircle, MapOverlay {
     convenience init(area: LocationArea) {
         self.init(center: area.location.coordinates(),
                   radius: area.radius)
+
+        var hasher = Hasher()
+        hasher.combine(area.radius)
+        hasher.combine(area.location.longitude)
+        hasher.combine(area.location.latitude)
+        self.id = hasher.finalize()
     }
 }
 
