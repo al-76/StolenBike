@@ -9,17 +9,23 @@ import SwiftUI
 
 public struct ErrorView: View {
     private let title: String
+    private let tryAgainTitle: String
     private let error: Error
     private let onTryAgain: (() -> Void)
+    private let onCancel: (() -> Void)?
 
     @State private var isShown = false
 
     public init(title: String,
+                tryAgainTitle: String = "Try again",
                 error: Error,
-                onTryAgain: @escaping (() -> Void)) {
+                onTryAgain: @escaping (() -> Void),
+                onCancel: (() -> Void)? = nil) {
         self.title = title
+        self.tryAgainTitle = tryAgainTitle
         self.error = error
         self.onTryAgain = onTryAgain
+        self.onCancel = onCancel
     }
 
     public var body: some View {
@@ -33,9 +39,15 @@ public struct ErrorView: View {
 
             VStack(alignment: .center) {
                 Divider()
-                Button("Try again") {
-                    withAnimation {
+                HStack {
+                    button(title: tryAgainTitle) {
                         onTryAgain()
+                    }
+
+                    if let onCancel {
+                        button(title: "Cancel") {
+                            onCancel()
+                        }
                     }
                 }
             }
@@ -46,6 +58,18 @@ public struct ErrorView: View {
         .cornerRadius()
         .padding()
         .transition(.moveTop)
+    }
+
+    private func button(title: String, action: @escaping () -> Void) -> some View {
+        Button(action: {
+            withAnimation {
+                action()
+            }
+        }) {
+            Text(title)
+                .frame(maxWidth: .infinity)
+                .bold()
+        }
     }
 }
 
@@ -59,7 +83,11 @@ struct ErrorView_Previews: PreviewProvider {
     static var previews: some View {
         ErrorView(title: "Error",
                   error: URLError(.badURL)) {
-
+        } onCancel: {
         }
+
+        ErrorView(title: "Error",
+                  error: URLError(.badURL)) {
+        }.previewDisplayName("Error View without Cancel")
     }
 }

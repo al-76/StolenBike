@@ -11,14 +11,19 @@ import MapKit
 
 import BikeClient
 import LocationClient
+import SettingsClient
 import SharedModel
 import Utils
 
 public struct BikeMap: ReducerProtocol {
     static let areaDistance = 10_000.0
+    public static let defaultRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 59.334591,
+                                                                                        longitude: 18.063240),
+                                                         latitudinalMeters: Self.areaDistance / 2,
+                                                         longitudinalMeters: Self.areaDistance / 2)
 
     public struct State: Equatable {
-        var region: MKCoordinateRegion?
+        var region: MKCoordinateRegion
         var area: LocationArea? {
             get { list.area }
             set { list.area = newValue }
@@ -35,56 +40,69 @@ public struct BikeMap: ReducerProtocol {
             set { list.error = newValue }
         }
         var locationError: StateError?
+        var settingsError: StateError?
 
         var list: BikeMapList.State
         var selection: BikeMapSelection.State
 
-        public init(region: MKCoordinateRegion? = nil,
+        public init(region: MKCoordinateRegion = BikeMap.defaultRegion,
                     isLoading: Bool = false,
                     isOutOfArea: Bool = false,
                     locationError: StateError? = nil,
+                    settingsError: StateError? = nil,
                     list: BikeMapList.State = .init(),
                     selection: BikeMapSelection.State = .init()) {
             self.region = region
             self.isLoading = isLoading
             self.isOutOfArea = isOutOfArea
             self.locationError = locationError
+            self.settingsError = settingsError
             self.list = list
             self.selection = selection
         }
 
-        public init(region: MKCoordinateRegion? = nil,
+        public init(region: MKCoordinateRegion = BikeMap.defaultRegion,
                     area: LocationArea? = nil,
                     bikes: [Bike] = [],
                     isLoading: Bool = false,
                     isOutOfArea: Bool = false,
                     fetchError: StateError? = nil,
                     locationError: StateError? = nil,
+                    settingsError: StateError? = nil,
                     selection: BikeMapSelection.State = .init()) {
             self.region = region
             self.isLoading = isLoading
             self.isOutOfArea = isOutOfArea
             self.locationError = locationError
+            self.settingsError = settingsError
             self.list = .init(area: area, bikes: bikes, error: fetchError)
             self.selection = selection
         }
     }
 
     public enum Action: Equatable {
-        case updateRegion(MKCoordinateRegion?)
+        case updateRegion(MKCoordinateRegion)
 
         case getLocation
         case getLocationResult(TaskResult<Location>)
 
+        case openSettings
+        case openSettingsResult(TaskResult<Bool>)
+
         case changeArea
         case fetch
         case select([Int])
+
+        case fetchErrorCancel
+        case locationErrorCancel
+        case settingsErrorCancel
 
         case list(BikeMapList.Action)
         case selection(BikeMapSelection.Action)
     }
 
     @Dependency(\.locationClient) var locationClient
+    @Dependency(\.settingsClient) var settingsClient
 
     public init() {}
 
@@ -100,8 +118,7 @@ public struct BikeMap: ReducerProtocol {
         Reduce { state, action in
             switch action {
             case let .updateRegion(region):
-                guard let region,
-                      let area = state.area else {
+                guard let area = state.area else {
                     break
                 }
                 state.region = region
@@ -118,13 +135,7 @@ public struct BikeMap: ReducerProtocol {
 
             case let .getLocationResult(.success(location)):
                 state.isLoading = false
-                if state.region == nil {
-                    state.region = MKCoordinateRegion(center: location.coordinates(),
-                                                      latitudinalMeters: Self.areaDistance / 2,
-                                                      longitudinalMeters: Self.areaDistance / 2)
-                } else {
-                    state.region?.center = location.coordinates()
-                }
+                state.region.center = location.coordinates()
 
                 if let area = state.area,
                    !CLLocation(location).isOutOf(area: area) {
@@ -137,11 +148,23 @@ public struct BikeMap: ReducerProtocol {
             case let .getLocationResult(.failure(error)):
                 state.isLoading = false
                 state.locationError = StateError(error: error)
+                return .send(.fetch)
+
+            case .openSettings:
+                state.locationError = nil
+                state.settingsError = nil
+                return .task {
+                    await .openSettingsResult(TaskResult {
+                        try await settingsClient.open()
+                        return true
+                    })
+                }
+
+            case let .openSettingsResult(.failure(error)):
+                state.settingsError = StateError(error: error)
 
             case .changeArea:
-                guard let region = state.region else { break }
-
-                state.area = LocationArea(location: Location(region.center),
+                state.area = LocationArea(location: Location(state.region.center),
                                           distance: Self.areaDistance)
                 return .send(.fetch)
 
@@ -156,6 +179,15 @@ public struct BikeMap: ReducerProtocol {
                         state.bikes.filter { $0.id == id }
                     }
                     .flatMap { $0 }
+
+            case .fetchErrorCancel:
+                state.fetchError = nil
+
+            case .locationErrorCancel:
+                state.locationError = nil
+
+            case .settingsErrorCancel:
+                state.settingsError = nil
 
             case .list(.fetchResult):
                 state.isLoading = false

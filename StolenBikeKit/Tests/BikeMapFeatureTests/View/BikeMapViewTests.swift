@@ -10,6 +10,7 @@ import SnapshotTesting
 import SwiftUI
 import XCTest
 
+import LocationClient
 import TestUtils
 
 @testable import BikeMapFeature
@@ -59,6 +60,18 @@ final class BikeMapViewTests: XCTestCase {
         let view = BikeMapView(
             store: .init(initialState: .init(
                 locationError: .init(error: TestError.someError)
+            ), reducer: EmptyReducer())
+        )
+
+        // Assert
+        assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testLocationErrorServiceIsNotAvailable() throws {
+        // Arrange
+        let view = BikeMapView(
+            store: .init(initialState: .init(
+                locationError: .init(error: LocationManagerError.serviceIsNotAvailable)
             ), reducer: EmptyReducer())
         )
 

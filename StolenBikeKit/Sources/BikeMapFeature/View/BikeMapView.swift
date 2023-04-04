@@ -12,6 +12,7 @@ import SwiftUI
 
 import BikeClient
 import BottomSheetView
+import LocationClient
 import MapView
 import SharedModel
 import Utils
@@ -112,9 +113,22 @@ public struct BikeMapView: View {
     private func errorView(_ viewStore: ViewStore<BikeMap.State, BikeMap.Action>) -> some View {
         VStack {
             if let error = viewStore.locationError?.error {
-                ErrorView(title: "Location error",
-                          error: error) {
-                    viewStore.send(.getLocation)
+                if let locationError = error as? LocationManagerError,
+                   locationError == LocationManagerError.serviceIsNotAvailable {
+                    ErrorView(title: "Location error",
+                              tryAgainTitle: "Open settings",
+                              error: error) {
+                        viewStore.send(.openSettings)
+                    } onCancel: {
+                        viewStore.send(.locationErrorCancel)
+                    }
+                } else {
+                    ErrorView(title: "Location error",
+                              error: error) {
+                        viewStore.send(.getLocation)
+                    } onCancel: {
+                        viewStore.send(.locationErrorCancel)
+                    }
                 }
             }
 
@@ -122,6 +136,17 @@ public struct BikeMapView: View {
                 ErrorView(title: "Fetch error",
                           error: error) {
                     viewStore.send(.fetch)
+                } onCancel: {
+                    viewStore.send(.fetchErrorCancel)
+                }
+            }
+
+            if let error = viewStore.settingsError?.error {
+                ErrorView(title: "Settings error",
+                          error: error) {
+                    viewStore.send(.openSettings)
+                } onCancel: {
+                    viewStore.send(.settingsErrorCancel)
                 }
             }
         }

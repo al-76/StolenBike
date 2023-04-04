@@ -36,6 +36,7 @@ let package = Package(
                 dependencies: [
                     "BikeClient",
                     "LocationClient",
+                    "SettingsClient",
                     "BottomSheetView",
                     "MapView",
                     "SearchBarView",
@@ -53,13 +54,6 @@ let package = Package(
                     .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
                 ]),
         // MARK: - Effect
-        .target(name: "SharedModel",
-                dependencies: []),
-        .target(name: "LocationClient",
-                dependencies: [
-                    "SharedModel",
-                    .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-                ]),
         .target(name: "BikeClient",
                 dependencies: [
                     "SharedModel",
@@ -70,6 +64,17 @@ let package = Package(
                         "BikeClient",
                         .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
                     ]),
+        .target(name: "LocationClient",
+                dependencies: [
+                    "SharedModel",
+                    .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                ]),
+        .target(name: "SettingsClient",
+                dependencies: [
+                    .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                ]),
+        .target(name: "SharedModel",
+                dependencies: []),
         // MARK: - Common
         .target(name: "BottomSheetView",
                 dependencies: []),
