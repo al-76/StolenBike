@@ -9,6 +9,23 @@ import CoreLocation
 
 import SharedModel
 
+public enum LocationManagerError: Error {
+    case serviceIsNotAvailable
+    case noLocation
+}
+
+extension LocationManagerError: LocalizedError {
+    public var errorDescription: String? {
+        switch self {
+        case .serviceIsNotAvailable:
+            return NSLocalizedString("Service is not available. Please, change your location settings.", comment: "")
+
+        case .noLocation:
+            return NSLocalizedString("No location", comment: "")
+        }
+    }
+}
+
 extension LocationClient {
     static var live: Self {
         let locationManager = LocationManager()
@@ -24,62 +41,31 @@ extension LocationClient {
     }
 }
 
-private enum LocationManagerError: Error {
-    case serviceIsNotAvailable
-    case noLocation
-}
-
 private final class LocationManager: NSObject {
     typealias OnGetLocation = (Result<Location, Error>) -> Void
 
     private let locationManager = CLLocationManager()
     private var onGetLocation: OnGetLocation?
+    private var isHandledResult = false
 
     func getLocation(onGetLocation: @escaping OnGetLocation) {
+        isHandledResult = false
         self.onGetLocation = onGetLocation
         requestLocation()
     }
 
     private func requestLocation() {
         locationManager.delegate = self
-        if locationManager.authorizationStatus == .notDetermined {
-            locationManager.requestWhenInUseAuthorization()
-        } else {
-            locationManager.requestLocation()
-        }
-    }
-}
-
-extension LocationManager: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager,
-                         didUpdateLocations locations: [CLLocation]) {
-        stop(manager)
-
-        guard let location = locations.last else {
-            onGetLocation?(.failure(LocationManagerError.noLocation))
-            return
-        }
-
-        onGetLocation?(.success(Location(
-            latitude: location.coordinate.latitude,
-            longitude: location.coordinate.longitude
-        )))
+        handleAuthorizationStatus(locationManager)
     }
 
-    func locationManager(_ manager: CLLocationManager,
-                         didFailWithError error: Error) {
-        stop(manager)
-        onGetLocation?(.failure(error))
-    }
-
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+    private func handleAuthorizationStatus(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .authorizedAlways, .authorizedWhenInUse:
             manager.requestLocation()
 
         case .restricted, .denied:
-            stop(manager)
-            onGetLocation?(.failure(LocationManagerError.serviceIsNotAvailable))
+            handle(result: .failure(LocationManagerError.serviceIsNotAvailable))
 
         case .notDetermined:
             manager.requestWhenInUseAuthorization()
@@ -89,20 +75,35 @@ extension LocationManager: CLLocationManagerDelegate {
         }
     }
 
-    private func stop(_ manager: CLLocationManager) {
-        manager.stopUpdatingLocation()
-        manager.delegate = nil
+    private func handle(result: Result<Location, Error>) {
+        guard !isHandledResult else { return }
+
+        isHandledResult = true
+        locationManager.stopUpdatingLocation()
+        onGetLocation?(result)
     }
 }
 
-extension LocationManagerError: LocalizedError {
-    public var errorDescription: String? {
-        switch self {
-        case .serviceIsNotAvailable:
-            return NSLocalizedString("Service is not available", comment: "Did you deny getting a location?")
-
-        case .noLocation:
-            return NSLocalizedString("No location", comment: "")
+extension LocationManager: CLLocationManagerDelegate {
+    func locationManager(_ manager: CLLocationManager,
+                         didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else {
+            handle(result: .failure(LocationManagerError.noLocation))
+            return
         }
+
+        handle(result: .success(Location(
+            latitude: location.coordinate.latitude,
+            longitude: location.coordinate.longitude
+        )))
+    }
+
+    func locationManager(_ manager: CLLocationManager,
+                         didFailWithError error: Error) {
+        handle(result: .failure(error))
+    }
+
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        handleAuthorizationStatus(manager)
     }
 }
