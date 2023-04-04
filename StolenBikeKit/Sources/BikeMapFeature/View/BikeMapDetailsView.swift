@@ -19,34 +19,37 @@ struct BikeMapDetailsView: View {
 
     var body: some View {
         WithViewStore(store) { viewStore in
-            ScrollView {
-                VStack(alignment: .leading) {
-                    switch viewStore.details {
-                    case .loading:
-                        ProgressView("Fetch details 🚲...")
+            VStack {
+                switch viewStore.details {
+                case .loading:
+                    ProgressView("Fetch details 🚲...")
 
-                    case let .failure(error):
-                        ErrorView(title: "Error",
-                                  error: error.error) {
-                            viewStore.send(.fetch(id))
+                case let .failure(error):
+                    ErrorView(title: "Error",
+                              error: error.error) {
+                        viewStore.send(.fetch(id))
+                    }
+
+                case let .success(bikeDetails):
+                    ScrollView {
+                        VStack(alignment: .leading) {
+                            viewDetailsFirst(bikeDetails)
+                            BikeGalleryView(images: bikeDetails.publicImages)
+                            viewDetailsSecond(bikeDetails)
+
+                            if let stolenRecord = bikeDetails.stolenRecord {
+                                view(stolenRecord: stolenRecord)
+                            }
+
+                            if let url = URL(string: "https://bikeindex.org/bikes/\(id)") {
+                                Link("Visit bikeindex.org", destination: url)
+                                    .buttonStyle(.borderedProminent)
+                            }
                         }
+                        .padding()
 
-                    case let .success(bikeDetails):
-                        viewDetailsFirst(bikeDetails)
-                        BikeGalleryView(images: bikeDetails.publicImages)
-                        viewDetailsSecond(bikeDetails)
-
-                        if let stolenRecord = bikeDetails.stolenRecord {
-                            view(stolenRecord: stolenRecord)
-                        }
-
-                        if let url = URL(string: "https://bikeindex.org/bikes/\(id)") {
-                            Link("Visit bikeindex.org", destination: url)
-                                .buttonStyle(.borderedProminent)
-                        }
                     }
                 }
-                .padding()
             }
             .onAppear {
                 viewStore.send(.fetch(id))
