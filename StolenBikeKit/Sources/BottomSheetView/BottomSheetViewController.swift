@@ -5,25 +5,38 @@
 //  Created by Vyacheslav Konopkin on 16.03.2023.
 //
 
+import Combine
 import SwiftUI
 import UIKit
 
 final class BottomSheetViewController<Content: View>: UIViewController,
-                                                      UISheetPresentationControllerDelegate {
+                                                      UISheetPresentationControllerDelegate,
+                                                      ObservableObject {
     private let detents: [UISheetPresentationController.Detent]
     private let contentView: UIHostingController<Content>
-    private let onChangedDetent: ((UISheetPresentationController.Detent.Identifier) -> Void)?
+    private var cancellable: AnyCancellable?
+
+    @Published var selectedDetentId: UISheetPresentationController.Detent.Identifier?
 
     init(detents: [UISheetPresentationController.Detent],
          content: Content,
-         onChangedDetent: ((UISheetPresentationController.Detent.Identifier) -> Void)?) {
+         selectedDetentId: UISheetPresentationController.Detent.Identifier?) {
         self.detents = detents
         self.contentView = UIHostingController(rootView: content)
-        self.onChangedDetent = onChangedDetent
 
         super.init(nibName: nil, bundle: nil)
 
+        self.selectedDetentId = selectedDetentId
         self.isModalInPresentation = true
+
+        cancellable = $selectedDetentId
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                guard let sheet = self?.presentationController as? UISheetPresentationController else {
+                    return
+                }
+                sheet.selectedDetentIdentifier = $0
+            }
     }
 
     required init?(coder: NSCoder) {
@@ -45,20 +58,17 @@ final class BottomSheetViewController<Content: View>: UIViewController,
             contentView.view.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
 
-        guard let sheetController = presentationController as? UISheetPresentationController else {
+        guard let sheet = presentationController as? UISheetPresentationController else {
             return
         }
 
-        sheetController.detents = detents
-        sheetController.prefersGrabberVisible = true
-        sheetController.delegate = self
-        sheetController.largestUndimmedDetentIdentifier = .medium
+        sheet.detents = detents
+        sheet.prefersGrabberVisible = true
+        sheet.delegate = self
+        sheet.largestUndimmedDetentIdentifier = .medium
     }
 
     func sheetPresentationControllerDidChangeSelectedDetentIdentifier(_ sheetPresentationController: UISheetPresentationController) {
-        guard let detentId = sheetPresentationController.selectedDetentIdentifier else {
-            return
-        }
-        onChangedDetent?(detentId)
+        selectedDetentId = sheetPresentationController.selectedDetentIdentifier
     }
 }

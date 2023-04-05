@@ -66,6 +66,10 @@ struct BikeMapListView: View {
                                         send: { .updateQuery($0) }
                                       ))
                         .padding(.top, 6)
+                        .onTapGesture {
+                            guard detendId == .fraction else { return }
+                            detendId = .large
+                        }
                     }
                 }
 

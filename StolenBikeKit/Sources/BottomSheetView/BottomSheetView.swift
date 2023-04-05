@@ -9,14 +9,18 @@ import SwiftUI
 import UIKit
 
 public struct BottomSheetView<ContentView: View>: ViewModifier {
-    private let bottomSheet: BottomSheetViewController<ContentView>
+    @StateObject private var bottomSheet: BottomSheetViewController<ContentView>
+    @Binding private var selectedDetentId: UISheetPresentationController.Detent.Identifier
 
     public init(detents: [UISheetPresentationController.Detent],
-                contentView: () -> ContentView,
+                contentView: @escaping () -> ContentView,
                 selectedDetentId: Binding<UISheetPresentationController.Detent.Identifier>) {
-        self.bottomSheet = BottomSheetViewController(detents: detents, content: contentView()) {
-            selectedDetentId.wrappedValue = $0
-        }
+        self._bottomSheet = StateObject(
+            wrappedValue: BottomSheetViewController(detents: detents,
+                                                    content: contentView(),
+                                                    selectedDetentId: selectedDetentId.wrappedValue)
+        )
+        self._selectedDetentId = selectedDetentId
     }
 
     public func body(content: Content) -> some View {
@@ -38,6 +42,13 @@ public struct BottomSheetView<ContentView: View>: ViewModifier {
 
             topViewController.present(bottomSheet, animated: true)
         }
+        .onChange(of: bottomSheet.selectedDetentId) { selectedDetentId in
+            guard let selectedDetentId else { return }
+            self.selectedDetentId = selectedDetentId
+        }
+        .onChange(of: selectedDetentId) {
+            bottomSheet.selectedDetentId = $0
+        }
     }
 }
 
@@ -56,11 +67,11 @@ extension View {
 struct BottomSheetView_Previews: PreviewProvider {
     static var previews: some View {
         Button("Click") { }
-            .bottomSheet(detents: [.fraction(0.2),
-                                   .medium(),
-                                   .large()],
-                         selectedDetentId: .constant(.fraction)) {
-                Text("Some text")
-            }
+        .bottomSheet(detents: [.fraction(0.2),
+                               .medium(),
+                               .large()],
+                     selectedDetentId: .constant(.fraction)) {
+            Text("text")
+        }
     }
 }
