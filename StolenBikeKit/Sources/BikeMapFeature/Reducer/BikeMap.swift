@@ -136,11 +136,6 @@ public struct BikeMap: ReducerProtocol {
             case let .getLocationResult(.success(location)):
                 state.isLoading = false
                 state.region.center = location.coordinates()
-
-                if let area = state.area,
-                   !CLLocation(location).isOutOf(area: area) {
-                    break // Skip a location in the same area
-                }
                 state.area = LocationArea(location: location,
                                           distance: Self.areaDistance)
                 return .send(.fetch)

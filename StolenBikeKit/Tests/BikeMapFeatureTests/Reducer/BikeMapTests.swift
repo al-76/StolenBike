@@ -109,20 +109,6 @@ final class BikeMapTests: XCTestCase {
         await store.receive(.fetch)
     }
 
-    func testGetLocationSkipSameArea() async {
-        // Arrange
-        store.exhaustivity = .off
-        store.dependencies.locationClient.get = { .stub }
-
-        // Act
-        await store.send(.getLocation)
-
-        // Assert
-        await store.receive(.getLocationResult(.success(.stub))) {
-            $0.region.center = Location.stub.coordinates()
-        }
-    }
-
     func testGetLocationError() async {
         // Arrange
         let error = TestError.someError
