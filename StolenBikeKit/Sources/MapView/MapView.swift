@@ -20,7 +20,7 @@ public struct MapView<Annotation: MapViewPointAnnotation,
                       Overlay: MapOverlay>: UIViewRepresentable {
     public typealias UIViewType = MKMapView
 
-    fileprivate let region: Binding<MKCoordinateRegion>
+    @Binding fileprivate var region: MKCoordinateRegion
     private let annotations: [Annotation]
     private let overlays: [Overlay]
     fileprivate let onSelectedAnnotations: ([Annotation]) -> Void
@@ -29,7 +29,7 @@ public struct MapView<Annotation: MapViewPointAnnotation,
                 annotations: [Annotation],
                 overlays: [Overlay],
                 onSelectedAnnotations: @escaping ([Annotation]) -> Void) {
-        self.region = region
+        self._region = region
         self.annotations = annotations
         self.overlays = overlays
         self.onSelectedAnnotations = onSelectedAnnotations
@@ -52,7 +52,7 @@ public struct MapView<Annotation: MapViewPointAnnotation,
     }
 
     private func updateRegion(_ view: MKMapView) {
-        view.setRegion(region.wrappedValue, animated: true)
+        view.setRegion(region, animated: true)
     }
 
     private func updateAnnotations(_ view: MKMapView) {
@@ -104,7 +104,7 @@ public final class Coordinator<Annotation: MapViewPointAnnotation,
     }
 
     public func mapViewDidChangeVisibleRegion(_ mkMapView: MKMapView) {
-        mapView.region.wrappedValue = mkMapView.region
+        mapView.region = mkMapView.region
     }
 
     public func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
