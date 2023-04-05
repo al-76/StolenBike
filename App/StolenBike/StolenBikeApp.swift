@@ -7,14 +7,14 @@
 
 import SwiftUI
 
-import AppFeature
+import BikeMapFeature
 
 @main
 struct StolenBikeApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
-            AppView(store: .init(initialState: .init(),
-                                 reducer: App()))
+            BikeMapView(store: .init(initialState: .init(),
+                                     reducer: BikeMap()))
         }
     }
 }

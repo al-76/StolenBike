@@ -6,7 +6,6 @@ let package = Package(
     name: "StolenBikeKit",
     platforms: [.iOS(.v16)],
     products: [
-        .library(name: "AppFeature", targets: ["AppFeature"]),
         .library(name: "BikeMapFeature", targets: ["BikeMapFeature"]),
         .library(name: "RegisterBikeFeature", targets: ["RegisterBikeFeature"]),
     ],
@@ -20,18 +19,6 @@ let package = Package(
     ],
     targets: [
         // MARK: - Feature
-        .target(name: "AppFeature",
-                dependencies: [
-                    "BikeMapFeature",
-                    "RegisterBikeFeature",
-                    .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-                ]),
-        .testTarget(name: "AppFeatureTests",
-                    dependencies: [
-                        "AppFeature",
-                        "TestUtils",
-                        .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
-                    ]),
         .target(name: "BikeMapFeature",
                 dependencies: [
                     "BikeClient",
