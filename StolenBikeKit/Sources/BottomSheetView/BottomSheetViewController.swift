@@ -31,11 +31,13 @@ final class BottomSheetViewController<Content: View>: UIViewController,
 
         cancellable = $selectedDetentId
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
+            .sink { [weak self] detentId in
                 guard let sheet = self?.presentationController as? UISheetPresentationController else {
                     return
                 }
-                sheet.selectedDetentIdentifier = $0
+                sheet.animateChanges {
+                    sheet.selectedDetentIdentifier = detentId
+                }
             }
     }
 
