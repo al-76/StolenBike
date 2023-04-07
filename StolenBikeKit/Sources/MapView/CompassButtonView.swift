@@ -11,7 +11,7 @@ import SwiftUI
 public struct CompassButtonView: UIViewRepresentable {
     private let mapView: MKMapView
 
-    public init(mapView: MKMapView) {
+    public init(mapView: MKMapView = .shared) {
         self.mapView = mapView
     }
 

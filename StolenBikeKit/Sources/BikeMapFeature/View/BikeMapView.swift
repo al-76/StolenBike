@@ -21,7 +21,6 @@ public struct BikeMapView: View {
     private let store: StoreOf<BikeMap>
     @State private var isShownBikesSelection = false
     @State private var detentId: UISheetPresentationController.Detent.Identifier = .fraction
-    @State private var mapViewState = MKMapView()
 
     public init(store: StoreOf<BikeMap>) {
         self.store = store
@@ -84,7 +83,6 @@ public struct BikeMapView: View {
             EmptyView()
         } else {
             MapView(
-                mapView: mapViewState,
                 region: viewStore.binding(
                     get: \.region,
                     send: { .updateRegion($0) }
@@ -112,7 +110,7 @@ public struct BikeMapView: View {
                 .cornerRadius()
                 .foregroundColor(.white)
 
-                CompassButtonView(mapView: mapViewState)
+                CompassButtonView()
             }
             .padding()
         }
