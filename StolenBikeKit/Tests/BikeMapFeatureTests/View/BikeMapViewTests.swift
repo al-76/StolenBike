@@ -25,7 +25,7 @@ final class BikeMapViewTests: XCTestCase {
     func testGeneral() throws {
         // Arrange
         let view = BikeMapView(
-            store: .init(initialState: .init(),
+            store: .init(initialState: .init(area: .stub),
                          reducer: EmptyReducer())
         )
 
@@ -36,7 +36,7 @@ final class BikeMapViewTests: XCTestCase {
     func testIsLoading() throws {
         // Arrange
         let view = BikeMapView(
-            store: .init(initialState: .init(isLoading: true),
+            store: .init(initialState: .init(area: .stub, isLoading: true),
                          reducer: EmptyReducer())
         )
 
@@ -47,7 +47,18 @@ final class BikeMapViewTests: XCTestCase {
     func testIsOutOfArea() throws {
         // Arrange
         let view = BikeMapView(
-            store: .init(initialState: .init(isOutOfArea: true),
+            store: .init(initialState: .init(area: .stub, isOutOfArea: true),
+                         reducer: EmptyReducer())
+        )
+
+        // Assert
+        assertSnapshot(matching: view, as: .image(layout: layout))
+    }
+
+    func testAreaNotSelected() throws {
+        // Arrange
+        let view = BikeMapView(
+            store: .init(initialState: .init(),
                          reducer: EmptyReducer())
         )
 

@@ -22,6 +22,8 @@ public struct BikeMapView: View {
     @State private var isShownBikesSelection = false
     @State private var detentId: UISheetPresentationController.Detent.Identifier = .fraction
 
+    @Environment(\.scenePhase) private var scenePhase
+
     public init(store: StoreOf<BikeMap>) {
         self.store = store
     }
@@ -42,19 +44,25 @@ public struct BikeMapView: View {
                 }
 
                 if viewStore.isOutOfArea {
-                    VStack {
-                        Text("You're out of the initial area!")
-                        Button("Change area") {
-                            viewStore.send(.changeArea)
-                        }
-                    }
-                    .mapElement()
+                    changeAreaView(title: "You're out of the initial area!",
+                                   viewStore)
+                } else if viewStore.searchMode == .localStolen,
+                          viewStore.area == nil {
+                    changeAreaView(title: "Select an area on the map!",
+                                   viewStore)
                 }
 
                 errorView(viewStore)
             }
             .onAppear {
-                viewStore.send(.getLocation)
+                viewStore.send(.load)
+            }
+            .onDisappear {
+                viewStore.send(.save)
+            }
+            .onChange(of: scenePhase) {
+                guard $0 == .background || $0 == .inactive else { return }
+                viewStore.send(.save)
             }
             .bottomSheet(
                 detents: [.fraction(0.050),
@@ -155,6 +163,18 @@ public struct BikeMapView: View {
     private func mapOverlays(_ area: LocationArea?) -> [AreaCircle] {
         guard let area else { return [] }
         return [AreaCircle(area: area)]
+    }
+
+    private func changeAreaView(title: String,
+                                _ viewStore: ViewStore<BikeMap.State, BikeMap.Action>) -> some View {
+        VStack {
+            Text(title)
+            Button("Select") {
+                viewStore.send(.changeArea)
+            }
+            .buttonStyle(.borderedProminent)
+        }
+        .mapElement()
     }
 }
 

@@ -28,6 +28,50 @@ final class BikeMapTests: XCTestCase {
                           reducer: BikeMap())
     }
 
+    func testLoad() async throws {
+        // Arrange
+        let saveData = BikeMap.SaveData(region: MKCoordinateRegion(),
+                                        area: .stub)
+        let data = try JSONEncoder().encode(saveData)
+        store.exhaustivity = .off
+        store.dependencies.userDefaultsClient.data = { _ in data }
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
+        store.dependencies.bikeClient.pageSize = { .stub }
+
+        // Act
+        await store.send(.load)
+
+        // Assert
+        await store.receive(.loadResult(.success(saveData))) {
+            $0.region = saveData.region
+            $0.area = saveData.area
+        }
+        await store.receive(.fetch)
+    }
+
+    func testLoadNoData() async throws {
+        // Arrange
+        store.exhaustivity = .off
+        store.dependencies.userDefaultsClient.data = { _ in nil }
+        store.dependencies.locationClient.get = { .stub }
+
+        // Act
+        await store.send(.load) {
+            $0.isSupressedLocationError = true
+        }
+
+        // Assert
+        await store.receive(.getLocation)
+    }
+
+    func testSave() async {
+        // Arrange
+        store.dependencies.userDefaultsClient.setData = { @Sendable _, _ in }
+
+        // Act, Assert
+        await store.send(.save)
+    }
+
     func testUpdateRegion() async {
         // Arrange
         let region = MKCoordinateRegion(center: Location.stub.coordinates(),
@@ -41,6 +85,8 @@ final class BikeMapTests: XCTestCase {
 
     func testUpdateRegionIsOutOfArea() async {
         // Arrange
+        store = TestStore(initialState: .init(area: .stub),
+                          reducer: BikeMap())
         store.exhaustivity = .off
 
         // Act, Assert
@@ -51,9 +97,9 @@ final class BikeMapTests: XCTestCase {
 
     func testUpdateRegionSkipNilArea() async {
         // Arrange
-        store = TestStore(initialState: .init(area: nil),
-                          reducer: BikeMap())
         let region = MKCoordinateRegion()
+        store = TestStore(initialState: .init(region: region),
+                          reducer: BikeMap())
 
         // Act, Assert
         await store.send(.updateRegion(region))
@@ -67,6 +113,7 @@ final class BikeMapTests: XCTestCase {
         store.dependencies.locationClient.get = { .stub }
         store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
         store.dependencies.bikeClient.pageSize = { .stub }
+        store.dependencies.userDefaultsClient.setData = { @Sendable _, _ in }
 
         // Act
         await store.send(.getLocation) {
@@ -83,39 +130,11 @@ final class BikeMapTests: XCTestCase {
         await store.receive(.fetch)
     }
 
-    func testGetLocationUpdateRegion() async {
-        // Arrange
-        let region = MKCoordinateRegion()
-        store = TestStore(initialState: .init(region: region, area: nil),
-                          reducer: BikeMap())
-        store.exhaustivity = .off
-        store.dependencies.locationClient.get = { .stub }
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
-        store.dependencies.bikeClient.pageSize = { .stub }
-
-        // Act
-        await store.send(.getLocation) {
-            $0.isLoading = true
-        }
-
-        // Assert
-        await store.receive(.getLocationResult(.success(.stub))) {
-            $0.isLoading = false
-            $0.region = MKCoordinateRegion(center: Location.stub.coordinates(),
-                                           span: region.span)
-            $0.area = LocationArea(location: .stub,
-                                   distance: BikeMap.areaDistance)
-        }
-        await store.receive(.fetch)
-    }
-
     func testGetLocationError() async {
         // Arrange
         let error = TestError.someError
         store.exhaustivity = .off
         store.dependencies.locationClient.get = { throw error }
-        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
-        store.dependencies.bikeClient.pageSize = { .stub }
 
         // Act
         await store.send(.getLocation) {
@@ -127,7 +146,23 @@ final class BikeMapTests: XCTestCase {
             $0.isLoading = false
             $0.locationError = StateError(error: error)
         }
-        await store.receive(.fetch)
+    }
+
+    func testGetLocationErrorSupressed() async {
+        // Arrange
+        let error = TestError.someError
+        store = TestStore(initialState: .init(isSupressedLocationError: true),
+                          reducer: BikeMap())
+        store.exhaustivity = .off
+        store.dependencies.locationClient.get = { throw error }
+
+        // Act
+        await store.send(.getLocation)
+
+        // Assert
+        await store.receive(.getLocationResult(.failure(error))) {
+            $0.locationError = nil
+        }
     }
 
     func testOpenSettings() async {
@@ -163,6 +198,7 @@ final class BikeMapTests: XCTestCase {
         store.exhaustivity = .off
         store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
         store.dependencies.bikeClient.pageSize = { .stub }
+        store.dependencies.userDefaultsClient.setData = { @Sendable _, _ in }
 
         // Act
         await store.send(.changeArea) {
@@ -217,6 +253,7 @@ final class BikeMapTests: XCTestCase {
         store.dependencies.locationClient.get = { .stub }
         store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
         store.dependencies.bikeClient.pageSize = { .stub }
+        store.dependencies.userDefaultsClient.setData = { @Sendable _, _ in }
 
         // Act
         await store.send(.list(.updateSearchMode(.localStolen)))

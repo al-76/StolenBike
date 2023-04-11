@@ -24,6 +24,7 @@ let package = Package(
                     "BikeClient",
                     "LocationClient",
                     "SettingsClient",
+                    "UserDefaultsClient",
                     "BottomSheetView",
                     "MapView",
                     "SearchBarView",
@@ -62,6 +63,10 @@ let package = Package(
                 ]),
         .target(name: "SharedModel",
                 dependencies: []),
+        .target(name: "UserDefaultsClient",
+                dependencies: [
+                    .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+                ]),
         // MARK: - Common
         .target(name: "BottomSheetView",
                 dependencies: []),
