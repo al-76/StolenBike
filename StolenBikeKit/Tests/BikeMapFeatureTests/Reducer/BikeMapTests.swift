@@ -53,6 +53,7 @@ final class BikeMapTests: XCTestCase {
         // Arrange
         store.exhaustivity = .off
         store.dependencies.userDefaultsClient.data = { _ in nil }
+        store.dependencies.userDefaultsClient.setData = { @Sendable _, _ in }
         store.dependencies.locationClient.get = { .stub }
 
         // Act
