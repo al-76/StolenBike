@@ -90,13 +90,15 @@ public struct BikeMapView: View {
         if _XCTIsTesting { // Snapshot testing doesn't work with maps
             EmptyView()
         } else {
-            MapView(region: viewStore.binding(
-                get: \.region,
-                send: { .updateRegion($0) }
-            ),
-                    annotations: viewStore.bikes
-                .compactMap { $0.pointAnnotation() },
-                    overlays: mapOverlays(viewStore.area)) { annotations in
+            MapView(
+                region: viewStore.binding(
+                    get: \.region,
+                    send: { .updateRegion($0) }
+                ),
+                annotations: viewStore.bikes
+                    .compactMap { $0.pointAnnotation() },
+                overlays: mapOverlays(viewStore.area)
+            ) { annotations in
                 viewStore.send(.select(annotations.map { $0.id }))
                 isShownBikesSelection = true
             }
@@ -107,13 +109,17 @@ public struct BikeMapView: View {
     private func mapButtons(_ viewStore: ViewStore<BikeMap.State, BikeMap.Action>) -> some View {
         HStack {
             Spacer()
-            LocationButton {
-                viewStore.send(.getLocation)
+            VStack {
+                LocationButton {
+                    viewStore.send(.getLocation)
+                }
+                .labelStyle(.iconOnly)
+                .symbolVariant(.fill)
+                .cornerRadius()
+                .foregroundColor(.white)
+
+                CompassButtonView()
             }
-            .labelStyle(.iconOnly)
-            .symbolVariant(.fill)
-            .cornerRadius()
-            .foregroundColor(.white)
             .padding()
         }
     }
