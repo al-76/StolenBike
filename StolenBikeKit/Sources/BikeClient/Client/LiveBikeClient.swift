@@ -87,7 +87,7 @@ extension BikeClient {
     }
 
     private static func getApiUrlDetails(_ id: Int) -> URL? {
-        var components = URLComponents(string: "https://bikeindex.org:443/api/v3/bikes/\(id)")
+        let components = URLComponents(string: "https://bikeindex.org:443/api/v3/bikes/\(id)")
 
 //        print(components?.url)
 
