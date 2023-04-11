@@ -12,10 +12,14 @@ jobs:
     env:
       xcode_simulator: 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2'
       xcode_project: app/StolenBike.xcodeproj
+      xcode_scheme: StolenBike
     name: Build
     steps:
     - uses: actions/checkout@v3
-    - name: Tests
-      run: xcodebuild test -scheme StolenBike -project ${xcode_project} -destination "${xcode_simulator}" | xcpretty
+    - uses: sersoft-gmbh/xcodebuild-action@v2
+      with:
+        project: "${xcode_project}"
+        scheme: "${xcode_scheme}"
+        destination: "${xcode_simulator}"
     - name: Codecov
       run: bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
