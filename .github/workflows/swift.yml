@@ -9,14 +9,18 @@ on:
 jobs:
   build:
     runs-on: macos-12
+    env:
+      xcode_simulator: 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2'
+      xcode_project: app/StolenBike.xcodeproj
+      xcode_scheme: StolenBike
     name: Build
     steps:
     - uses: actions/checkout@v3
-    - uses: sersoft-gmbh/xcodebuild-action@v2
-      with:
-        project: app/StolenBike.xcodeproj
-        scheme: StolenBike
-        destination: 'platform=iOS Simulator,name=iPhone 14 Pro,OS=16.2'
-        action: test
+    - name: Tests
+      run: xcodebuild test -scheme ${xcode_scheme} -project ${xcode_project} -destination "${xcode_simulator}" -resultBundlePath TestResults | xcpretty --color
+    - uses: kishikawakatsumi/xcresulttool@v1
+        with:
+          path: TestResults.xcresult
+        if: success() || failure()
     - name: Codecov
       run: bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
