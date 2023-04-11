@@ -24,8 +24,10 @@ public struct MapView<Annotation: MapViewPointAnnotation,
     private let annotations: [Annotation]
     private let overlays: [Overlay]
     fileprivate let onSelectedAnnotations: ([Annotation]) -> Void
+    private let mapView: MKMapView
 
-    public init(region: Binding<MKCoordinateRegion>,
+    public init(mapView: MKMapView = .shared,
+                region: Binding<MKCoordinateRegion>,
                 annotations: [Annotation],
                 overlays: [Overlay],
                 onSelectedAnnotations: @escaping ([Annotation]) -> Void) {
@@ -33,15 +35,12 @@ public struct MapView<Annotation: MapViewPointAnnotation,
         self.annotations = annotations
         self.overlays = overlays
         self.onSelectedAnnotations = onSelectedAnnotations
+
+        self.mapView = mapView
     }
 
     public func makeUIView(context: Context) -> MKMapView {
-        let mapView = MKMapView()
         mapView.delegate = context.coordinator
-        mapView.register(MapViewAnnotation.self,
-                         forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
-        mapView.register(MKMarkerAnnotationView.self,
-                         forAnnotationViewWithReuseIdentifier: MKMapViewDefaultClusterAnnotationViewReuseIdentifier)
         return mapView
     }
 
