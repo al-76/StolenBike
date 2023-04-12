@@ -52,6 +52,8 @@ final class BikeMapTests: XCTestCase {
     func testLoadNoData() async throws {
         // Arrange
         store.exhaustivity = .off
+        store.dependencies.bikeClient.fetch = { @Sendable _, _, _, _ in .stub }
+        store.dependencies.bikeClient.pageSize = { .stub }
         store.dependencies.userDefaultsClient.data = { _ in nil }
         store.dependencies.userDefaultsClient.setData = { @Sendable _, _ in }
         store.dependencies.locationClient.get = { .stub }
