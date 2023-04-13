@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import XCTestDynamicOverlay
 
 import BikeMapFeature
 
@@ -13,8 +14,10 @@ import BikeMapFeature
 struct StolenBikeApp: SwiftUI.App {
     var body: some Scene {
         WindowGroup {
-            BikeMapView(store: .init(initialState: .init(),
-                                     reducer: BikeMap()))
+            if !_XCTIsTesting {
+                BikeMapView(store: .init(initialState: .init(),
+                                         reducer: BikeMap()))
+            }
         }
     }
 }
