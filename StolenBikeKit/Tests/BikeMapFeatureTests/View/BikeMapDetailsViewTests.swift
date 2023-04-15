@@ -31,7 +31,7 @@ final class BikeMapDetailsViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(perceptualPrecision: 0.98, layout: layout))
+        assertSnapshot(matching: view, as: .image(layout: layout))
     }
 
     func testLoading() throws {
