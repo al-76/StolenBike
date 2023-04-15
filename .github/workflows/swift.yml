@@ -18,17 +18,19 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
     - name: Test
-      uses: sersoft-gmbh/xcodebuild-action@v2
-      with:
-        project: app/StolenBike.xcodeproj
-        scheme: StolenBike
-        destination: 'platform=iOS Simulator,name=iPhone 13 Pro,OS=16.2'
-        action: test
-        result-bundle-path: TestResults.xcresult
-    - name: Test result
-      uses: kishikawakatsumi/xcresulttool@v1
-      with:
-        path: TestResults.xcresult
-      if: success() || failure()
+      working-directory: ./App
+      run: bundle exec fastlane tests
+      # uses: sersoft-gmbh/xcodebuild-action@v2
+      # with:
+      #   project: app/StolenBike.xcodeproj
+      #   scheme: StolenBike
+      #   destination: 'platform=iOS Simulator,name=iPhone 13 Pro,OS=16.2'
+      #   action: test
+      #   result-bundle-path: TestResults.xcresult
+    # - name: Test result
+    #   uses: kishikawakatsumi/xcresulttool@v1
+    #   with:
+    #     path: TestResults.xcresult
+    #   if: success() || failure()
     - name: Codecov
       run: bash <(curl -s https://codecov.io/bash) -t ${{ secrets.CODECOV_TOKEN }}
