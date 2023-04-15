@@ -16,8 +16,6 @@ import TestUtils
 @testable import BikeMapFeature
 
 final class BikeMapViewTests: XCTestCase {
-    private let layout: SwiftUISnapshotLayout = .device(config: .iPhone13Pro)
-
     override func setUp() {
 //        isRecording = true
     }
@@ -30,7 +28,7 @@ final class BikeMapViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testIsLoading() throws {
@@ -41,7 +39,7 @@ final class BikeMapViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testIsOutOfArea() throws {
@@ -52,7 +50,7 @@ final class BikeMapViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testAreaNotSelected() throws {
@@ -63,7 +61,7 @@ final class BikeMapViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testLocationError() throws {
@@ -75,7 +73,7 @@ final class BikeMapViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testLocationErrorServiceIsNotAvailable() throws {
@@ -87,7 +85,7 @@ final class BikeMapViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testFetchError() throws {
@@ -99,6 +97,6 @@ final class BikeMapViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 }
