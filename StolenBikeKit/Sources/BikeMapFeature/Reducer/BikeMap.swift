@@ -180,7 +180,7 @@ public struct BikeMap: ReducerProtocol {
                 state.region.span = .near
                 state.area = LocationArea(location: location,
                                           distance: Self.areaDistance)
-                return reduceFetch(state.region, state.area)
+                return fetchAction(state.region, state.area)
 
             case let .getLocationResult(.failure(error)):
                 state.isLoading = false
@@ -206,7 +206,7 @@ public struct BikeMap: ReducerProtocol {
             case .changeArea:
                 state.area = LocationArea(location: Location(state.region.center),
                                           distance: Self.areaDistance)
-                return reduceFetch(state.region, state.area)
+                return fetchAction(state.region, state.area)
 
             case .fetch:
                 state.isOutOfArea = false
@@ -247,7 +247,7 @@ public struct BikeMap: ReducerProtocol {
         }
     }
 
-    private func reduceFetch(_ region: MKCoordinateRegion, _ area: LocationArea?) -> EffectTask<Action> {
+    private func fetchAction(_ region: MKCoordinateRegion, _ area: LocationArea?) -> EffectTask<Action> {
         .run { send in
             try await save(data: SaveData(region: region, area: area))
             await send(.fetch)
