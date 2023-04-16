@@ -140,7 +140,7 @@ public struct BikeMap: ReducerProtocol {
             case .load:
                 guard let data = userDefaultsClient.data(UserDefaultsClientKey.bikeMapData) else {
                     state.isSupressedLocationError = true
-                    return .send(.getLocation)
+                    return getLocationAction(&state)
                 }
 
                 return .task {
@@ -166,13 +166,7 @@ public struct BikeMap: ReducerProtocol {
                 }
 
             case .getLocation:
-                state.isLoading = true
-                state.locationError = nil
-                return .task {
-                    await .getLocationResult(TaskResult { @MainActor in
-                        try await locationClient.get()
-                    })
-                }
+                return getLocationAction(&state)
 
             case let .getLocationResult(.success(location)):
                 state.isLoading = false
@@ -237,13 +231,23 @@ public struct BikeMap: ReducerProtocol {
                     state.area = nil
                     return .send(.fetch)
                 }
-                return .send(.getLocation)
+                return getLocationAction(&state)
 
             default:
                 break
             }
 
             return .none
+        }
+    }
+
+    private func getLocationAction(_ state: inout State) -> EffectTask<Action> {
+        state.isLoading = true
+        state.locationError = nil
+        return .task {
+            await .getLocationResult(TaskResult { @MainActor in
+                try await locationClient.get()
+            })
         }
     }
 

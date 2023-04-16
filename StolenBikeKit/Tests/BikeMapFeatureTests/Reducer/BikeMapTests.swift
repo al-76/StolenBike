@@ -64,7 +64,7 @@ final class BikeMapTests: XCTestCase {
         }
 
         // Assert
-        await store.receive(.getLocation)
+        await store.receive(.getLocationResult(.success(.stub)))
     }
 
     func testSave() async {
@@ -262,7 +262,7 @@ final class BikeMapTests: XCTestCase {
         await store.send(.list(.updateSearchMode(.localStolen)))
 
         // Assert
-        await store.receive(.getLocation)
+        await store.receive(.getLocationResult(.success(.stub)))
     }
 
     func testListUpdateSearchModeIsGlobal() async {
