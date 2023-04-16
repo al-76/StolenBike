@@ -140,7 +140,7 @@ public struct BikeMap: ReducerProtocol {
             case .load:
                 guard let data = userDefaultsClient.data(UserDefaultsClientKey.bikeMapData) else {
                     state.isSupressedLocationError = true
-                    return .send(.getLocation)
+                    return getLocationAction(&state)
                 }
 
                 return .task {
@@ -152,7 +152,7 @@ public struct BikeMap: ReducerProtocol {
             case let .loadResult(.success(data)):
                 state.region = data.region
                 state.area = data.area
-                return .send(.fetch)
+                return fetchAction(&state)
 
             case .save:
                 return .fireAndForget { [region = state.region, area = state.area] in
@@ -166,13 +166,7 @@ public struct BikeMap: ReducerProtocol {
                 }
 
             case .getLocation:
-                state.isLoading = true
-                state.locationError = nil
-                return .task {
-                    await .getLocationResult(TaskResult { @MainActor in
-                        try await locationClient.get()
-                    })
-                }
+                return getLocationAction(&state)
 
             case let .getLocationResult(.success(location)):
                 state.isLoading = false
@@ -180,7 +174,7 @@ public struct BikeMap: ReducerProtocol {
                 state.region.span = .near
                 state.area = LocationArea(location: location,
                                           distance: Self.areaDistance)
-                return reduceFetch(state.region, state.area)
+                return saveAndFetchAction(&state)
 
             case let .getLocationResult(.failure(error)):
                 state.isLoading = false
@@ -206,12 +200,10 @@ public struct BikeMap: ReducerProtocol {
             case .changeArea:
                 state.area = LocationArea(location: Location(state.region.center),
                                           distance: Self.areaDistance)
-                return reduceFetch(state.region, state.area)
+                return saveAndFetchAction(&state)
 
             case .fetch:
-                state.isOutOfArea = false
-                state.isLoading = true
-                return .send(.list(.fetch))
+                return fetchAction(&state)
 
             case let .select(bikesIds):
                 state.selection.bikes = bikesIds
@@ -235,9 +227,9 @@ public struct BikeMap: ReducerProtocol {
             case let .list(.updateSearchMode(searchMode)):
                 guard searchMode == .localStolen else {
                     state.area = nil
-                    return .send(.fetch)
+                    return fetchAction(&state)
                 }
-                return .send(.getLocation)
+                return getLocationAction(&state)
 
             default:
                 break
@@ -247,11 +239,32 @@ public struct BikeMap: ReducerProtocol {
         }
     }
 
-    private func reduceFetch(_ region: MKCoordinateRegion, _ area: LocationArea?) -> EffectTask<Action> {
-        .run { send in
-            try await save(data: SaveData(region: region, area: area))
-            await send(.fetch)
+    private func getLocationAction(_ state: inout State) -> EffectTask<Action> {
+        state.isLoading = true
+        state.locationError = nil
+        return .task {
+            await .getLocationResult(TaskResult { @MainActor in
+                try await locationClient.get()
+            })
         }
+    }
+
+    private func fetchAction(_ state: inout State) -> EffectTask<Action> {
+        setFetchState(&state)
+        return .send(.list(.fetch))
+    }
+
+    private func saveAndFetchAction(_ state: inout State) -> EffectTask<Action> {
+        setFetchState(&state)
+        return .task { [region = state.region, area = state.area] in
+            try await save(data: SaveData(region: region, area: area))
+            return .list(.fetch)
+        }
+    }
+
+    private func setFetchState(_ state: inout State) {
+        state.isOutOfArea = false
+        state.isLoading = true
     }
 
     private func save(data: SaveData) async throws {

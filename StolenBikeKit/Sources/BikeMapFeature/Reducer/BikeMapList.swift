@@ -88,15 +88,13 @@ public struct BikeMapList: ReducerProtocol {
                 guard state._query != nil else {
                     break
                 }
-                return .send(.fetch)
+                return startFetchAction(&state)
 
             case let .updateSearchMode(searchMode):
                 state.searchMode = searchMode
 
             case .fetch:
-                state.page = 1
-                state.isLastPage = false
-                return reduceFetch(&state)
+                return startFetchAction(&state)
 
             case let .fetchMore(bike):
                 guard !state.isLoading,
@@ -105,7 +103,7 @@ public struct BikeMapList: ReducerProtocol {
                     return .none
                 }
                 state.page += 1
-                return reduceFetch(&state)
+                return fetchAction(&state)
 
             case let .fetchResult(.success(bikes)):
                 state.isLoading = false
@@ -129,10 +127,15 @@ public struct BikeMapList: ReducerProtocol {
         }
     }
 
-    private func reduceFetch(_ state: inout State) -> EffectTask<Action> {
+    private func startFetchAction(_ state: inout State) -> EffectTask<Action> {
+        state.page = 1
+        state.isLastPage = false
+        return fetchAction(&state)
+    }
+
+    private func fetchAction(_ state: inout State) -> EffectTask<Action> {
         state.isLoading = true
         state.error = nil
-
         return .task { [area = state.area,
                         page = state.page,
                         query = state.query,

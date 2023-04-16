@@ -46,7 +46,7 @@ final class BikeMapTests: XCTestCase {
             $0.region = saveData.region
             $0.area = saveData.area
         }
-        await store.receive(.fetch)
+        await store.receive(.list(.fetch))
     }
 
     func testLoadNoData() async throws {
@@ -64,7 +64,7 @@ final class BikeMapTests: XCTestCase {
         }
 
         // Assert
-        await store.receive(.getLocation)
+        await store.receive(.getLocationResult(.success(.stub)))
     }
 
     func testSave() async {
@@ -125,12 +125,11 @@ final class BikeMapTests: XCTestCase {
 
         // Assert
         await store.receive(.getLocationResult(.success(.stub))) {
-            $0.isLoading = false
             $0.region.center = Location.stub.coordinates()
             $0.area = LocationArea(location: .stub,
                                    distance: BikeMap.areaDistance)
         }
-        await store.receive(.fetch)
+        await store.receive(.list(.fetch))
     }
 
     func testGetLocationError() async {
@@ -210,7 +209,7 @@ final class BikeMapTests: XCTestCase {
         }
 
         // Assert
-        await store.receive(.fetch)
+        await store.receive(.list(.fetch))
     }
 
     func testFetch() async {
@@ -262,7 +261,7 @@ final class BikeMapTests: XCTestCase {
         await store.send(.list(.updateSearchMode(.localStolen)))
 
         // Assert
-        await store.receive(.getLocation)
+        await store.receive(.getLocationResult(.success(.stub)))
     }
 
     func testListUpdateSearchModeIsGlobal() async {
@@ -277,7 +276,7 @@ final class BikeMapTests: XCTestCase {
         }
 
         // Assert
-        await store.receive(.fetch)
+        await store.receive(.list(.fetch))
     }
 
     func testSelectBikesIds() async {
