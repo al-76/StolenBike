@@ -80,6 +80,8 @@ let package = Package(
                 ]),
         // MARK: - Test
         .target(name: "TestUtils",
-                dependencies: [])
+                dependencies: [
+                    .product(name: "SnapshotTesting", package: "swift-snapshot-testing"),
+                ])
     ]
 )
