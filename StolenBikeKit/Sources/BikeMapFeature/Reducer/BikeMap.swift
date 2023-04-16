@@ -12,15 +12,22 @@ import MapKit
 import BikeClient
 import LocationClient
 import SettingsClient
+import UserDefaultsClient
 import SharedModel
 import Utils
 
 public struct BikeMap: ReducerProtocol {
     static let areaDistance = 10_000.0
-    public static let defaultRegion = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: 59.334591,
-                                                                                        longitude: 18.063240),
-                                                         latitudinalMeters: Self.areaDistance / 2,
-                                                         longitudinalMeters: Self.areaDistance / 2)
+
+    public struct SaveData: Codable, Equatable {
+        let region: MKCoordinateRegion
+        let area: LocationArea?
+
+        public init(region: MKCoordinateRegion, area: LocationArea?) {
+            self.region = region
+            self.area = area
+        }
+    }
 
     public struct State: Equatable {
         var region: MKCoordinateRegion
@@ -34,6 +41,7 @@ public struct BikeMap: ReducerProtocol {
         }
         var isLoading: Bool
         var isOutOfArea: Bool
+        var isSupressedLocationError: Bool
 
         var fetchError: StateError? {
             get { list.error }
@@ -43,11 +51,15 @@ public struct BikeMap: ReducerProtocol {
         var settingsError: StateError?
 
         var list: BikeMapList.State
+        var searchMode: BikeMapList.SearchMode {
+            list.searchMode
+        }
         var selection: BikeMapSelection.State
 
-        public init(region: MKCoordinateRegion = BikeMap.defaultRegion,
+        public init(region: MKCoordinateRegion = .distant,
                     isLoading: Bool = false,
                     isOutOfArea: Bool = false,
+                    isSupressedLocationError: Bool = false,
                     locationError: StateError? = nil,
                     settingsError: StateError? = nil,
                     list: BikeMapList.State = .init(),
@@ -55,17 +67,19 @@ public struct BikeMap: ReducerProtocol {
             self.region = region
             self.isLoading = isLoading
             self.isOutOfArea = isOutOfArea
+            self.isSupressedLocationError = isSupressedLocationError
             self.locationError = locationError
             self.settingsError = settingsError
             self.list = list
             self.selection = selection
         }
 
-        public init(region: MKCoordinateRegion = BikeMap.defaultRegion,
+        public init(region: MKCoordinateRegion = .distant,
                     area: LocationArea? = nil,
                     bikes: [Bike] = [],
                     isLoading: Bool = false,
                     isOutOfArea: Bool = false,
+                    isSupressedLocationError: Bool = false,
                     fetchError: StateError? = nil,
                     locationError: StateError? = nil,
                     settingsError: StateError? = nil,
@@ -73,6 +87,7 @@ public struct BikeMap: ReducerProtocol {
             self.region = region
             self.isLoading = isLoading
             self.isOutOfArea = isOutOfArea
+            self.isSupressedLocationError = isSupressedLocationError
             self.locationError = locationError
             self.settingsError = settingsError
             self.list = .init(area: area, bikes: bikes, error: fetchError)
@@ -81,6 +96,10 @@ public struct BikeMap: ReducerProtocol {
     }
 
     public enum Action: Equatable {
+        case save
+        case load
+        case loadResult(TaskResult<SaveData>)
+
         case updateRegion(MKCoordinateRegion)
 
         case getLocation
@@ -103,6 +122,7 @@ public struct BikeMap: ReducerProtocol {
 
     @Dependency(\.locationClient) var locationClient
     @Dependency(\.settingsClient) var settingsClient
+    @Dependency(\.userDefaultsClient) var userDefaultsClient
 
     public init() {}
 
@@ -117,12 +137,33 @@ public struct BikeMap: ReducerProtocol {
 
         Reduce { state, action in
             switch action {
-            case let .updateRegion(region):
-                guard let area = state.area else {
-                    break
+            case .load:
+                guard let data = userDefaultsClient.data(UserDefaultsClientKey.bikeMapData) else {
+                    state.isSupressedLocationError = true
+                    return .send(.getLocation)
                 }
+
+                return .task {
+                    await .loadResult(TaskResult {
+                        try JSONDecoder().decode(SaveData.self, from: data)
+                    })
+                }
+
+            case let .loadResult(.success(data)):
+                state.region = data.region
+                state.area = data.area
+                return .send(.fetch)
+
+            case .save:
+                return .fireAndForget { [region = state.region, area = state.area] in
+                    try await save(data: SaveData(region: region, area: area))
+                }
+
+            case let .updateRegion(region):
                 state.region = region
-                state.isOutOfArea = CLLocation(region.center).isOutOf(area: area)
+                if let area = state.area {
+                    state.isOutOfArea = CLLocation(region.center).isOutOf(area: area)
+                }
 
             case .getLocation:
                 state.isLoading = true
@@ -136,14 +177,18 @@ public struct BikeMap: ReducerProtocol {
             case let .getLocationResult(.success(location)):
                 state.isLoading = false
                 state.region.center = location.coordinates()
+                state.region.span = .near
                 state.area = LocationArea(location: location,
                                           distance: Self.areaDistance)
-                return .send(.fetch)
+                return reduceFetch(state.region, state.area)
 
             case let .getLocationResult(.failure(error)):
                 state.isLoading = false
-                state.locationError = StateError(error: error)
-                return .send(.fetch)
+                if state.isSupressedLocationError {
+                    state.isSupressedLocationError = false
+                } else {
+                    state.locationError = StateError(error: error)
+                }
 
             case .openSettings:
                 state.locationError = nil
@@ -161,7 +206,7 @@ public struct BikeMap: ReducerProtocol {
             case .changeArea:
                 state.area = LocationArea(location: Location(state.region.center),
                                           distance: Self.areaDistance)
-                return .send(.fetch)
+                return reduceFetch(state.region, state.area)
 
             case .fetch:
                 state.isOutOfArea = false
@@ -200,6 +245,18 @@ public struct BikeMap: ReducerProtocol {
 
             return .none
         }
+    }
+
+    private func reduceFetch(_ region: MKCoordinateRegion, _ area: LocationArea?) -> EffectTask<Action> {
+        .run { send in
+            try await save(data: SaveData(region: region, area: area))
+            await send(.fetch)
+        }
+    }
+
+    private func save(data: SaveData) async throws {
+        await userDefaultsClient.setData(UserDefaultsClientKey.bikeMapData,
+                                         try JSONEncoder().encode(data))
     }
 }
 

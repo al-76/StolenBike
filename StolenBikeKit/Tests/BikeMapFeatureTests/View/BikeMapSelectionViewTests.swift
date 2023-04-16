@@ -17,8 +17,6 @@ import TestUtils
 @testable import BikeMapFeature
 
 final class BikeMapSelectionViewTests: XCTestCase {
-    private let layout: SwiftUISnapshotLayout = .device(config: .iPhone13Pro)
-
     override func setUp() {
 //        isRecording = true
     }
@@ -31,7 +29,7 @@ final class BikeMapSelectionViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testMultipleBikesSelected() throws {
@@ -42,6 +40,6 @@ final class BikeMapSelectionViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 }

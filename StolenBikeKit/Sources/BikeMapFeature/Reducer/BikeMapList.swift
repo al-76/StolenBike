@@ -12,9 +12,6 @@ import SharedModel
 import Utils
 
 public struct BikeMapList: ReducerProtocol {
-    public static let defaultArea = LocationArea(location: Location(BikeMap.defaultRegion.center),
-                                                 distance: BikeMap.areaDistance)
-
     public enum SearchMode: Equatable {
         case localStolen
         case allStolen
@@ -40,7 +37,7 @@ public struct BikeMapList: ReducerProtocol {
 
         var details: BikeMapDetails.State
 
-        public init(area: LocationArea? = BikeMapList.defaultArea,
+        public init(area: LocationArea? = nil,
                     query: String = "",
                     bikes: [Bike] = [],
                     page: Int = 1,

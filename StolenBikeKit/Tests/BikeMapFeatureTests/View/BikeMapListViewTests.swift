@@ -15,8 +15,6 @@ import TestUtils
 @testable import BikeMapFeature
 
 final class BikeMapListViewTests: XCTestCase {
-    private let layout: SwiftUISnapshotLayout = .device(config: .iPhone13Pro)
-
     override func setUp() {
 //        isRecording = true
     }
@@ -30,7 +28,7 @@ final class BikeMapListViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testGeneralLarge() throws {
@@ -42,7 +40,7 @@ final class BikeMapListViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testIsLoadingFraction() throws {
@@ -55,7 +53,7 @@ final class BikeMapListViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testIsLoadingLarge() throws {
@@ -68,7 +66,7 @@ final class BikeMapListViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testQueryFraction() throws {
@@ -81,7 +79,7 @@ final class BikeMapListViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testQueryLarge() throws {
@@ -94,6 +92,6 @@ final class BikeMapListViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 }

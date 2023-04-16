@@ -16,8 +16,6 @@ import TestUtils
 @testable import BikeMapFeature
 
 final class BikeMapViewTests: XCTestCase {
-    private let layout: SwiftUISnapshotLayout = .device(config: .iPhone13Pro)
-
     override func setUp() {
 //        isRecording = true
     }
@@ -25,34 +23,45 @@ final class BikeMapViewTests: XCTestCase {
     func testGeneral() throws {
         // Arrange
         let view = BikeMapView(
-            store: .init(initialState: .init(),
+            store: .init(initialState: .init(area: .stub),
                          reducer: EmptyReducer())
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testIsLoading() throws {
         // Arrange
         let view = BikeMapView(
-            store: .init(initialState: .init(isLoading: true),
+            store: .init(initialState: .init(area: .stub, isLoading: true),
                          reducer: EmptyReducer())
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testIsOutOfArea() throws {
         // Arrange
         let view = BikeMapView(
-            store: .init(initialState: .init(isOutOfArea: true),
+            store: .init(initialState: .init(area: .stub, isOutOfArea: true),
                          reducer: EmptyReducer())
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
+    }
+
+    func testAreaNotSelected() throws {
+        // Arrange
+        let view = BikeMapView(
+            store: .init(initialState: .init(),
+                         reducer: EmptyReducer())
+        )
+
+        // Assert
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testLocationError() throws {
@@ -64,7 +73,7 @@ final class BikeMapViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testLocationErrorServiceIsNotAvailable() throws {
@@ -76,7 +85,7 @@ final class BikeMapViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 
     func testFetchError() throws {
@@ -88,6 +97,6 @@ final class BikeMapViewTests: XCTestCase {
         )
 
         // Assert
-        assertSnapshot(matching: view, as: .image(layout: layout))
+        assertSnapshot(matching: view, as: .defaultImage)
     }
 }
