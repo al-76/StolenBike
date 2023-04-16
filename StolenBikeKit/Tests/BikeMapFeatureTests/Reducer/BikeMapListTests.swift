@@ -54,7 +54,7 @@ final class BikeMapListTests: XCTestCase {
         await store.send(.updateQueryDebounced)
 
         // Assert
-        await store.receive(.fetch)
+        await store.receive(.fetchResult(.success(.stub)))
     }
 
     func testFetch() async throws {
